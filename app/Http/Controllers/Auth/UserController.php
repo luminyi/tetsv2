@@ -49,4 +49,64 @@ class UserController extends Controller
         $data = $user[0]->roles;
         return $data;
     }
+
+    //当前登录的督导用户信息
+    public function userManage()
+    {
+
+        $user_info = DB::table('users')->where('user_id','=',Auth::user()->user_id)->get();
+        Log::write('info',$user_info);
+        $data=[
+            'name'=>Auth::user()->name,
+            'user_id'=>$user_info[0]->user_id,
+            'phone'=>$user_info[0]->phone,
+            'email'=>$user_info[0]->email,
+        ];
+        return view('userManage',compact('data'));
+    }
+
+    public function getUserInfo(Request $request)
+    {
+        $all=$request->all();
+        Log::write('info',$all);
+        DB::table('users')->where('user_id', $all['user_id'])->update( ['email' => $all['email']]);
+        DB::table('users')->where('user_id', $all['user_id'])->update( ['phone' => $all['phone']]);
+//        Auth::user()->where('email',$request->get('email'))->update($all['phone']);
+        return Redirect::to('/userManage')->withCookie('mess','个人信息修改成功！');
+    }
+
+    public function ChangePass()
+    {
+        return view('changePass');
+    }
+
+    /*public function SubmitPass(Request $request)
+    {
+        $rules = array(
+            'cpt' => 'required|captcha',
+        );
+        $messages = array(
+            'cpt.required' => '请输入验证码',
+            'cpt.captcha' => '验证码错误，请重试',
+        );
+
+        $input = array('cpt'=>Input::get('cpt'));
+        $validator = Validator::make($input, $rules, $messages);
+        $newPassword=$request->get('password_new');
+        $newPassword_confirmation=$request->get('newPassword_confirmation');
+
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        } else if(Hash::check($request->get('password_now'),Auth::user()->password)){
+            if($newPassword==$newPassword_confirmation){
+                Auth::user()->password=Hash::make($newPassword);
+                Auth::user()->save();
+                return Redirect::to('/changePass')->withCookie('message','密码修改成功！');
+            }else{
+                return  Redirect::back()->withErrors('两次密码不一致，请重新输入!');
+            }
+        }else{
+            return  Redirect::back()->withErrors('原密码输入有误，重新输入!');
+        }
+    }*/
 }

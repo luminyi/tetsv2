@@ -145,7 +145,11 @@ function Full_PartNum(level,unit,evaluationTime)
     $.ajax({
         type:"GET",
         url:"/TimeSupervisorNumber",
-        data:{level:level,unit:unit,evaluationTime:evaluationTime},
+        data:{
+            level:level,
+            unit:unit,
+            evaluationTime:evaluationTime
+        },
         success:function(result){
             data = result;
             var myChart = echarts.init(document.getElementById('main4'));
@@ -203,13 +207,16 @@ function Full_PartNum(level,unit,evaluationTime)
     });
 }
 //院级的饼状图
-function PieChartUnit(unit)
+function PieChartUnit(unit, evaluationTime)
 {
     var data;
     $.ajax({
         type:"GET",
         url:"/UnitNecessaryState",
-        data:{unit:unit},
+        data:{
+            unit:unit,
+            evaluationTime:evaluationTime
+        },
         success:function(result){
             data = result;
             var myChart = echarts.init(document.getElementById('main1'));
@@ -255,13 +262,16 @@ function PieChartUnit(unit)
         }
     });
 }
-function PieChartGroup(group)
+function PieChartGroup(group, evaluationTime)
 {
     var data;
     $.ajax({
         type:"GET",
         url:"/GroupNecessaryState",
-        data:{group:group},
+        data:{
+            group:group,
+            evaluationTime:evaluationTime
+        },
         success:function(result){
             data = result;
             var myChart = echarts.init(document.getElementById('main1'));
@@ -330,7 +340,7 @@ $(document).ready(function() {
             $.ajax({
                 type:"GET",
                 url:"/GetUnitNewList",
-                data:{unit:unit},
+                data:{unit:unit,evaluationTime:evaluationTime},
                 success:function(result){
                     for(var i=0;i<result.length;i++)
                     {
@@ -359,14 +369,14 @@ $(document).ready(function() {
                     $(".Fineshed").html(result['Finished']);
                 }
             });
-            PieChartUnit(unit);
+            PieChartUnit(unit, evaluationTime);
         }
         if (level == '小组长')
         {
             $.ajax({
                 type:"GET",
                 url:"/GetGroupNewList",
-                data:{group:group},
+                data:{group:group,evaluationTime:evaluationTime},
                 success:function(result){
                     for(var i=0;i<result.length;i++)
                     {
@@ -391,10 +401,10 @@ $(document).ready(function() {
                     $(".group_Fineshed").html(result['Finished']);
                 }
             });
-            PieChartGroup(group);
+            PieChartGroup(group, evaluationTime);
 
             $(window).resize(function (){
-                PieChartGroup(group);
+                PieChartGroup(group, evaluationTime);
             })
         }
 
@@ -407,6 +417,7 @@ $(document).ready(function() {
         $.ajax({
             type:"GET",
             url:"/GetNewList",
+            data:{evaluationTime:evaluationTime},
             success:function(result){
                 for(var i=0;i<result.length;i++)
                 {

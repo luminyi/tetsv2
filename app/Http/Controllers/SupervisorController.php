@@ -471,6 +471,7 @@ class SupervisorController extends Controller
         else{
             $title='续约期未结束！';
             return view('SupervisorInfo',compact('title','currentEndTerm','nextTime'));
+
         }
     }
 

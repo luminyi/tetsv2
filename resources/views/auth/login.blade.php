@@ -82,7 +82,7 @@
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															{{--<input type="hidden" name="_token" value="{{ csrf_token() }}" />--}}
-                                                            <input type="text" name="user_id" class="form-control" value="admin" placeholder="" />
+                                                            <input type="text" name="user_id" class="form-control" value="sysadmin" placeholder="" />
 															<i class="icon-user"></i>
 														</span>
                                             </label>

@@ -96,7 +96,7 @@
                         @endforeach
                     </ul>
                 @endif
-                @if( Auth::User()->level=='大组长' ||Auth::User()->level=='校级')
+                @if( session('role')=='大组长' ||session('role')=='校级')
                 <div  class="form-div" style="margin-left: 50px;margin-right: 50px;background-color: #fff;">
                     <div class="panel-heading">
                         {{--<h2 class="panel-title" style="font-family:'Microsoft YaHei'"><span>个人信息</span></h2>--}}
@@ -113,7 +113,7 @@
                                 {{--<a class="btn btn-warning xiugai" style="margin-left: 280px;width:100px;">修改密码</a>--}}
                                 <div class="form-group">
                                     <span for="account_name">&nbsp;登 录 ID</span>
-                                    <input class="form-control" name="teacher_id" type="text" id="teacher_id" value="{{$data['teacher_id']}}" required readonly="readonly">
+                                    <input class="form-control" name="user_id" type="text" id="user_id" value="{{$data['user_id']}}" required readonly="readonly">
                                 </div>
                                 <div class="form-group">
                                     <span for="username">&nbsp;用 户 名</span>
@@ -137,7 +137,7 @@
 
                 </div>
                 @endif
-                @if(Auth::User()->level=='小组长' || Auth::User()->level=='督导' || Auth::User()->level=='院级')
+                @if(session('role')=='小组长' || session('role')=='督导' || session('role')=='院级')
                     <div  class="form-div" style="margin-left: 50px;margin-right: 50px;background-color: #fff;">
                         <div class="panel-heading">
                             {{--<h2 class="panel-title" style="font-family:'Microsoft YaHei'"><span>个人信息</span></h2>--}}
@@ -154,7 +154,7 @@
                                     {{--<a class="btn btn-warning xiugai" style="margin-left: 280px;width:100px;">修改密码</a>--}}
                                     <div class="form-group">
                                         <span for="account_name">&nbsp;登 录 ID</span>
-                                        <input class="form-control" name="teacher_id" type="text" id="teacher_id" value="{{Auth::User()->teacher_id}}" required readonly="readonly">
+                                        <input class="form-control" name="user_id" type="text" id="user_id" value="{{Auth::User()->user_id}}" required readonly="readonly">
                                     </div>
                                     <div class="form-group">
                                         <span for="username">&nbsp;用 户 名</span>

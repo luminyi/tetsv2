@@ -27,9 +27,12 @@ else
         year2=parseInt(CurrentYear)+1;
     }
 }
-
 semester=terminal.match(/\d+/g);
 
+if(MyDate.getMonth() + 1<10)
+    evaluationTime=MyDate.getFullYear()+'-0'+(MyDate.getMonth() + 1)+'-'+MyDate.getDate();
+else
+    evaluationTime=MyDate.getFullYear()+'-'+(MyDate.getMonth() + 1)+'-'+MyDate.getDate();
 
 $(document).ready(function() {
     $('.group-menu').addClass('active');
@@ -137,7 +140,7 @@ $(document).ready(function() {
             $.ajax({
                 type:"GET",
                 url:"/GroupNecessaryState",
-                data:{group:group},
+                data:{group:group, evaluationTime:evaluationTime},
                 success:function(result){
                     $(window).resize(function (){
                         create_pie(result);

@@ -18,7 +18,7 @@ class StatisticController extends Controller
     {
         $this->middleware('auth',['only',['Statistics']]);
     }
-    public function StatisticsView()
+    public function Statistics()
     {
         return view('Statistics');
     }
@@ -33,7 +33,7 @@ class StatisticController extends Controller
         //确定三个评价表版本号
         $year = $year1."-".$year2;
         $TableFlag = $year."-".$semester[0];
-//        $TableFlag='2016-2017-1';
+        $TableFlag='2016-2017-2';
         $VersionNum = $version->GetCurrentTableName($TableFlag);
 
         $timeInterval = $help->GetTimeByYearSemester($TableFlag);
@@ -42,13 +42,6 @@ class StatisticController extends Controller
         $table3 = 'front_physical_evaluation'.$VersionNum;
 
 
-        //获取小组组长以及组员名单
-//        $GroupAdmin = DB::table('users')->select('user_id','name','group','level')
-//            ->where('level','=','小组长')
-////            ->where('supervise_time','=',$TableFlag)
-//            ->where('status','=','活跃')
-//            ->orderBy('group','asc')
-//            ->get();
         $ids = array('"第一组"', '"第二组"', '"第三组"', '"第四组"');
         $ids_ordered = implode(',', $ids);
 
@@ -57,28 +50,23 @@ class StatisticController extends Controller
             ->where( 'supervise_time' ,'=' ,'2016-2017-2' )
             ->orderByRaw(DB::raw("FIELD(users.group, $ids_ordered)"))
             ->get();
-//        dd($GroupAdmin);
         $GroupAdmin =[];
         foreach($GroupData as $user)
             array_push($GroupAdmin, $user['attributes']);
 
+//        dd($GroupAdmin);
         $GroupNum = [];
         for ($i=0;$i<count($GroupAdmin);$i++)
         {
 
             $GroupNum[$i] = Role::find(5)//在roles表中，4号对应的小组长
             ->users()->select('users.user_id','users.name','users.group','users.status')
-                ->where( 'supervise_time' ,'=' ,'2016-2017-2' )
+                ->where( 'supervise_time' ,'=' ,$TableFlag )
                 ->where( 'users.group' ,'=' ,$GroupAdmin[$i]['group'] )
-                ->get();
-            dd($GroupNum[$i]);
-
-
-            $GroupNum[$i]=DB::table('users')->select('user_id','name','group','level','supervise_time')
-//                ->where('supervise_time','=',$TableFlag)
-                ->where('group','=',$GroupAdmin[$i]->group)
                 ->where('status','=','活跃')
                 ->get();
+
+
             //合并同一个人的职务
 
             for($k=0;$k<count($GroupNum[$i]);$k++)

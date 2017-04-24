@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //1、学院、组 督导总人数+关注课程数目+关注课程完成数目+已完成听课数目
 
-    Route::get('/index', 'IndexController@index');//学校级 + 大组长
+    Route::get('/index', 'IndexController@index');//the view of index
     Route::get('/Schoolindex', 'IndexController@Schoolindex');//学校级 + 大组长
     Route::get('/Unitindex', 'IndexController@Unitindex');//学校级 + 大组长
     Route::get('/Groupindex', 'IndexController@Groupindex');//学校级 + 大组长
@@ -94,9 +94,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/GetSupervisorName', 'SupervisorController@GetSupervisorName');//所有督导的姓名
     Route::get('/GetSupervisorIDbyName', 'SupervisorController@GetSupervisorIDbyName');//所有督导的姓名
-
     Route::get('/GetUnitSupervisorName', 'SupervisorController@GetUnitSupervisorName');//本院督导的姓名
-    Route::get('/GetGroupSupervisorName', 'SupervisorController@GetGroupSupervisorName');//本院督导的姓名
+    Route::get('/GetGroupSupervisorName', 'SupervisorController@GetGroupSupervisorName');//本组督导的姓名
     Route::get('/UnitName', 'Help\HelpController@UnitName');//校级+大组长姓名提示框（学院方式）
 
     // 评价结果
@@ -165,6 +164,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/LessonTable', 'LessonTable\LessonTableController@LessonTable');//学院教师课表视图页面
     Route::get('/LessonTeacher', 'LessonTable\LessonTableController@LessonTeacher');//各学院教师名单
     Route::get('/Lesson', 'LessonTable\LessonTableController@Lesson');//各学院教师课表
+
+    //用户管理
+//修改信息
+    Route::get('/userManage', 'Auth\UserController@userManage');//使用者具体信息
+    Route::post('/userManage','Auth\UserController@getUserInfo');
+//修改密码
+    Route::get('/changePass', 'Auth\UserController@changePass');//修改用户密码页面//使用者密码判断是否为初始密码，以及修改密码页面
+    Route::post('/changePass', 'Auth\UserController@SubmitPass');//修改用户密码
 /*restructure end*/
 
 
@@ -219,7 +226,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //评价统计
-    Route::get('/Statistics','StatisticController@StatisticsView');
+    Route::get('/Statistics','StatisticController@Statistics');
     Route::get('/GetEvalutedLessonArr','StatisticController@GetEvalutedLessonArr');
     //本学年本学期已完成评价课程的所有课程名
     Route::get('/GetEvalutedLessonContent','StatisticController@GetEvalutedLessonContent');
