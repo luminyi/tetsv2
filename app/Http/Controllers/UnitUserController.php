@@ -22,6 +22,25 @@ class UnitUserController extends Controller
         return view('UnitUserManage',compact('title'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function ChangeUnitUserInfo(Request $request)
+    {
+        $user_id = $request->get('user_id');
+        $supervisor_phone = $request->get('phone');
+        $supervisor_email = $request->get('email');
+        $flag1=DB::table('users')
+            ->where('user_id','=',$user_id)
+            ->update([
+                'email'=>$supervisor_email,
+                'phone'=>$supervisor_phone,
+            ]);
+        $title='操作成功！';
+        return view('UnitUserManage',compact('title'));
+    }
+
     //select the information about Unit responsibility
     public function GetUnitUserInfo(Request $request)
     {

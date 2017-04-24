@@ -65,14 +65,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/NecessaryTask', 'EvaluationController@NecessaryTask');//必听任务视图
     Route::get('/GetNecessaryTask', 'EvaluationController@GetNecessaryTask');//获取必听任务
     Route::post('/DeleteNecessaryTask', 'EvaluationController@DeleteNecessaryTask');//删除必听任务
-    Route::get('/DeleteNecessaryTask', 'EvaluationController@DeleteNecessaryTask1');//删除必听任务
+    Route::get('/DeleteNecessaryTask', 'EvaluationController@NecessaryTask');//删除必听任务
 
     Route::get('/AddNecessaryTask', 'EvaluationController@AddNecessaryTask');//增加必听任务
-    Route::get('/GetLessonArr', 'EvaluationController@GetLessonArr');//搜索框的课程表
-    Route::get('/GetLessonArrTNLN', 'EvaluationController@GetLessonArrTNLN');//增加必听任务的时候，搜索框的课程表
-    Route::get('/GetLessonArrThe', 'EvaluationController@GetLessonArrThe');//查询理论课程的时候，搜索框的课程表
-    Route::get('/GetLessonArrPra', 'EvaluationController@GetLessonArrPra');//查询实践课程的时候，搜索框的课程表
-    Route::get('/GetLessonArrPhy', 'EvaluationController@GetLessonArrPhy');//查询体育课程的时候，搜索框的课程表
+
+
+
 
 
     //关注课程完成情况
@@ -136,41 +134,38 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+/*restructure begin*/
+    //lesson search
+    Route::get('/GetLessonArr', 'Help\LessonSearchController@GetLessonArr');//搜索框的课程表
+    Route::get('/GetLessonArrTNLN', 'Help\LessonSearchController@GetLessonArrTNLN');//增加必听任务的时候，搜索框的课程表
+    Route::get('/GetLessonArrThe', 'Help\LessonSearchController@GetLessonArrThe');//查询理论课程的时候，搜索框的课程表
+    Route::get('/GetLessonArrPra', 'Help\LessonSearchController@GetLessonArrPra');//查询实践课程的时候，搜索框的课程表
+    Route::get('/GetLessonArrPhy', 'Help\LessonSearchController@GetLessonArrPhy');//查询体育课程的时候，搜索框的课程表
+
 
     Route::get('/ResetPass', 'SupervisorController@ResetPass');//reset the password
-
     //supervisor management
     Route::get('/SupervisorInfo', 'SupervisorController@SupervisorInfo');//the view of supervisor management
     Route::post('/ChangeSupervisorInfo', 'SupervisorController@ChangeSupervisorInfo');//change/add the supervisor's information
     Route::get('/ChangeSupervisorInfo', 'SupervisorController@SupervisorInfo');//if method is get, redirect the view SupervisorInfo
-    Route::get('/GetSupervisorInfo', 'SupervisorController@GetSupervisorInfo');//得到督导具体信息
-    Route::get('/GetAllSupervisorInfo', 'SupervisorController@GetAllSupervisorInfo');//得到所有督导具体信息
-
-
+    Route::get('/GetSupervisorInfo', 'SupervisorController@GetSupervisorInfo');//specific supervisor's information showing in detail
+    Route::get('/GetAllSupervisorInfo', 'SupervisorController@GetAllSupervisorInfo');//all supervisor's information showing in table
+    Route::get('/GetBigGroupSupervisorInfo', 'SupervisorController@GetBigGroupSupervisorInfo');//all supervisor's information showing in table
+    Route::get('/GetUnitSupervisorInfo', 'SupervisorController@GetUnitSupervisorInfo');//unit supervisor's information showing in table
+    Route::get('/GetGroupSupervisorInfo', 'SupervisorController@GetGroupSupervisorInfo');//group supervisor's information showing in table
+    Route::get('/RenewContacts', 'SupervisorController@RenewContacts');//增加督导信息
 
     //Unit responsibility management
     Route::get('/UnitUserManage', 'UnitUserController@UnitUserManage');//the view of Unit user
-    Route::get('/GetSpecificUnitInfo', 'UnitUserController@GetSpecificUnitInfo');//get the information of specific Unit user
-    Route::get('/GetUnitUserInfo', 'UnitUserController@GetUnitUserInfo');//get the data to fill with table showing all Unit user
+    Route::get('/GetSpecificUnitInfo', 'UnitUserController@GetSpecificUnitInfo');//specific supervisor's information showing in detail
+    Route::get('/GetUnitUserInfo', 'UnitUserController@GetUnitUserInfo');//all unit users' information showing in table
+    Route::post('/ChangeUnitUserInfo', 'UnitUserController@ChangeUnitUserInfo');//改变院级具体信息
 
-
-    //校级+大组长 ，查看所有的督导信息
-    Route::get('/GetBigGroupSupervisorInfo', 'SupervisorController@GetBigGroupSupervisorInfo');//得到大组长所有督导具体信息
-
-
-
-    //院级，查看本院所有督导信息
-    Route::get('/GetUnitSupervisorInfo', 'SupervisorController@GetUnitSupervisorInfo');
-    //小组长，查看本院所有督导信息
-    Route::get('/GetGroupSupervisorInfo', 'SupervisorController@GetGroupSupervisorInfo');
-    Route::get('/RenewContacts', 'SupervisorController@RenewContacts');//增加督导信息
-
-
-
-    Route::post('/ChangeUnitUserInfo', 'SupervisorController@ChangeUnitUserInfo');//改变院级具体信息
-
-    Route::post('/AddSupervisorInfo', 'SupervisorController@Add_SupervisorInfo');//增加督导信息
-    Route::get('/AddSupervisorInfo', 'SupervisorController@LessonTable');//增加督导信息
+    //LessonTable
+    Route::get('/LessonTable', 'LessonTable\LessonTableController@LessonTable');//学院教师课表视图页面
+    Route::get('/LessonTeacher', 'LessonTable\LessonTableController@LessonTeacher');//各学院教师名单
+    Route::get('/Lesson', 'LessonTable\LessonTableController@Lesson');//各学院教师课表
+/*restructure end*/
 
 
     //评价内容管理
@@ -199,9 +194,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/GetBackValueTable', 'Auth\HomeController@GetBackValueTable');//背面的评价项
 
 
-    Route::get('/LessonTable', 'LessonTable\LessonTableController@LessonTable');//学院教师课表视图页面
-    Route::get('/LessonTeacher', 'LessonTable\LessonTableController@LessonTeacher');//各学院教师名单
-    Route::get('/Lesson', 'LessonTable\LessonTableController@Lesson');//各学院教师课表
+
 
     Route::get('/GetLessonTime', 'HelpController@GetLessonTime');//理论课、实践课 每门课程的课程节次
     Route::get('/GetLessonTimeBylistendate', 'HelpController@GetLessonTimeBylistendate');//理论课、实践课 每门课程的课程节次
@@ -233,12 +226,7 @@ Route::group(['middleware' => 'auth'], function () {
     //本学年本学期已完成评价课程的课程的评价内容
     Route::get('/GroupEvaluationInfo','StatisticController@GroupEvaluationInfo');
 
-    //督导听课数据统计
-    Route::get('/DataStatistics','DataStatisticController@DataStatisticsView');
-    Route::get('/TeachTotallyEvaluation','DataStatisticController@TeachTotallyEvaluation');
 
-    //OnePage
-    Route::get('/Feature','IndexController@Feature');
 
     //评价体系修改
     Route::get('/ChangeTheoryView', 'SystemTableChangeController@ChangeTheoryView');//理论评价表视图

@@ -25,53 +25,6 @@ class SupervisorController extends Controller
 
 
 
-//校级管理员重置密码功能。
-    public function ResetPass(Request $request)
-    {
-        $flag = DB::table('users')
-            ->where('user_id', $request->data)
-            ->update(['password' => bcrypt('123456')]);
-        return $flag;
-    }
-
-
-    public function ChangeUnitUserInfo(Request $request)
-    {
-        $teacher_id = $request->get('teacher_id');
-//        $teacher_id = $request->get('teacher_id');
-//        $supervisor_name = $request->get('account_name');
-        $supervisor_phone = $request->get('phone');
-//        $supervisor_level = $request->get('level_change');
-//        $supervisor_state = $request->get('state');
-//        $supervisor_sex = $request->get('sex');
-        $supervise_time = $request->get('supervise_time');
-//        $supervisor_unit = $request->get('unit');
-        $supervisor_email = $request->get('email');
-//更新单个督导信息
-        $flag1=DB::table('users')
-            ->where('id','=',$teacher_id)
-            ->where('supervise_time','=',$supervise_time)
-            ->update([
-//                'level'=>$supervisor_level,
-                'email'=>$supervisor_email,
-                'phone'=>$supervisor_phone,
-//                'state'=>$supervisor_state,
-//                'unit'=>$supervisor_unit,
-//                'skill'=>$supervisor_skill,
-//                'ProRank'=>$supervisor_ProRank,
-//                'status'=>$supervisor_status,
-//                'workstate'=>$supervisor_workstate,
-//                'group'=>$supervisor_group,
-//                'name'=>$supervisor_name,
-//                'sex'=>$supervisor_sex
-            ]);
-
-        $title='操作成功！';
-//        else
-//            $title='操作失败，请稍后重试！';
-        return view('UnitUserManage',compact('title'));
-
-    }
     public function GetSupervisorName(Request $request)
     {
         $time = date("Y-m-d");
@@ -158,7 +111,14 @@ class SupervisorController extends Controller
 
 
 
-
+//校级管理员重置密码功能。
+    public function ResetPass(Request $request)
+    {
+        $flag = DB::table('users')
+            ->where('user_id', $request->data)
+            ->update(['password' => bcrypt('123456')]);
+        return $flag;
+    }
 
     /**
      * @return string
@@ -182,7 +142,6 @@ class SupervisorController extends Controller
                 ->where('role_user.role_id','!=','6')
                 ->get();
         }
-
         else{
 
             $record = DB::table('role_user')
@@ -193,6 +152,7 @@ class SupervisorController extends Controller
                 ->where('role_user.supervise_time','=',$TimeFlag)
                 ->where('users.name','not like','%负责人')
                 ->where('users.name','not like','%管理员')
+                ->where('role_user.role_id','!=','6')
                 ->get();
         }
         $record = $help->UnionRole($record);
@@ -237,6 +197,7 @@ class SupervisorController extends Controller
                 ->where('users.unit','=',$unit)
                 ->where('users.name','not like','%负责人')
                 ->where('users.name','not like','%管理员')
+                ->where('role_user.role_id','!=','6')
                 ->get();
         }
 
@@ -264,6 +225,8 @@ class SupervisorController extends Controller
                 ->leftjoin('roles','role_user.role_id','=','roles.id')
                 ->where('users.name','not like','%负责人')
                 ->where('users.name','not like','%管理员')
+                ->where('role_user.role_id','!=','6')
+
                 ->get();
         }
 
@@ -277,6 +240,7 @@ class SupervisorController extends Controller
                 ->where('role_user.supervise_time','=',$TimeFlag)
                 ->where('users.name','not like','%负责人')
                 ->where('users.name','not like','%管理员')
+                ->where('role_user.role_id','!=','6')
                 ->get();
         }
         $record = $help->UnionRole($record);

@@ -124,7 +124,6 @@
                 </div>
 
 
-
                 {{--增加课程模态框--}}
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
                     <div class="modal-dialog " role="document" >
@@ -185,8 +184,6 @@
                                     <button id="btn_import" class="btn btn-success btn-raised" data-toggle="modal" data-target="#NeceLessonModal"><i class="glyphicon  glyphicon glyphicon-import"></i>导入</button>
                                 @endif
                                 <button id="btn_export" class="btn btn-danger btn-raised"><i class="glyphicon glyphicon-export"></i>导出</button>
-                                {{--<a id="btn_export" class="button button-3d button-pill"><i class="glyphicon glyphicon-download-alt"></i>导出</a>--}}
-
                             </div>
                         </div>
                     </div>
@@ -196,7 +193,6 @@
                 <table id="table"
                        {{--data-toggle="table"--}}
                        data-click-to-select="true"
-                       {{--data-url="data/NecessaryTask.json"--}}
                        data-show-pagination-switch="true"
                        data-query-params="queryParams"
                        data-pagination="true"

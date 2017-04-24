@@ -23,34 +23,42 @@ $(document).ready(function() {
     $('.type_tit2').html($("#calender").val()+" 关注课程列表");
 
 //输入框的操作事宜
-    $('#SearchBar').bind('input',function(){
-        var searchText = $('#SearchBar').val();
-        $.ajax({
-            type: "get",
-            async: false,
-            url: "/GetLessonArrTNLN",
-            data:{dataIn:searchText},
-            dataType:'json',
-            success: function (result) {
-                console.log(result);
-                var html='';
-                for (var i=0;i<result.length;i++)
-                    html+='<li>'+result[i]['lesson_name']+'_'+result[i]['lesson_teacher_name']+'</li>';
-                $('#search_result').html(html);
+    var timeoutObj;//用于计时，课程信息请求次数限制
 
-                $('#search-suggest').show().css({
-                    //top:$('#search-form').offset().top+$('#search-form').height(),
-                    //left:$('#search-form').offset().left,
-                    position:'absolute'
-                });
-            }
-        })
-        $(document).bind('click',function(){
-            $('#search-suggest').hide();
-        });
-        $('#search_result').delegate('li','click',function(){
-            SearchValue.value=$(this).text();
-        });
+    $('#SearchBar').bind('input propertychange',function(){
+        var searchText = $('#SearchBar').val();
+        if(timeoutObj)
+        {
+            clearTimeout(timeoutObj);
+        }
+        timeoutObj = setTimeout(function(){
+            $.ajax({
+                type: "get",
+                async: false,
+                url: "/GetLessonArrTNLN",
+                data:{dataIn:searchText},
+                dataType:'json',
+                success: function (result) {
+                    console.log(result);
+                    var html='';
+                    for (var i=0;i<result.length;i++)
+                        html+='<li>'+result[i]['lesson_name']+'_'+result[i]['lesson_teacher_name']+'</li>';
+                    $('#search_result').html(html);
+
+                    $('#search-suggest').show().css({
+                        //top:$('#search-form').offset().top+$('#search-form').height(),
+                        //left:$('#search-form').offset().left,
+                        position:'absolute'
+                    });
+                }
+            });
+            $(document).bind('click',function(){
+                $('#search-suggest').hide();
+            });
+            $('#search_result').delegate('li','click',function(){
+                SearchValue.value=$(this).text();
+            });
+        },400);
     });
     if($('#getlevel').val() == '校级' || $('#getlevel').val() == '大组长')
     {
