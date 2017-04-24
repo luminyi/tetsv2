@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\front_content;
 use App\Model\lesson;
+use App\Model\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -823,18 +824,18 @@ class ExcelController extends Controller
 where 听课时间<="'.$timeRange['time2'].'" and 听课时间>="'.$timeRange['time1'].'"
 and (`评价状态`="已完成" or `评价状态`="待提交")
 and (督导id = ANY (
-	SELECT DISTINCT teacher_id from users where users.`group`="'.$group.'"))');
+	SELECT DISTINCT user_id from users where users.`group`="'.$group.'"))');
 
         $DataArr2 = DB::select('select * from '.$table2.'
 where 听课时间<="'.$timeRange['time2'].'" and 听课时间>="'.$timeRange['time1'].'"
 and (`评价状态`="已完成" or `评价状态`="待提交")
 and (督导id = ANY (
-	SELECT DISTINCT teacher_id from users where users.`group`="'.$group.'"))');
+	SELECT DISTINCT user_id from users where users.`group`="'.$group.'"))');
         $DataArr3 = DB::select('select * from '.$table3.'
 where 听课时间<="'.$timeRange['time2'].'" and 听课时间>="'.$timeRange['time1'].'"
 and (`评价状态`="已完成" or `评价状态`="待提交")
 and (督导id = ANY (
-	SELECT DISTINCT teacher_id from users where users.`group`="'.$group.'"))');
+	SELECT DISTINCT user_id from users where users.`group`="'.$group.'"))');
 
 
         $Head =  DB::table('table_heads')->get();
@@ -1927,53 +1928,69 @@ and (课程名称 = ANY (
 
 
         //获取小组组长以及组员名单
-        $ids = array('"第一组"', '"第二组"', '"第三组"', '"第四组"','"第五组"');
+        $ids = array('"第一组"', '"第二组"', '"第三组"', '"第四组"');
         $ids_ordered = implode(',', $ids);
-        $GroupCount = DB::table('users')->select('group')
-            ->where('supervise_time','=',$TableFlag)
-            ->where('group','!=',NULL)
-            ->where('group','!=','')
-            ->orderByRaw(DB::raw("FIELD('group', $ids_ordered)"))
-            ->distinct()
-            ->get();
-        $GroupNum = [];
 
-        for ($i=0;$i<count($GroupCount);$i++)
+        $GroupData = Role::find(4)//在roles表中，4号对应的小组长
+        ->users()->select('users.user_id','users.name','users.group')
+            ->where( 'supervise_time' ,'=' ,$TableFlag )
+            ->orderByRaw(DB::raw("FIELD(users.group, $ids_ordered)"))
+            ->get();
+        $GroupAdmin =[];
+        foreach($GroupData as $user)
+            array_push($GroupAdmin, $user['attributes']);
+
+        $GroupNum = [];
+        for ($i=0;$i<count($GroupAdmin);$i++)
         {
-            $GroupNum[$i]=DB::table('users')->select('teacher_id','name','group','workstate')
-                ->where('supervise_time','=',$TableFlag)
-                ->where('group','=',$GroupCount[$i]->group)
-                ->where('group','!=',NULL)
-                ->where('group','!=','')
+            $GroupNum[$i] = Role::find(5)//在roles表中，4号对应的小组长
+            ->users()->select('users.user_id','users.name','users.group','users.workstate')
+                ->where( 'supervise_time' ,'=' ,$TableFlag )
+                ->where( 'users.group' ,'=' ,$GroupAdmin[$i]['group'] )
                 ->where('status','=','活跃')
-                ->distinct()
                 ->get();
         }
         //遍历三张表，获取各督导保存的课程评价数目
-        for ($i=0;$i<count($GroupCount);$i++)
+        for ($i=0;$i<count($GroupAdmin);$i++)
         {
             for ($j=0;$j<count($GroupNum[$i]);$j++)
             {
+                //待提交次数
+                $a = DB::table($table1)
+                    ->where('督导id','=',$GroupNum[$i][$j]->user_id)
+                    ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
+                    ->where('评价状态','like','待提交%')->count();
+                $a = $a+DB::table($table2)
+                        ->where('督导id','=',$GroupNum[$i][$j]->user_id)
+                        ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
+                        ->where('评价状态','like','待提交%')->count();
+                $a = $a+DB::table($table3)
+                        ->where('督导id','=',$GroupNum[$i][$j]->user_id)
+                        ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
+                        ->where('评价状态','like','待提交%')->count();
+
+                $GroupNum[$i][$j]->save=$a;
+
                 //已完成次数
                 $b = DB::table($table1)
-                    ->where('督导id','=',$GroupNum[$i][$j]->teacher_id)
+                    ->where('督导id','=',$GroupNum[$i][$j]->user_id)
                     ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
                     ->where('评价状态','=','已完成')->count();
                 $b = $b+DB::table($table2)
-                        ->where('督导id','=',$GroupNum[$i][$j]->teacher_id)
+                        ->where('督导id','=',$GroupNum[$i][$j]->user_id)
                         ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
                         ->where('评价状态','=','已完成')->count();
                 $b = $b+DB::table($table3)
-                        ->where('督导id','=',$GroupNum[$i][$j]->teacher_id)
+                        ->where('督导id','=',$GroupNum[$i][$j]->user_id)
                         ->whereBetween('听课时间', [$timeInterval['time1'], $timeInterval['time2']])
                         ->where('评价状态','=','已完成')->count();
 
                 $GroupNum[$i][$j]->finish=$b;
                 //已完成的（多节课程）课程节数
 
-                $timesA1=$help->Evalued_LessonTimes($table1,$GroupNum[$i][$j]->teacher_id,'已完成',$timeInterval);//挺多节课的情况;
-                $timesA2=$help->Evalued_LessonTimes($table2,$GroupNum[$i][$j]->teacher_id,'已完成', $timeInterval);//挺多节课的情况
-                $timesA3=$help->Evalued_LessonTimes($table3,$GroupNum[$i][$j]->teacher_id,'已完成', $timeInterval);//挺多节课的情况
+                $timesA1=$help->Evalued_LessonTimes($table1,$GroupNum[$i][$j]->user_id,'已完成',$timeInterval);//挺多节课的情况;
+                $timesA2=$help->Evalued_LessonTimes($table2,$GroupNum[$i][$j]->user_id,'已完成', $timeInterval);//挺多节课的情况
+                $timesA3=$help->Evalued_LessonTimes($table3,$GroupNum[$i][$j]->user_id,'已完成', $timeInterval);//挺多节课的情况
 
                 $GroupNum[$i][$j]->listened=$timesA1['num']+$timesA2['num']+$timesA3['num']+$b;//多节课计算总数
                 $GroupNum[$i][$j]->listened_two=$timesA1['two']+$timesA2['two']+$timesA3['two'];//连听两节课的数量
@@ -2031,12 +2048,12 @@ and (课程名称 = ANY (
 
 
         $flag = 2;
-        for ($i = 0; $i < count($GroupCount); $i++)
+        for ($i = 0; $i < count($GroupAdmin); $i++)
         {
             for ($j=0;$j<count($GroupNum[$i]);$j++)
             {
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A' . $flag, $GroupNum[$i][$j]->teacher_id)
+                    ->setCellValue('A' . $flag, $GroupNum[$i][$j]->user_id)
                     ->setCellValue('B' . $flag, $GroupNum[$i][$j]->name)
                     ->setCellValue('C' . $flag, $GroupNum[$i][$j]->group)
                     ->setCellValue('D' . $flag, $GroupNum[$i][$j]->workstate)

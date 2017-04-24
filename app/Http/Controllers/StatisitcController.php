@@ -33,7 +33,7 @@ class StatisticController extends Controller
         //确定三个评价表版本号
         $year = $year1."-".$year2;
         $TableFlag = $year."-".$semester[0];
-        $TableFlag='2016-2017-2';
+//        $TableFlag='2016-2017-2';
         $VersionNum = $version->GetCurrentTableName($TableFlag);
 
         $timeInterval = $help->GetTimeByYearSemester($TableFlag);
@@ -47,7 +47,7 @@ class StatisticController extends Controller
 
         $GroupData = Role::find(4)//在roles表中，4号对应的小组长
             ->users()->select('users.user_id','users.name','users.group')
-            ->where( 'supervise_time' ,'=' ,'2016-2017-2' )
+            ->where( 'supervise_time' ,'=' ,$TableFlag )
             ->orderByRaw(DB::raw("FIELD(users.group, $ids_ordered)"))
             ->get();
         $GroupAdmin =[];

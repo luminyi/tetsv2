@@ -155,7 +155,7 @@
                                         </select>
                                     </div>
 
-                                    @if(Auth::User()->level=='校级')
+                                    @if(session('role')=='校级')
                                         <span for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
                                         {{--原来的搜索框--}}
                                         <div class="col-sm-1">
@@ -181,10 +181,10 @@
                                             </div>
                                         </div>
                                     @endif
-                                    @if(Auth::User()->level=='督导'||Auth::User()->level=='小组长')
+                                    @if(session('role')=='督导'||session('role')=='小组长')
                                         <span for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
                                         <div class="col-sm-1">
-                                            <input type="text" class="form-control" id="SearchBarID" value="{{Auth::User()->teacher_id}}" readonly="readonly">
+                                            <input type="text" class="form-control" id="SearchBarID" value="{{Auth::User()->user_id}}" readonly="readonly">
                                         </div>
                                         <span for="inputChapter" class="col-lg-1" style="padding-top: 8px;">督导姓名</span>
                                         <div class="col-sm-1">
@@ -192,7 +192,7 @@
                                         </div>
                                     @endif
 
-                                    @if(Auth::User()->level=='校级')
+                                    @if(session('role')=='校级')
                                         <div class="suggest" id="search-suggest" style="z-index: 9999">
                                             <ul id="search_result">
 

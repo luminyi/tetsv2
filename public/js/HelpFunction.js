@@ -367,7 +367,7 @@ function chooseSupervisor()
                         if (result[i]['name'].indexOf('组')>=0 || result[i]['name'].indexOf('学院')>=0 || result[i]['name'].indexOf('负责人')>= 0)
                             i++;
                         else
-                            html+='<li>'+result[i]['teacher_id']+' '+result[i]['name']+'</li>';
+                            html+='<li>'+result[i]['user_id']+' '+result[i]['name']+'</li>';
                     }
                     $('#search_result').html(html);
                     //阻止事件冒泡
@@ -411,7 +411,7 @@ function chooseSupervisor()
                             if (result[i]['name'].indexOf('组')>=0 || result[i]['name'].indexOf('学院')>=0 || result[i]['name'].indexOf('负责人')>= 0)
                                 i++;
                             else
-                                html+='<li>'+result[i]['teacher_id']+' '+result[i]['name']+'</li>';
+                                html+='<li>'+result[i]['user_id']+' '+result[i]['name']+'</li>';
                         }
                         $('#search_result').html(html);
                         //阻止事件冒泡
@@ -445,7 +445,7 @@ function chooseSupervisor()
                 success: function (result) {
                     if (result.length != 0)
                     {
-                        SearchValueID.value=result[0]['teacher_id'];
+                        SearchValueID.value=result[0]['user_id'];
                     }
                     else {
                         $("#SearchBarID").val('');

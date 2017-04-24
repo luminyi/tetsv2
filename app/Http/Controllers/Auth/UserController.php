@@ -11,8 +11,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -55,7 +58,6 @@ class UserController extends Controller
     {
 
         $user_info = DB::table('users')->where('user_id','=',Auth::user()->user_id)->get();
-        Log::write('info',$user_info);
         $data=[
             'name'=>Auth::user()->name,
             'user_id'=>$user_info[0]->user_id,
@@ -80,7 +82,7 @@ class UserController extends Controller
         return view('changePass');
     }
 
-    /*public function SubmitPass(Request $request)
+    public function SubmitPass(Request $request)
     {
         $rules = array(
             'cpt' => 'required|captcha',
@@ -108,5 +110,5 @@ class UserController extends Controller
         }else{
             return  Redirect::back()->withErrors('原密码输入有误，重新输入!');
         }
-    }*/
+    }
 }
