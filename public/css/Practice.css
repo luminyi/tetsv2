@@ -1,0 +1,498 @@
+@media (max-width: 767px){
+    .grade3{
+        width: 100% !important;
+    }
+    .suggest{
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        margin-top:-34px;
+        margin-left:5%;
+        width:50%
+    }
+    .suggestClass{
+        width:440px;
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        left:80px;
+        top:13%;
+        z-index: 99;
+        overflow-y: auto;
+
+    }
+    .student{
+        margin-top: 5px;
+        margin-left: -10% !important;
+        display: inline-block;
+        width: 100%;
+    }
+    h1{
+        font-family:'Microsoft YaHei'!important;
+        width:100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h2{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 15px;
+
+    }
+    h3{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    .page-content{
+        width:600px !important;
+    }
+    .tab_menu{overflow:hidden;}
+    .tab_menu li{
+        width:80%;
+        float:left;
+        margin-left: -10%;
+        height:26px;
+        line-height:30px;
+        color:#74777b;
+        background:#f7f7f7;
+        text-align:center;
+        cursor:pointer;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tab_menu li.current{color:#fff;background:#2CC185;}
+    .tab_menu li a{color:#fff;text-decoration:none;}
+    .tab_menu li.current a{color:#333;}
+}
+@media screen and (min-width: 768px){
+    .grade3{
+        width: 100% !important;
+    }
+    .suggest{
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        margin-top:-34px;
+        margin-left:-20%;
+        width:15%
+    }
+    .suggestClass{
+        width:540px;
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        left:80px;
+        top:6%;
+        z-index: 99;
+        overflow-y: auto;
+
+    }
+    .student{
+        margin-top: 5px;
+        margin-left: -10% !important;
+        display: inline-block;
+        width: 100%;
+    }
+    h1{
+        font-family:'Microsoft YaHei'!important;
+        width:100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h2{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h3{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    .page-content{
+        width:100%;
+    }
+    .tab_menu{overflow:hidden;}
+    .tab_menu li{
+        width:80%;
+        float:left;
+        height:26px;
+        line-height:30px;
+        color:#74777b;
+        background:#f7f7f7;
+        text-align:center;
+        cursor:pointer;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tab_menu li.current{color:#fff;background:#2CC185;}
+    .tab_menu li a{color:#fff;text-decoration:none;}
+    .tab_menu li.current a{color:#333;}
+}
+@media screen and (min-width: 1000px){
+    .grade3{
+        width: 100% !important;
+    }
+    .suggest{
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        margin-top:-34px;
+        margin-left:-15%;
+        width:15%
+    }
+    .student{
+        margin-top: 5px;
+        margin-left: -10% !important;
+        display: inline-block;
+        width: 100%;
+    }
+    .suggestClass{
+        width:540px;
+        background-color: white;
+        border-radius:4px;
+        left:80px;
+        top:10%;
+        z-index: 99;
+        margin-top:45px;
+        overflow-y: auto;
+
+    }
+    h1{
+        font-family:'Microsoft YaHei'!important;
+        width:900px;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h2{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h3{
+        font-family:'Microsoft YaHei'!important;
+        width: 460px;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    .tab_menu{overflow:hidden;}
+    .tab_menu li{width:100px;float:left;height:26px;line-height:30px;color:#74777b;background:#f7f7f7;text-align:center;cursor:pointer;}
+    .tab_menu li.current{color:#fff;background:#2CC185;}
+    .tab_menu li a{color:#fff;text-decoration:none;}
+    .tab_menu li.current a{color:#333;}
+}
+@media screen and (min-width: 1200px){
+    .student{
+        margin-left: -10% !important;
+    }
+    .suggest{
+        background-color: white;
+        margin-left: -174px;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        margin-top:-34px;
+        margin-left:-15%;
+        width:15%
+    }
+    .suggestClass{
+        width:540px;
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        left:80px;
+        top:11%;
+        z-index: 99;
+        overflow-y: auto;
+
+    }
+    h1{
+        font-family:'Microsoft YaHei'!important;
+        width:900px;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h2{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h3{
+        font-family:'Microsoft YaHei'!important;
+        width: 460px;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    .tab_menu{overflow:hidden;}
+    .tab_menu li{width:100px;float:left;height:26px;line-height:30px;color:#74777b;background:#f7f7f7;text-align:center;cursor:pointer;}
+    .tab_menu li.current{color:#fff;background:#2CC185;}
+    .tab_menu li a{color:#fff;text-decoration:none;}
+    .tab_menu li.current a{color:#333;}
+}
+@media screen and (min-width: 1900px) {
+    .suggest{
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        margin-top:-34px;
+        margin-left:-15%;
+        width:15%
+    }
+    .suggestClass{
+        width:540px;
+        background-color: white;
+        /*border: 1px solid #999;*/
+        border-radius:4px;
+        left:80px;
+        top:11%;
+        z-index: 99;
+        overflow-y: auto;
+
+    }
+    .student{
+        margin-left: 15% !important;
+        width: 70%;
+    }
+    h1{
+        font-family:'Microsoft YaHei'!important;
+        width:100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h2{
+        font-family:'Microsoft YaHei'!important;
+        width: 100%;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    h3{
+        font-family:'Microsoft YaHei'!important;
+        width: 460px;
+        display: block;
+        float: left;
+        line-height: 18px !important;
+        margin: 3px 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        padding:0 10px 0 8px;
+    }
+    .tab_menu{overflow:hidden;}
+    .tab_menu li{width:100px;float:left;height:26px;line-height:30px;color:#74777b;background:#f7f7f7;text-align:center;cursor:pointer;}
+    .tab_menu li.current{color:#fff;background:#2CC185;}
+    .tab_menu li a{color:#fff;text-decoration:none;}
+    .tab_menu li.current a{color:#333;}
+}
+
+*{
+    font-family:"Microsoft YaHei";
+    list-style-type:none;
+}
+.nav_a{
+    cursor: pointer;
+}
+.add_task{
+    margin-left:30px;
+}
+ul {
+    list-style: none;
+}
+.icon-plus{
+    cursor: pointer;
+}
+.tabs-style-bar nav ul li a {
+    margin: 0 2px;
+    background-color: #f7f7f7;
+    color: #74777b;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+
+.info{
+    border-bottom-style:dotted;
+    border-bottom-color: #ccc;
+    border-bottom-width: 1px;
+    margin-bottom: 10px;;
+}
+
+.grade3{
+    width: 1200px;
+}
+#search-suggest{
+    position: absolute;
+    display: none;
+    /*z-index: 100;*/
+}
+
+
+.suggest ul,.suggestClass ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.suggest ul li,.suggestClass ul li{
+    padding:3px 5px;
+    font-size: 14px;
+    line-height: 25px;
+    cursor: pointer;
+}
+.suggest ul li:hover,.suggestClass ul li:hover{
+    background-color: rgba(66, 139, 202, 0.81);
+    color:#fff;
+}
+li{
+    position: relative;
+}
+
+.grade2{
+    border-bottom: dashed  #ddd 2px  ;
+    margin-top: 5px;
+}
+.alert{
+    margin-bottom: 0!important;
+}
+.tabBack{
+    border-radius: 0px 40px 40px 0!important;
+}
+.tabFront{
+    border-radius: 40px 0px 0px 40px!important;
+}
+
+/*给课程节次的样式*/
+#LessonTime-suggest{
+    position: absolute;
+    /*display: none;*/
+    /*z-index: 100;*/
+    background-color: white;
+    border: 1px solid #999;
+    border-radius:4px;
+    margin-top: 5px;
+    width:15%
+}
+#LessonTimeStyle{
+    display: none;
+
+}
+
+.LessonTime-result{
+    float: left;
+    width: 75px;
+    height: 30px;
+    /*font-size: 14px;*/
+    color: #757575;
+    text-align: center;
+    cursor: pointer;
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    z-index: 99;
+}
+
+.active1{
+    border-bottom: 3px solid #ff6f60;
+    color: #333333;
+}
+
+.box_down{
+    z-index: 9999;
+    position: absolute;
+    background-color: whitesmoke;
+    float: left;
+    margin-top: 20px;
+    border: 1px solid #CCC;
+    /*background: url("../img/line.png") repeat-y;*/
+    background-position-x: 50%;
+}
+
+.index_detail{
+    /*position: absolute;*/
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    /*width: 100px;*/
+    text-align: center;
+    font-size: 15px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 20px;
+    color: #757575;
+    cursor: pointer;
+}
+.index_detail:hover{
+    color: #333;
+    background-color: wheat;
+
+}
+

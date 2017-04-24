@@ -1,0 +1,70 @@
+.colorblock{
+    margin-bottom: 20px;;
+    cursor: pointer;
+    height: 170px;
+    color: white;
+    text-align: right;
+    font-family: 'Microsoft YaHei'!important;
+}
+
+.line11,.line22,.line33{
+    background-color: #998CB2;
+}
+.line12,.line23,.line34{
+    background-color: #84BF99;
+}
+.line13,.line31{
+    background-color: #E2C26D;
+}
+.line21,.line32{
+    background-color: #8BDBD8;
+}
+.dead_time{
+    height:30px;
+    font-size: 15px;
+    margin-left: 20px;
+    font-family: "Microsoft YaHei";
+    text-align: left;
+    padding-top: 20px;
+    opacity: 0.7;
+}
+.data{
+    height:100px;
+    font-size: 32px;
+    line-height: 100px;
+    margin-right: 20px;
+    font-family: "Microsoft YaHei";
+    padding-top: 10px;
+}
+.word{
+    height:30px;
+    font-size: 20px;
+    margin-right: 20px;
+    opacity: 0.7;
+    font-family: "Microsoft YaHei";
+}
+.data1{
+    line-height:170px;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Microsoft YaHei';
+}
+
+.colorblock{
+    margin-bottom: 0px;
+    height: 170px;
+}
+.aa{
+    padding: 0px!important;
+}
+.colordiv{
+    margin-bottom: 0px;
+}
+@media screen and (min-height:780px){
+    .colorblock{
+        height: 210px;
+    }
+    .colordiv{
+        margin-bottom: 10px;
+    }
+}

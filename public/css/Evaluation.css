@@ -1,0 +1,190 @@
+@media (max-width: 767px){
+    .modal-dialog{
+        width: 800px !important;
+        padding-top: 60px !important;
+        margin-left: 17% !important;
+    }
+    .questionData{
+        min-height: 50px;
+        height:auto;
+        width:500px;
+        padding: 6px 12px;
+        margin-top: 10px;
+        vertical-align: middle;
+        background-color: #fff;
+        border:1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+    }
+    #main{
+        display: none;
+    }
+}
+@media screen and (min-width: 768px){
+    .modal-dialog{
+        width: 800px !important;
+        padding-top: 60px !important;
+        margin-left: 17% !important;
+    }
+    .questionData{
+        min-height: 50px;
+        height:auto;
+        width:500px;
+        padding: 6px 12px;
+        margin-top: 10px;
+        vertical-align: middle;
+        background-color: #fff;
+        border:1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+    }
+}
+@media screen and (min-width: 1400px){
+    .modal-dialog{
+        width: 75% !important;
+        padding-top: 60px !important;
+        margin-left: 17% !important;
+    }
+    .questionData{
+        min-height: 50px;
+        height:auto;
+        width:65%;
+        padding: 6px 12px;
+        margin-top: 10px;
+        vertical-align: middle;
+        background-color: #fff;
+        border:1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+    }
+}
+@media screen and (min-width: 1900px){
+    .modal-dialog{
+        width: 75% !important;
+        padding-top: 60px !important;
+        margin-left: 17% !important;
+    }
+    .questionData{
+        min-height: 50px;
+        height:auto;
+        width:90%;
+        padding: 6px 12px;
+        margin-top: 10px;
+        vertical-align: middle;
+        background-color: #fff;
+        border:1px solid #ccc;
+        border-radius: 4px;
+        color: #555;
+    }
+}
+
+.nav_a{
+    cursor: pointer;
+}
+.seeDetail{
+    cursor: pointer;
+    color: #428bca;
+}
+.classNum{
+    width: 103px;
+}
+.className{
+    width:179px;
+}
+
+
+
+ul {
+    list-style: none;
+}
+.tabs-style-bar nav ul li a {
+    margin: 0 2px;
+    background-color: #f7f7f7;
+    color: #74777b;
+    transition: background-color 0.2s, color 0.2s;
+}
+.tab_menu{overflow:hidden;}
+.tab_menu li{width:100px;float:left;height:26px;line-height:30px;color:#74777b;background:#f7f7f7;text-align:center;cursor:pointer;}
+.tab_menu li.current{color:#fff;background:#2CC185;}
+.tab_menu li a{color:#fff;text-decoration:none;}
+.tab_menu li.current a{color:#333;}
+
+.info{
+    border-bottom-style:dotted;
+    border-bottom-color: #ccc;
+    border-bottom-width: 1px;
+    margin-bottom: 10px;;
+}
+.grade3{
+    width: 1200px;
+}
+.front1{
+    font-family:'Microsoft YaHei'!important;
+    width:800px;
+    display: block;
+    float: left;
+    line-height: 18px !important;
+    margin: 3px 0 !important;
+    font-size: 16px !important;
+    font-weight: normal !important;
+    padding:0 10px 0 8px;
+}
+.front2{
+    font-family:'Microsoft YaHei'!important;
+    width: 1000px;
+    display: block;
+    float: left;
+    line-height: 18px !important;
+    margin: 3px  32px!important;
+    font-size: 16px;
+    font-weight: normal !important;
+    padding:0 10px 0 8px;
+}
+.front3{
+    font-family:'Microsoft YaHei'!important;
+    width: 1000px;
+    display: block;
+    float: left;
+    line-height: 22px !important;
+    margin: 3px 66px !important;
+    font-size: 16px ;
+    font-weight: normal !important;
+    padding:0 10px 0 8px;
+}
+.lineName{
+    width: 400px;
+}
+.back1{
+    font-family:'Microsoft YaHei'!important;
+    width:1400px;
+    display: block;
+    float: left;
+    line-height: 18px !important;
+    margin-left: -40px;
+    font-size: 16px;
+    font-weight: normal !important;
+    padding:10px;
+}
+.back2{
+    font-family:'Microsoft YaHei'!important;
+    width: 1300px;
+    display: block;
+    line-height: 18px !important;
+    margin-left: -8px;
+    font-size: 14px;
+    font-weight: normal !important;
+    padding:8px;
+}
+.current{
+    color: #fff;
+    background:#2CC185 ;
+    font-size: 14px;
+    /*width:100px;*/
+    line-height:30px;
+    text-align:center;
+}
+
+.search input{
+    margin-top: 10px;
+}
+

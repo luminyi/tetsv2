@@ -1,0 +1,30 @@
+a{
+	cursor: pointer;
+}
+.table{
+	width: 97%;
+	margin: 0 auto;
+	margin-top:18px;
+	margin-bottom: 30px;
+}
+td,th{text-align: center;}
+#export{
+	margin-right:14px; 
+}
+.row1{
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.alter{
+	margin-right: 18px;
+	font-size: 15px;
+}
+.export{
+	margin-right: 26px;
+	font-size: 15px;
+}
+@media screen and (min-width: 768px){
+	.modal-dialog1{
+		width: 1100px!important;
+	}
+}

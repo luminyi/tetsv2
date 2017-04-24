@@ -1,0 +1,90 @@
+*{font-family:"Microsoft YaHei"}
+@media (max-width: 767px){
+    .suggest{
+         width:200px;
+         background-color: white;
+         border: 1px solid #ccc;
+         border-radius:4px;
+         left:400px;
+
+     }
+}
+@media screen and (min-width: 768px){
+    .suggest{
+        position: absolute;
+        width:200px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius:4px;
+    }
+}
+@media screen and (min-width: 1400px){
+    .suggest{
+        position: absolute;
+        width:200px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius:4px;
+
+    }
+}
+@media screen and (min-width: 1900px){
+    .suggest{
+        position: absolute;
+        width:200px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius:4px;
+    }
+}
+.nav_a{
+    cursor: pointer;
+}
+
+#search-suggest{
+    position: absolute;
+    display: none;
+    /*z-index: 100;*/
+}
+.suggest ul
+{
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.suggest ul li{
+    padding:3px;
+    font-size: 14px;
+    line-height: 25px;
+    cursor: pointer;
+}
+.suggest ul li:hover{
+    text-decoration: underline;
+    background-color: grey;
+}
+.btn-add{
+    background-color:#B6D9B1;
+    border-color:#B6D9B1;
+}
+.btn-remove{
+    background-color:#E4A294;
+}
+.btn-daoru{
+    background-color: #B3D2E7;
+}
+.btn-daochu{
+    background-color:#FED79C;
+}
+.btn-add,.btn-remove,.btn-daoru,.btn-daochu{
+    color: #fff;
+}
+.btn:hover,.btn:focus{
+    color: #fff !important;
+}
+button{
+    margin-right: 3px !important;
+}
+.dtpicker-content{
+    margin-left:15% !important;
+}
