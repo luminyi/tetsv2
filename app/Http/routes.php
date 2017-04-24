@@ -143,7 +143,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/SupervisorInfo', 'SupervisorController@SupervisorInfo');//the view of supervisor management
     Route::post('/ChangeSupervisorInfo', 'SupervisorController@ChangeSupervisorInfo');//change/add the supervisor's information
     Route::get('/ChangeSupervisorInfo', 'SupervisorController@SupervisorInfo');//if method is get, redirect the view SupervisorInfo
-    Route::get('/GetSupervisorInfo', 'SupervisorController@Get_SupervisorInfo');//得到督导具体信息
+    Route::get('/GetSupervisorInfo', 'SupervisorController@GetSupervisorInfo');//得到督导具体信息
+    Route::get('/GetAllSupervisorInfo', 'SupervisorController@GetAllSupervisorInfo');//得到所有督导具体信息
 
 
 
@@ -154,7 +155,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //校级+大组长 ，查看所有的督导信息
-    Route::get('/GetAllSupervisorInfo', 'SupervisorController@GetAllSupervisorInfo');//得到所有督导具体信息
     Route::get('/GetBigGroupSupervisorInfo', 'SupervisorController@GetBigGroupSupervisorInfo');//得到大组长所有督导具体信息
 
 

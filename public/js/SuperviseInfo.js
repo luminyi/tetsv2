@@ -103,16 +103,21 @@ $(document).ready(function() {
                 type: "get",
                 async: false,
                 url: "/GetUnitSupervisorInfo",
-                data:{unit:unit,TimeFlag:$("#year1").val()+"-"+$("#year2").val()+"-"+$("#terminal").val().match(/\d/g)[0]},
+                data:{
+                    unit:unit,
+                    TimeFlag:$("#year1").val()+"-"+$("#year2").val()+"-"+$("#terminal").val().match(/\d/g)[0]
+                },
                 success: function (result) {
-                    data = JSON.parse(result);
+                    console.log(result);
+
+                    $("#Usertable").bootstrapTable({
+                        data:result
+                    });
+
+                    $('.fixed-table-loading').hide();
                 }
             });
-            $("#Usertable").bootstrapTable({
-                data:data
-            });
 
-            $('.fixed-table-loading').hide();
         }
         if(level == '小组长')
         {
