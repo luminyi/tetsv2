@@ -507,6 +507,17 @@
                                                 </select>
                                             </span>
                                         </div>
+                                        <div class="form-group">
+                                            <span class="h4">用户角色</span>
+                                                    <div>
+                                                        <input type="checkbox" class="ace" name="xiaoji" value="1"/>
+                                                        <span class="lbl"> 校级</span>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" class="ace" name="dazuzhang"  value="1"/>
+                                                        <span class="lbl"> 大组长</span>
+                                                    </div>
+                                        </div>
                                     </div>
                                     <div style="float: right">
                                         <div class="form-group">
@@ -575,19 +586,9 @@
                                                 <input name="skill" type="text" class="form-control add_task">
                                             </span>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                                <span class="h4">用户角色
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="xiaoji" value="1"/>
-                                                        <span class="lbl"> 校级</span>
-                                                    </div>
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="dazuzhang"  value="1"/>
-                                                        <span class="lbl"> 大组长</span>
-                                                    </div>
+                                        <div class="form-group">
+                                            <span class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <span class="h4">
                                                     <div>
                                                         <input type="checkbox" class="ace" name="xiaozuzhang"  value="1"/>
                                                         <span class="lbl"> 小组长</span>
@@ -598,7 +599,14 @@
                                                     </div>
 
                                                 </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
                             </div>
+
 
                         </div>
                         <div class="modal-footer">
@@ -681,7 +689,12 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <span class="h4">督导类型
+                                                <span for="name">开始学期</span>
+                                                <input class="form-control" name="change_begin_time" type="text"
+                                                       id="change_begin_time" value="" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="h4" >督导类型
                                                     <select class="form-control" name="workstate" id="workstate" style="display: inline-block!important;">
                                                         <option>专职</option>
                                                         <option>兼职</option>
@@ -689,15 +702,19 @@
                                                 </span>
                                             </div>
                                             <div class="form-group">
-                                                <span for="name">开始学期</span>
-                                                <input class="form-control" name="change_begin_time" type="text"
-                                                       id="change_begin_time" value="" required>
+                                                <span class="h4" style="margin-left: -320px;">用户角色
+                                                <div>
+                                                    <input type="checkbox" class="ace" name="xiaoji" value="1"/>
+                                                    <span class="lbl"> 校级</span>
+                                                </div>
+                                                <div>
+                                                    <input type="checkbox" class="ace" name="dazuzhang"  value="1"/>
+                                                    <span class="lbl"> 大组长</span>
+                                                </div>
+                                                </span>
                                             </div>
-                                            <div class="form-group">
-                                            <span class="h4">专业领域
-                                                <input name="skill" id="skill" type="text" class="form-control add_task">
-                                            </span>
-                                            </div>
+
+
 
                                         </div>
                                         <div style="float: right">
@@ -760,28 +777,24 @@
                                                 <input class="form-control" name="change_end_time" type="text"
                                                        id="change_end_time" value="{{$currentEndTerm}}" required>
                                             </div>
+                                            <div class="form-group">
+                                            <span class="h4">专业领域
+                                                <input name="skill" id="skill" type="text" class="form-control add_task">
+                                            </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <span class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <div>
+                                                <input type="checkbox" class="ace" name="xiaozuzhang" id="xiaozuzhang" value="1"/>
+                                                <span class="lbl"> 小组长</span>
+                                                </div>
+                                                <div>
+                                                <input type="checkbox" class="ace" name="dudao" id="dudao" value="1"/>
+                                                <span class="lbl"> 督导</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                                <span class="h4">用户角色
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="xiaoji" id="xiaoji"value="1"/>
-                                                        <span class="lbl"> 校级</span>
-                                                    </div>
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="dazuzhang" id="dazuzhang"  value="1"/>
-                                                        <span class="lbl"> 大组长</span>
-                                                    </div>
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="xiaozuzhang" id="xiaozuzhang" value="1"/>
-                                                        <span class="lbl"> 小组长</span>
-                                                    </div>
-                                                    <div>
-                                                        <input type="checkbox" class="ace" name="dudao" id="dudao" value="1"/>
-                                                        <span class="lbl"> 督导</span>
-                                                    </div>
 
-                                                </span>
-                                        </div>
 
                                     </div>
                                     <button class="btn btn-info btn-raised" style="float: right; width:100px;margin-left:10px;" >保存信息</button>

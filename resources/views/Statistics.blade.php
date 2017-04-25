@@ -251,7 +251,7 @@
                                 <tr>
                                     <th data-field="user_id" data-halign="center" data-align="center" class="className">督导ID</th>
                                     <th data-field="name" data-halign="center" data-align="center" class="className">督导姓名</th>
-                                    <th data-field="level" data-halign="center" data-align="center" class="className">职务</th>
+                                    {{--<th data-field="level" data-halign="center" data-align="center" class="className">职务</th>--}}
                                     <th data-field="save" data-halign="center" data-align="center">待提交</th>
                                     <th data-field="finish" data-halign="center" data-align="center" class="classNum">已提交</th>
                                     <th data-field="listened" data-halign="center" data-align="center" class="classNum">完成总课时</th>
@@ -292,7 +292,7 @@
                                 <tr>
                                     <th data-field="user_id" data-halign="center" data-align="center" class="className">督导ID</th>
                                     <th data-field="name" data-halign="center" data-align="center" class="className">督导姓名</th>
-                                    <th data-field="level" data-halign="center" data-align="center" class="className">职务</th>
+                                    {{--<th data-field="level" data-halign="center" data-align="center" class="className">职务</th>--}}
                                     <th data-field="save" data-halign="center" data-align="center">待提交</th>
                                     <th data-field="finish" data-halign="center" data-align="center" class="classNum">已提交</th>
                                     <th data-field="listened" data-halign="center" data-align="center" class="classNum">完成总课时</th>
@@ -333,7 +333,7 @@
                                 <tr>
                                     <th data-field="user_id" data-halign="center" data-align="center" class="className">督导ID</th>
                                     <th data-field="name" data-halign="center" data-align="center" class="className">督导姓名</th>
-                                    <th data-field="level" data-halign="center" data-align="center" class="className">职务</th>
+                                    {{--<th data-field="level" data-halign="center" data-align="center" class="className">职务</th>--}}
                                     <th data-field="save" data-halign="center" data-align="center">待提交</th>
                                     <th data-field="finish" data-halign="center" data-align="center" class="classNum">已提交</th>
                                     <th data-field="listened" data-halign="center" data-align="center" class="classNum">完成总课时</th>
@@ -373,7 +373,7 @@
                                 <tr>
                                     <th data-field="user_id" data-halign="center" data-align="center" class="className">督导ID</th>
                                     <th data-field="name" data-halign="center" data-align="center" class="className">督导姓名</th>
-                                    <th data-field="level" data-halign="center" data-align="center" class="className">职务</th>
+                                    {{--<th data-field="level" data-halign="center" data-align="center" class="className">职务</th>--}}
                                     <th data-field="save" data-halign="center" data-align="center">待提交</th>
                                     <th data-field="finish" data-halign="center" data-align="center" class="classNum">已提交</th>
                                     <th data-field="listened" data-halign="center" data-align="center" class="classNum">完成总课时</th>
@@ -415,7 +415,7 @@
                                     <tr>
                                         <th data-field="user_id" data-halign="center" data-align="center" class="className">督导ID</th>
                                         <th data-field="name" data-halign="center" data-align="center" class="className">督导姓名</th>
-                                        <th data-field="level" data-halign="center" data-align="center" class="className">职务</th>
+                                        {{--<th data-field="level" data-halign="center" data-align="center" class="className">职务</th>--}}
                                         <th data-field="save" data-halign="center" data-align="center">待提交</th>
                                         <th data-field="finish" data-halign="center" data-align="center" class="classNum">已提交</th>
                                         <th data-field="listened" data-halign="center" data-align="center" class="classNum">完成总课时</th>

@@ -25,8 +25,17 @@ Route::get('/login', 'Auth\AuthController@login');
 Route::get('/GetUserRoles', 'SupervisorController@GetUserRoles');
 //Route::auth();
 
+// 发送密码重置链接路由
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// 密码重置路由
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::group(['middleware' => 'auth'], function () {
+
+
 
 
     //1、学院、组 督导总人数+关注课程数目+关注课程完成数目+已完成听课数目
