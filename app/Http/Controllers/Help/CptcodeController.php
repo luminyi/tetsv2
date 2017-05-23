@@ -13,7 +13,7 @@ class CptcodeController extends Controller
     //资源
     private $img;
     //画布宽度
-    private $width=120;
+    private $width=115;
     //画布高度
     private $height=35;
     //背景颜色

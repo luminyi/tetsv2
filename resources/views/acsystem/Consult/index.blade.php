@@ -13,32 +13,23 @@
                     <div class="panel-body">
 
                         @include('ACSystem.partials.errors')
+                        @include('acsystem.partials.success')
 
-                        <form class="form-horizontal" role="form" method="POST" action="/admin/tag">
+                        <form class="form-horizontal" role="form" method="POST" action="/consult/post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <label for="reverse_direction" class="col-md-3 control-label">
                                     咨询类别
                                 </label>
                                 <div class="col-md-7">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="ConsultType" id="OneToOne"
-                                               checked=""
-                                               value="0">
-                                        寻求一对一指导
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="ConsultType" id="TeachRequest"
-                                               checked=""
-                                               value="1">
-                                        教学困惑咨询
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="ConsultType" id="TrainRequest"
-                                               checked=""
-                                               value="2">
-                                        培训需求提交
-                                    </label>
+                                    @foreach($consultType as $consult)
+                                        <label class="radio-inline">
+                                            <input type="radio" name="consults_type_id"
+                                                   checked=""
+                                                   value="{{$consult->id}}">
+                                            {{$consult->name}}
+                                        </label>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="form-group">
@@ -46,13 +37,13 @@
                                     电话
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="tel" class="form-control" name="phone" id="phone" value="">
+                                    <input type="tel" class="form-control" name="phone" id="phone" value="{{$phone}}">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="meta_description" class="col-md-3 control-label">
-                                    活动细节(选填)
+                                    咨询细节(选填)
                                 </label>
                                 <div class="col-md-8">
                                     <textarea class="form-control" id="meta_description" name="meta_description" rows="20">
@@ -80,42 +71,64 @@
                         <h3 class="panel-title">历史咨询</h3>
                     </div>
                     <div class="panel-body">
-                        <table id="tags-table" class="table table-striped table-bordered">
-                        <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>提交时间</th>
-                        <th class="hidden-sm">咨询类别</th>
-                        <th data-sortable="false">咨询详情</th>
-                    </tr>
-                    </thead>
-                        <tbody>
-                        {{--@foreach ($tags as $tag)--}}
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td class="hidden-sm">3</td>
-                            <td>
-                                <a href="/admin/tag/8/edit" class="btn btn-xs btn-info">
-                                    <i class="fa fa-edit"></i> Edit
-                                </a>
-                            </td>
-                        </tr>
-                        {{--@endforeach--}}
-                        </tbody>
-                </table>
+                        <table data-toggle="table" id="consultTable"
+                               data-halign="center" data-align="center"
+                               data-search="true"
+                               data-url="/consult/ConsultHistory/{{Auth::User()->id}}">
+                            <thead>
+                            <tr>
+                                <th data-field="Number" data-formatter="actionFormatterNumber" data-halign="center" data-align="center" >序号</th>
+                                <th data-field="name" data-halign="center" data-align="center">咨询名称</th>
+                                <th data-field="submit_time" data-halign="center" data-align="center">提交时间</th>
+                                <th data-field="state" data-halign="center" data-align="center">协调状态</th>
+                                <th data-field="action" data-halign="center" data-align="center"
+                                    data-formatter="ConsultInfo" data-events="actionEvents" >咨询详情</th>
+                            </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+
+            <button id="check-consult" data-toggle="modal" data-target="#checkout-consult" style="display: none">
+                查看活动
+            </button>
+            <!-- 查看详情的 模态框（Modal） -->
+            <div class="modal fade" id="checkout-consult" tabindex="-1" role="dialog" aria-hidden="true">
+                <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 10%">
+                    <div class="modal-content">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">咨询详情
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        &times;
+                                    </button>
+                                </h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <p><span style="font-weight: bold;">咨询名称：&nbsp;&nbsp;</span>
+                                        <span id="act-name" ></span>
+                                    </p>
+                                    <p><span style="font-weight: bold;">其他信息：&nbsp;&nbsp;</span>
+                                        <span id="act-info" ></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
+        </div>
     </div>
+
 @stop
 
 @section('scripts')
-    <script>
-        $(function() {
-            $("#tags-table").DataTable({
-            });
-        });
-    </script>
+    <script src="/js/consult/index.js"></script>
 @stop

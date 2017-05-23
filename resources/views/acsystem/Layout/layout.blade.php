@@ -8,6 +8,15 @@
     <title>{{ config('blog.title') }} Admin</title>
 
     <link href="{{asset('origin_bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <link href="{{asset('assets/bootstrap-table/src/bootstrap-table.css')}}" rel="stylesheet"/>
+
+    <script src="{{asset('assets/js/jquery-1.10.2.min.js')}}"></script>
+    <script src="{{asset('origin_bootstrap/js/bootstrap.min.js')}}"></script>
+    {{--活动表格--}}
+    <script src="{{asset('assets/bootstrap-table/src/bootstrap-table.js')}}"></script>
+    <script src="{{asset('assets/bootstrap-table/src/locale/bootstrap-table-zh-CN.js')}}"></script>
+
     @yield('styles')
 
         <!--[if lt IE 9]>
@@ -37,8 +46,6 @@
 
 @yield('content')
 
-<script src="{{asset('assets/js/jquery-1.10.2.min.js')}}"></script>
-<script src="{{asset('origin_bootstrap/js/bootstrap.min.js')}}"></script>
 
 @yield('scripts')
 

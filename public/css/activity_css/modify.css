@@ -1,0 +1,28 @@
+#year-term-calender {
+    width: 300px
+}
+
+#year-calender {
+    width: 160px
+}
+
+/*the style of add activity and activate activity*/
+.button-group{
+    float: right;
+    margin: 10px 15px 10px 10px;
+}
+
+/*the style of add add activity's sure and close*/
+
+.add-button-group{
+    float: right;
+}
+
+.seeDetail{
+    cursor: pointer;
+    color: #428bca;
+}
+
+#time-select > div {
+    margin: 10px 15px 10px 10px;
+}

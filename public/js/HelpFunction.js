@@ -710,3 +710,112 @@ function GetBackList2()
     }
     return Backlist2;
 }
+
+// $("#year1").val(time-1); $("#year2").val(time); $("#terminal").val("第2学期");
+function Get_CurrentYear(year1, year2, terminal)
+{
+    var MyDate = new Date();
+    var time = MyDate.getFullYear();
+
+    if ( (MyDate.getMonth()+1) <8 && (MyDate.getMonth()+1) >= 3)
+    {
+        year1.val(time-1);
+        year2.val(time);
+        if(terminal != null)
+            terminal.val("第2学期");
+    }
+    else
+    {
+        if(terminal != null)
+            terminal.val("第1学期");
+        if (MyDate.getMonth()+1 < 3)
+        {
+            year1.val(time-1);
+            year2.val(time);
+        }
+        if(MyDate.getMonth()+1 >= 8)
+        {
+            year1.val(time);
+            year2.val(time+1);
+        }
+    }
+
+}
+function getRootPath(){
+    //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+    var curWwwPath=window.document.location.href;
+    //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName=window.document.location.pathname;
+    var pos=curWwwPath.indexOf(pathName);
+    //获取主机地址，如： http://localhost:8083
+    var localhostPaht=curWwwPath.substring(0,pos);
+    //获取带"/"的项目名，如：/uimcardprj
+    var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+    return(localhostPaht+projectName);
+}
+//$("#calender")  $("#dtBox")
+function school_calendar(calendar, dtBox, year1, year2, terminal, year_plus, year_minus)
+{
+    var MyDate = new Date();
+    var CurrentYear = MyDate.getFullYear();
+    Get_CurrentYear(year1, year2, terminal);
+    dtBox.show();
+
+    //        X 按钮
+    $(".dtpicker-close").click(function(){
+        dtBox.hide();
+    });
+    //        取消按钮
+    $(".dtpicker-buttonClear").click(function(){
+        dtBox.hide();
+    });
+    //        确定按钮
+    $(".dtpicker-buttonSet").click(function(){
+        dtBox.hide();
+        if (terminal == null)
+            calendar.val( year1.val()+"学年 ～ "+year2.val()+"学年");
+        else
+            calendar.val( year1.val()+"学年 ～ "+year2.val()+"学年："+terminal.val());
+    });
+
+    //year1 + 按钮
+    year_plus.click(function(){
+        CurrentYear++;
+        year1.val(CurrentYear);
+        year2.val(CurrentYear+1);
+    });
+    //year1 - 按钮
+    year_minus.click(function(){
+        CurrentYear--;
+        year1.val(CurrentYear);
+        year2.val(CurrentYear+1);
+    });
+    //学期选择的 +、- 按钮
+    $(".dtpicker-compButtonEnable").click(function(){
+        if (terminal != null)
+            if ( terminal.val() == "第1学期")
+                terminal.val("第2学期");
+            else
+                terminal.val("第1学期");
+    });
+    year1.bind('keyup',function(){
+        CurrentYear=year1.val();
+        if( CurrentYear.length==4)
+        {
+            year1.blur(function(){
+                //console.log(CurrentYear.match(/^\d{4}$/));
+                if ( parseInt(CurrentYear)>=2050 ||  parseInt(CurrentYear)<=1970 || CurrentYear.match(/^\d{4}$/) == null)
+                {
+                    alert("请输入正确的4位数字！有效范围为1970～2050");
+                    CurrentYear = MyDate.getFullYear();
+                }
+                year1.val(CurrentYear);
+                year2.val(parseInt(CurrentYear)+1);
+
+            });
+        }
+    })
+
+
+
+}

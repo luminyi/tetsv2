@@ -303,7 +303,7 @@ class SupervisorController extends Controller
         $termArray=$help->CaculateTerm($currentEndTerm, $TermNum);
         $nextTime =max($termArray);
 
-        return view('SupervisorInfo',compact('title','currentEndTerm','nextTime'));
+        return view('UserManage.SupervisorInfo',compact('title','currentEndTerm','nextTime'));
     }
 
     /**
@@ -424,7 +424,7 @@ class SupervisorController extends Controller
 
         $title='操作成功！';
 
-        return view('SupervisorInfo',compact('title','EndTime','nextTime'));
+        return view('UserManage.SupervisorInfo',compact('title','EndTime','nextTime'));
     }
 
     /*
@@ -465,12 +465,12 @@ class SupervisorController extends Controller
             }
 
             $title = "续约成功！";
-            return view('SupervisorInfo',compact('title','currentEndTerm','nextTime'));
+            return view('UserManage.SupervisorInfo',compact('title','currentEndTerm','nextTime'));
         }
 
         else{
             $title='续约期未结束！';
-            return view('SupervisorInfo',compact('title','currentEndTerm','nextTime'));
+            return view('UserManage.SupervisorInfo',compact('title','currentEndTerm','nextTime'));
 
         }
     }

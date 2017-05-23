@@ -169,6 +169,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/GetUnitUserInfo', 'UnitUserController@GetUnitUserInfo');//all unit users' information showing in table
     Route::post('/ChangeUnitUserInfo', 'UnitUserController@ChangeUnitUserInfo');//改变院级具体信息
 
+    //teacher management
+    Route::get('/teacherManage', 'TeacherUserController@teacherManage');//the view of Teacher user
+    Route::get('/teacherInfo', 'TeacherUserController@teacherInfo');//the view of Teacher user
+
     //LessonTable
     Route::get('/LessonTable', 'LessonTable\LessonTableController@LessonTable');//学院教师课表视图页面
     Route::get('/LessonTeacher', 'LessonTable\LessonTableController@LessonTeacher');//各学院教师名单
@@ -228,14 +232,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/excel/StaticExport','ExcelController@StaticExport');//督导听课统计情况导出（大组长、校级）
     Route::get('/excel/StaticGroupExport','ExcelController@StaticGroupExport');//督导听课统计情况导出（小组长）
+    //export the activity
+    Route::get('/activity/excel/ActivityExport','ExcelController@ActivityExport');
 
+    //import the information of teacher
+    Route::post('/excel/ImportTeacher','ExcelController@ImportTeacher');
 
 //    Route::post('/excel/NecessaryTaskImport','ExcelController@NecessaryTaskImport');
     Route::post('/excel/NecessaryTaskImport','ExcelController@NecessaryTaskImportByName');
 
 
     //评价统计
-    Route::get('/Statistics','StatisticController@Statistics');
+    Route::get('/Statistics','StatisticController@StatisticsView');
     Route::get('/GetEvalutedLessonArr','StatisticController@GetEvalutedLessonArr');
     //本学年本学期已完成评价课程的所有课程名
     Route::get('/GetEvalutedLessonContent','StatisticController@GetEvalutedLessonContent');
@@ -251,14 +259,97 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //    教师活动系统
-    Route::group(['namespace'=>'Activity'],function(){
-        Route::get('/activity/index','ActivityController@index');
-    });
-//    教师咨询系统
-    Route::group(['namespace'=>'Consult'],function(){
-        Route::get('/consult/index','ConsultController@index');
-    });
 
+    //修改密码
+    Route::get('/TeacherChangePass', 'Auth\UserController@TeacherChangePass');//咨询系统的修改密码页面
+    Route::post('/TeacherChangePass', 'Auth\UserController@SubmitTeacherPass');//修改用户密码
+    //修改信息
+    Route::get('/TeacherUserManage', 'Auth\UserController@TeacherUserManage');//咨询系统的使用者具体信息
+    Route::post('/TeacherUserManage','Auth\UserController@getTeacherUserInfo');
+
+    Route::group(['namespace'=>'Activity'],function(){
+        //普通教师端
+        Route::get('/activity/index','ActivityController@index');
+        //showing the attended activities with array (teacher)
+        Route::get('/activity/teacher/attend/{flag}','ActivityController@ShowAttendActivities');
+
+        //showing the activities with array (teacher)
+        Route::get('/activity/teacher/show/{userId}','ActivityController@ShowTeacherActivities');
+
+        //enrolling the activities  (teacher)
+        Route::get('/activity/teacher/enroll','ActivityController@EnrollActivities');
+
+        //canceling the activities (teacher)
+        Route::get('/activity/teacher/cancel','ActivityController@CancelActivities');
+
+
+        //管理员端
+        //the view of adding the activities
+        Route::get('/activity/modify/','ActivityController@modify');
+
+        //the view of adding the special activities
+        Route::get('/activity/modify/{timeflag}','ActivityController@show');
+        //showing the activities with array
+        Route::get('/activity/show/{timeflag}','ActivityController@ShowActivities');
+
+        //submit the request of adding the activities
+        Route::post('/activity/admin/create','ActivityController@create');
+        Route::get('/activity/admin/create','ActivityController@modify');
+        //submit the request of adding the activities
+        Route::post('/activity/admin/change','ActivityController@change');
+        Route::get('/activity/admin/change','ActivityController@modify');
+
+        //delete the request of adding the activities
+        Route::DELETE('/activity/admin/delete','ActivityController@delete');
+        Route::get('/activity/admin/delete','ActivityController@modify');
+        //activate the request of adding the activities
+        Route::get('/activity/admin/activate','ActivityController@activate');
+        //get the teacher wants to attend the activities
+        Route::get('/activity/admin/attendTeacher','ActivityController@attendTeacher');
+
+
+    });
+    //教师咨询系统
+    Route::group(['namespace'=>'Consult'],function(){
+        //the view of teacher consult
+        Route::get('/consult/index','ConsultController@index');
+        //post the consult request
+        Route::post('/consult/post','ConsultController@storePost');
+        Route::get('/consult/post','ConsultController@index');
+
+        //view the consult history
+        Route::get('/consult/ConsultHistory/{userId}','ConsultController@consultHistory');
+
+
+
+        //管理员端
+        //the view of adding the consult content
+        Route::get('/consult/modify/','ConsultController@modify');
+        //the view of adding the consult content
+        Route::get('/consult/ConsultContent','ConsultController@getContent');
+
+        //submit the request of adding the activities
+        Route::post('/consult/admin/create','ConsultController@create');
+        Route::get('/consult/admin/create','ConsultController@modify');
+        //delete the request of adding the activities
+        Route::DELETE('/consult/admin/delete','ConsultController@delete');
+        Route::get('/consult/admin/delete','ConsultController@modify');
+        //the view of adjusting the consult content
+        Route::get('/consult/adjust','AdjustController@index');
+
+
+        //the data of done/undo
+        Route::get('/consult/adjust/{action}','AdjustController@ConsultResult');
+        //the data of done/undo
+        Route::get('/consult/admin/coordinate','AdjustController@ConsultCoordinate');
+    });
+    //督导对教师的评价
+    Route::group(['namespace'=>'TeachEva'],function(){
+        //the view of teacher evaluation
+        Route::get('/teachEvaluation/index','TeachEvaluationController@index');
+        //the data of teacher evaluation
+        Route::get('/teachEvaluation/evaluationData','TeachEvaluationController@evaluationData');
+    });
 });
 
 

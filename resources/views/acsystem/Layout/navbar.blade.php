@@ -1,12 +1,14 @@
 <ul class="nav navbar-nav">
     @if (Auth::check())
-        <li @if (Request::is('/activity/*')) class="active" @endif>
+        <li @if (Request::is('activity/*')) class="active" @endif>
             <a href="/activity/index">我要报名</a>
         </li>
-        <li @if (Request::is('/consult/*')) class="active" @endif>
+        <li @if (Request::is('consult/*')) class="active" @endif>
             <a href="/consult/index">我要咨询</a>
         </li>
-
+        <li @if (Request::is('teachEvaluation/*')) class="active" @endif>
+            <a href="/teachEvaluation/index">我的评价</a>
+        </li>
     @endif
 </ul>
 
@@ -21,13 +23,10 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="/auth/logout">更改密码</a></li>
-            </ul>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="/auth/logout">个人信息</a></li>
-            </ul>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="/auth/logout">Logout</a></li>
+                <li><a href="/TeacherChangePass">更改密码</a></li>
+                <li><a href="/TeacherUserManage">个人信息</a></li>
+                <li><a href="/logout">登出</a></li>
+
             </ul>
         </li>
     @endif

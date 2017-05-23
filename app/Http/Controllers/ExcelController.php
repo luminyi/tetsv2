@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Activity\ActivityController;
 use App\Model\front_content;
 use App\Model\lesson;
 use App\Model\Role;
+use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
@@ -169,6 +171,68 @@ class ExcelController extends Controller
         }
     }
 
+    public function ImportTeacher(Request $request)
+    {
+        $file = Input::file('TeacherInfoImport');
+        if ($file->isValid())
+        {
+            $destinationPath = 'upFile';
+            $fileName = $request->get('filename');
+            $file->move($destinationPath,iconv("UTF-8","gbk",$fileName));
+        }
+        else{
+            return Redirect::action('TeacherUserController@teacherManage')->withCookie('mess','导入数据失败');
+        }
+        $file = $_SERVER['DOCUMENT_ROOT'].'/upFile/'.iconv("UTF-8","gbk",$fileName);
+        $objReader = PHPExcel_IOFactory::createReader ( 'Excel2007' );
+        $objReader->setReadDataOnly ( true );
+        $objPHPExcel = PHPExcel_IOFactory::load ($file);
+
+        $objWorksheet = $objPHPExcel->getActiveSheet (0);
+        $objWorksheet = $objPHPExcel->getSheet (0);
+//取得excel的总行数
+        $highestRow = $objWorksheet->getHighestRow ();
+//取得excel的总列数
+        $highestColumn = $objWorksheet->getHighestColumn ();
+        $highestColumnIndex = PHPExcel_Cell::columnIndexFromString ( $highestColumn ) -1;
+
+//        echo $highestRow ."<br/>";
+//        echo $highestColumn ."<br/>";
+//        echo $highestColumnIndex ."<br/>";
+
+        $excelData = array ();
+        for($row = 2; $row <= $highestRow; $row++) {
+            for($col = 0; $col < $highestColumnIndex; $col++) {
+                $excelData[$row-2][] = $objWorksheet->getCellByColumnAndRow ( $col, $row )->getValue ();
+            }
+        }
+//        echo "<pre>";
+//        print_r($excelData);
+//        echo "</pre>";
+        for ($i=0;$i<count($excelData);$i++)
+        {
+            User::updateOrCreate(
+                ['user_id'=>intval($excelData[$i][1])],
+                [
+                    'name'=>$excelData[$i][2],
+                    'password'=>bcrypt(intval($excelData[$i][1])),
+                    'sex'=>$excelData[$i][6],
+                    'email'=>$excelData[$i][7],
+                    'phone'=>intval($excelData[$i][8]),
+                    'unit'=>$excelData[$i][11],
+                    'status'=>'活跃',
+                    'prorank'=>$excelData[$i][15],
+                    'skill'=>$excelData[$i][16],
+
+                ]
+            );
+        }
+
+        return Redirect::action('TeacherUserController@teacherManage')->withCookie('mess','导入教师信息成功');
+
+
+    }
+
     public function NecessaryTaskExport(Request $request)
     {
         $year = $request->get('year');
@@ -256,7 +320,7 @@ class ExcelController extends Controller
             $file->move($destinationPath,iconv("UTF-8","gbk",$fileName));
         }
         else{
-            return Redirect::action('EvalutionController@NecessaryTask')->withCookie('mess','导入数据失败');
+            return Redirect::action('EvaluationController@NecessaryTask')->withCookie('mess','导入数据失败');
         }
         $file = $_SERVER['DOCUMENT_ROOT'].'/upFile/'.iconv("UTF-8","gbk",$fileName);
         $objReader = PHPExcel_IOFactory::createReader ( 'Excel2007' );
@@ -321,12 +385,12 @@ class ExcelController extends Controller
                         ]);
                 }
 
-                return Redirect::action('EvalutionController@NecessaryTask')
+                return Redirect::action('EvaluationController@NecessaryTask')
                     ->withCookie('mess','导入第'.$excelData[$i][0].'项'.$excelData[$i][1].
                         '失败!  请勿重复导入课程或检查课程信息、格式');
             }
         }
-        return Redirect::action('EvalutionController@NecessaryTask')->withCookie('mess','导入关注课程成功');
+        return Redirect::action('EvaluationController@NecessaryTask')->withCookie('mess','导入关注课程成功');
 
 
     }
@@ -341,7 +405,7 @@ class ExcelController extends Controller
             $file->move($destinationPath,iconv("UTF-8","gbk",$fileName));
         }
         else{
-            return Redirect::action('EvalutionController@NecessaryTask')->withCookie('mess','导入数据失败');
+            return Redirect::action('EvaluationController@NecessaryTask')->withCookie('mess','导入数据失败');
         }
         $file = $_SERVER['DOCUMENT_ROOT'].'/upFile/'.iconv("UTF-8","gbk",$fileName);
         $objReader = PHPExcel_IOFactory::createReader ( 'Excel2007' );
@@ -398,12 +462,12 @@ class ExcelController extends Controller
 //                        ]);
 //                }
 //
-//                return Redirect::action('EvalutionController@NecessaryTask')
+//                return Redirect::action('EvaluationController@NecessaryTask')
 //                    ->withCookie('mess','导入第'.$excelData[$i][0].'项'.$excelData[$i][4].$excelData[$i][3].
 //                        '失败!  请勿重复导入课程或检查课程信息、格式');
 //            }
         }
-        return Redirect::action('EvalutionController@NecessaryTask')->withCookie('mess','导入关注课程成功');
+        return Redirect::action('EvaluationController@NecessaryTask')->withCookie('mess','导入关注课程成功');
 
     }
 
@@ -2105,4 +2169,89 @@ and (课程名称 = ANY (
         $objWriter->save('php://output');
     }
 
+    public function ActivityExport(Request $request)
+    {
+        $flag = $request->get('flag');
+        $activityObj = new ActivityController;
+
+        $activity = $activityObj->ShowActivities($flag)->toArray();
+
+        $objPHPExcel = new PHPExcel();
+
+        // Set properties
+        $objPHPExcel->getProperties()->setCreator("BJFU-DFI")->setTitle("Office 2007 XLSX Test Document");
+        //set width
+        $objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(20);
+        $objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setAutoSize(true);
+        //合并
+//        $objPHPExcel->getActiveSheet()->mergeCells('A1:B1:C1');
+        //表头
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', '活动名称');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B1', '主讲教师');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C1', '开始时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D1', '结束时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E1', '活动地点');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F1', '活动状态');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G1', '活动总人数');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H1', '参与人数');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I1', '剩余名额');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J1', '活动学期');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K1', '其他信息');
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
+            array(
+                'font' => array (
+                    'bold' => true
+                ),
+                'alignment' => array (
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER ,
+                ),
+            )
+        );
+        $objPHPExcel->getActiveSheet()->getStyle('A:K')->applyFromArray(
+            array(
+                'alignment' => array (
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER ,
+                ),
+            )
+        );
+        for ($i = 0; $i < count($activity); $i++) {
+            $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A' . ($i + 2), $activity[$i]['name'])
+                ->setCellValue('B' . ($i + 2), $activity[$i]['teacher'])
+                ->setCellValue('C' . ($i + 2), $activity[$i]['start_time'])
+                ->setCellValue('D' . ($i + 2), $activity[$i]['end_time'])
+                ->setCellValue('E' . ($i + 2), $activity[$i]['place'])
+                ->setCellValue('F' . ($i + 2), $activity[$i]['state'])
+                ->setCellValue('G' . ($i + 2), $activity[$i]['all_num'])
+                ->setCellValue('H' . ($i + 2), $activity[$i]['attend_num'])
+                ->setCellValue('I' . ($i + 2), $activity[$i]['remainder_num'])
+                ->setCellValue('J' . ($i + 2), $activity[$i]['term'])
+                ->setCellValue('K' . ($i + 2), $activity[$i]['information']);
+        }
+        $objPHPExcel->getActiveSheet()->setTitle("1");
+        $objPHPExcel->setActiveSheetIndex(0);
+        // 输出
+        if($flag=='all')
+            $filename = '历年活动安排.xls';
+        else
+            $filename = $flag. '活动安排.xls';
+        $ua = $_SERVER["HTTP_USER_AGENT"];//探测主机所用内核
+        header('Content-Type: application/octet-stream');
+
+        if (preg_match("/Chrome/", $ua)) {//谷歌内核
+            iconv("utf-8", "gb2312", $filename);
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+        } else if (preg_match("/Firefox/", $ua)) {//火狐内核
+            iconv("utf-8", "gb2312", $filename);
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+        } else {
+            $encoded_filename = urlencode($filename);//ie内核
+            header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+    }
 }

@@ -36,16 +36,13 @@
         @endif
         @if(session('role')=='校级')
 
-
             <li class="Upper-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                 <a href="/index">
                     <i class="icon-dashboard"></i>
                     <span class="menu-text" style="font-size: 15px;">首页</span>
                 </a>
             </li>
-
-
-            <li class="evaluated-menu" style="border-left:3px solid #4AA3DE;">
+            <li class="evaluated-menu" style="margin-top: 20px; border-left:3px solid #4AA3DE;">
                 <a href="#planManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
                     <i class="icon-desktop"></i>
                     评价管理
@@ -118,9 +115,8 @@
                         </li>
                 </ul>
             </li>
-
             <li class="setting-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
-                <a href="#Initsystem" class="nav-header " data-toggle="collapse" style="font-size: 15px;">
+                <a href="#Initsystem" class="nav-header collapse collapsed" data-toggle="collapse" style="font-size: 15px;">
                     <i class=" icon-cog"></i>
                     系统设置
                     <b class="arrow icon-angle-down"></b>
@@ -169,26 +165,71 @@
                     </li>
                 </ul>
             </li>
+            <li class="user-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
+                <a href="#UserManage" class="nav-header " data-toggle="collapse" style="font-size: 15px;">
+                    <i class=" icon-user"></i>
+                    用户管理
+                    <b class="arrow icon-angle-down"></b>
+                </a>
+                <ul id="UserManage" class="nav nav-list collapse in">
 
-            <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                <a href="/SupervisorInfo" class="nav-header" style="font-size: 15px;">
-                    <i class="icon-user"></i>
-                    督导用户管理
+                        <li class="indents">
+                            <a href="/SupervisorInfo" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus"></i>
+                                督导用户管理
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/UnitUserManage" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus"></i>
+                                学院用户管理
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/teacherManage" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus"></i>
+                                学校教师管理
+                            </a>
+                        </li>
+                    </ul>
+            </li>
+
+            <li class="Activity-publish" style="margin-top: 20px;">
+                <a href="/activity/modify">
+                    <i class="glyphicon icon-briefcase"></i>
+                    培训活动发布
                 </a>
             </li>
 
-            <li class="Unituser-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
-                <a href="/UnitUserManage" class="nav-header" style="font-size: 15px;">
-                    <i class="icon-user"></i>
-                    学院用户管理
-                </a>
-            </li>
+                <li class="consult-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
+                    <a href="#ConsultManage" class="nav-header " data-toggle="collapse" style="font-size: 15px;">
+                        <i class=" icon-user"></i>
+                        咨询管理
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="ConsultManage" class="nav nav-list collapse in">
+
+                        <li class="indents">
+                            <a href="/consult/adjust">
+                                <i class="glyphicon icon-font"></i>
+                                咨询活动协调
+                            </a>
+                        </li>
+
+                        <li class="indents">
+                            <a href="/consult/modify">
+                                <i class="glyphicon icon-bold"></i>
+                                咨询内容修改
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
 
         @endif
 
 
             @if(session('role')=='大组长')
-
 
                 <li class="Upper-menu" style="border-left:3px solid #4AA3DE;">
                     <a href="/index">
@@ -196,8 +237,6 @@
                         <span class="menu-text" style="font-size: 15px;">首页</span>
                     </a>
                 </li>
-
-
                 <li class="evaluated-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="#planManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
                         <i class="icon-desktop"></i>
@@ -225,14 +264,12 @@
                         </li>
                     </ul>
                 </li>
-
                 {{--<li class="indentManage" style="border-left:3px solid #4AA3DE;">--}}
                     {{--<a href="/DataStatistics">--}}
                         {{--<i class="icon-file-alt"></i>--}}
                         {{--评价统计--}}
                     {{--</a>--}}
                 {{--</li>--}}
-
                 <li class="indents"   style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/NecessaryTask">
                         <i class="glyphicon icon-random"></i>
@@ -251,7 +288,6 @@
                         督导用户列表
                     </a>
                 </li>
-
                 <li class="Unituser-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/UnitUserManage" class="nav-header" style="font-size: 15px;">
                         <i class="icon-user"></i>
@@ -259,7 +295,6 @@
                     </a>
                 </li>
             @endif
-
 
         @if(session('role')=='小组长')
                 <li class="Upper-menu" style="border-left:3px solid #4AA3DE;">

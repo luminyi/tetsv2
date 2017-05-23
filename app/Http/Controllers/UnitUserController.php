@@ -19,7 +19,7 @@ class UnitUserController extends Controller
     public function UnitUserManage()
     {
         $title=null;
-        return view('UnitUserManage',compact('title'));
+        return view('UserManage.UnitUserManage',compact('title'));
     }
 
     /**
@@ -38,7 +38,7 @@ class UnitUserController extends Controller
                 'phone'=>$supervisor_phone,
             ]);
         $title='操作成功！';
-        return view('UnitUserManage',compact('title'));
+        return view('UserManage.UnitUserManage',compact('title'));
     }
 
     //select the information about Unit responsibility

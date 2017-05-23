@@ -37,8 +37,17 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Model\Role')->withPivot('supervise_time');
     }
 
+    /**
+     * Get all of the activities for the user.
+     */
+    public function activities()
+    {
+        return $this->belongsToMany('App\Model\Activities')->withPivot('state');
+    }
 
-
+    /**
+     * is this user has some role?
+     */
     public function hasRole($role)
     {
         //

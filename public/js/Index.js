@@ -435,7 +435,7 @@ $(document).ready(function() {
             url: "/Schoolindex",
             data:{evaluationTime:evaluationTime},
             success: function (result) {
-                console.log(result);
+                //console.log(result);
                 $(".so_num").html(result['SupervisorNum']);
                 $(".nec_num").html(result['NecessaryTask']);
                 $(".FineshedNecess").html(result['FinishedNecess']);

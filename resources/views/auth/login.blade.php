@@ -82,14 +82,14 @@
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															{{--<input type="hidden" name="_token" value="{{ csrf_token() }}" />--}}
-                                                            <input type="text" name="user_id" class="form-control" value="" placeholder="" />
+                                                            <input type="text" name="user_id" class="form-control" value="testteacher" placeholder="" />
 															<i class="icon-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" name="password" class="form-control" value="" placeholder="" />
+															<input type="password" name="password" class="form-control" value="1qaz2wsx" placeholder="" />
 															<i class="icon-lock"></i>
 														</span>
                                             </label>

@@ -60,6 +60,13 @@
 <link rel="stylesheet" href="{{asset('css/Index.css')}}">
 <html lang="en">
 <body>
+@if(session('role')=='教师')
+    <script>
+        window.location = "/activity/index";
+    </script>
+@endif
+
+
 @include('layout.header')
 @include('layout.sidebar')
 <div class="container-fluid clearfix">

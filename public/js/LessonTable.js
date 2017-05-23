@@ -223,7 +223,7 @@ function Calendat_function()
         if( CurrentYear.length==4)
         {
             $("#year1").blur(function(){
-                console.log(CurrentYear.match(/^\d{4}$/));
+                //console.log(CurrentYear.match(/^\d{4}$/));
                 if ( parseInt(CurrentYear)>=2050 ||  parseInt(CurrentYear)<=1970 || CurrentYear.match(/^\d{4}$/) == null)
                 {
                     alert("请输入正确的4位数字！有效范围为1970～2050");
