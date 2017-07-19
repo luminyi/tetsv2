@@ -1000,7 +1000,7 @@
                         }
                     }
 
-                    $('.line-1').each(function () {
+                    ('.line-1').each(function () {
                         for(var i=0;i<FrontOne.length;i++)
                         {
                             if ($(this).text().indexOf(FrontOne[i])>=0)

@@ -141,7 +141,6 @@
         flag=tmp1.split("&")[0].split("=")[1];
         if(flag ==0)//课程表跳转
         {
-
             var unit=tmp1.split("&")[1].split("=")[1];
             var year=tmp1.split("&")[2].split("=")[1];
             var semester=tmp1.split("&")[3].split("=")[1];
@@ -329,93 +328,207 @@
                             </ul>
                             <div id="myTabContent" class="tab-content content-font" style="padding-bottom: 70px">
                                 <div class="tab-pane fade in active" id="front">
-
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
                                         for ($i=0;$i<count($front[1]);$i++)
                                         {
                                             echo '
-                            <ul class="grade1">
-                                <li>
-                                    <span class="icon-folder-open-alt" style="float:left;margin-top: 4px;"></span>
-                                    <h1>'.$front[1][$i].'</h1>';
-                                            for($j=0;$j<count($front[2][$i]);$j++)
-                                            {
-                                                echo'
-                                                <ul class="grade2">
-                                <li>
-                                    <span  style="float:left; margin-top: 4px;"></span>
-                                    <h2 style="width: 600px;">'.$front[2][$i][$j].'</h2>';
-                                                for ($k=0;$k<count($front[3][$i][$j]);$k++)
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <h1>'.$front[1][$i]->text.'</h1>';
+                                                if(!array_key_exists($i,$front[2]))continue;
+                                                $cssstyle=$front[2][$i][0]->cssstyle;
+                                                switch($cssstyle)
                                                 {
-                                                    echo '
-                                <ul style="display: inline-block;" class="grade3">
-                                  <li style="margin-top: 10px;">
-                                  <h3>'.$front[3][$i][$j][$k].'</h3>';
-                                                    echo '
-                                  </li>
-                              </ul>';
+                                                    case 1:
+                                                        for($j=0;$j<count($front[2][$i]);$j++)
+                                                        {
+                                                            echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                            if(!array_key_exists($j,$front[3][$i]))continue;
+                                                            if(!count($front[3][$i]))continue;
+                                                            for($k=0;$k<count($front[3][$i][$j]);$k++)
+                                                            {
+                                                                echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 10px;">
+                                                                            <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
+                                                                echo '
+                                                                            </li>
+                                        `                               </ul>';
+                                                            }
+                                                            echo '
+                                                                </li>
+                                                            </ul>';
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        echo '<div style="margin-top: 20px;">';
+                                                        echo '<dd>';
+                                                        for ($j=0;$j<count($front[2][$i]);$j++)
+                                                        {
+                                                            echo '<div class="radio">';
+                                                            echo '    <label>';
+                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '   </label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 3:
+                                                        echo '<div style="margin-top: 20px;">';
+                                                        echo '<dd>';
+                                                        for ($j=0;$j<count($front[2][$i]);$j++)
+                                                        {
+                                                            echo '<div class="checkbox">';
+                                                            echo '<label>';
+                                                            echo '<input type="checkbox" value="">';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '</label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 4:
+                                                        echo '<ul class="grade4"> ';
+                                                        for ($j=0;$j<count($front[2][$i]);$j++)
+                                                        {
+                                                            echo '<li class="student"> ';
+                                                            echo '<form class="form-horizontal"> ';
+                                                            echo '<div class="form-group"> ';
+                                                            echo '<label class="col-sm-3 control-label">';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '</label> ';
+                                                            echo '<div class="col-sm-3"> ';
+                                                            echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                            echo '</form>';
+                                                            echo '</li>';
+                                                        }
+                                                        echo '</ul>';
+//                                                        echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
+                                                        break;
+                                                    default:
+                                                        break;
                                                 }
-
-                                                echo '
-                    </li>
-               </ul>';
-                                            }
-                                            echo'
-            </li>
-         </ul>';
+                                                echo'
+                                                </li>
+                                            </ul>';
                                         }?>
                                     </div>
                                 </div>
 
                                 <div class="tab-pane fade content-back" id="back">
-
-                                    <dl>
+                                    <div>
+                                        {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
+                                        {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
-                                        echo '<dt>'.$back[1][0].'</dt>';
-                                        echo '<dd>';
-                                        for ($j=0;$j<count($back[2][0])-1;$j++)
+                                        for ($i=0;$i<count($back[1]);$i++)
                                         {
-                                            echo '<div class="radio">';
-                                            echo '    <label>';
-                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
-                                            echo        $back[2][0][$j];
-                                            echo '   </label>';
-                                            echo '</div>';
-                                        }
-                                        echo '</dd>';
-
-                                        for($i=1;$i<count($back[1]);$i++)
-                                        {
-                                            echo '<dt>'.$back[1][$i];
-                                            echo '<dd>';
-                                            for ($j=0;$j<count($back[2][$i]);$j++)
+                                            echo '
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <h1>'.$back[1][$i]->text.'</h1>';
+                                            if(!array_key_exists($i,$back[2]))continue;
+                                            if(!count($back[2]))continue;
+                                            $cssstyle=$back[2][$i][0]->cssstyle;
+                                            switch($cssstyle)
                                             {
-                                                echo '<div class="checkbox">';
-                                                echo '<label>';
-                                                echo '<input type="checkbox" value="">';
-                                                echo $back[2][$i][$j];
-                                                echo '</label>';
-                                                echo '</div>';
+                                                case 1:
+                                                    for($j=0;$j<count($back[2][$i]);$j++)
+                                                    {
+                                                        echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
+                                                        if(!array_key_exists($j,$back[3][$i]))continue;
+                                                        if(!count($back[3][$i]))continue;
+                                                        for($k=0;$k<count($back[3][$i][$j]);$k++)
+                                                        {
+                                                            echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 10px;">
+                                                                            <h3>'.$back[3][$i][$j][$k]->text.'</h3>';
+                                                            echo '
+                                                                            </li>
+                                        `                               </ul>';
+                                                        }
+                                                        echo '
+                                                                </li>
+                                                            </ul>';
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    echo '<div style="margin-top: 20px;">';
+                                                    echo '<dd>';
+                                                    for ($j=0;$j<count($back[2][$i]);$j++)
+                                                    {
+                                                        echo '<div class="radio">';
+                                                        echo '    <label>';
+                                                        echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                        echo $back[2][$i][$j]->text;
+                                                        echo '   </label>';
+                                                        echo '</div>';
+                                                    }
+                                                    echo '</dd>';
+                                                    echo '</div>';
+                                                    break;
+                                                case 3:
+                                                    echo '<div style="margin-top: 20px;">';
+                                                    echo '<dd>';
+                                                    for ($j=0;$j<count($back[2][$i]);$j++)
+                                                    {
+                                                        echo '<div class="checkbox">';
+                                                        echo '<label>';
+                                                        echo '<input type="checkbox" value="">';
+                                                        echo $back[2][$i][$j]->text;
+                                                        echo '</label>';
+                                                        echo '</div>';
+                                                    }
+                                                    echo '</dd>';
+                                                    echo '</div>';
+                                                    break;
+                                                case 4:
+                                                    echo '<ul  style="display: inline-block;" class="grade4"> ';
+                                                    for ($j=0;$j<count($back[2][$i]);$j++)
+                                                    {
+                                                        echo '<li class="student"> ';
+                                                        echo '<form class="form-horizontal"> ';
+                                                        echo '<div class="form-group"> ';
+                                                        echo '<label class="col-sm-3 control-label">';
+                                                        echo $back[2][$i][$j]->text;
+                                                        echo '</label> ';
+                                                        echo '<div class="col-sm-3"> ';
+                                                        echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                        echo '</form>';
+                                                        echo '</li>';
+                                                    }
+                                                    echo '</ul>';
+//                                                    echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
+                                                    break;
+                                                default:
+                                                    break;
                                             }
-
-                                            echo '</dd>';
-
-                                            echo '</dt>';
-                                        }
-                                        ?>
-
-                                    </dl>
-
-                                    {{--<a href="javascript:doSaveAs()" style="color: #000;">保存本页</a>--}}
-                                    {{--<a onclick="window.print()" style="color:#000;">打印本页页</a>　--}}
+                                            echo'
+                                                </li>
+                                            </ul>';
+                                        }?>
+                                    </div>
                                 </div>
 
                                 <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px;" >评价表背面</button>
                                 <button class="btn btn-success btn-raised tabFront" style="float: right; display: none;"  >评价表正面</button>
                             </div>
-                            <button class="btn btn-success btn-raised submitTable" style="float: right;margin-top: 46px;margin-left:8px;display: none" >提交评价表</button>
+                            <button class="btn btn-success btn-raised submitTable" style="float: right;margin-top: 46px;margin-left:8px;display: none" >提交表</button>
                             <button class="btn btn-warning btn-raised saveTable" style="float: right; margin-top: 46px;display: none" >保存</button>
 
                         </div>
@@ -440,21 +553,18 @@
         $('.tabBack').css("display",'block');
         $('.tabFront,.submitTable,.saveTable').css("display",'none');
 
-    })
+    });
     $('.tabBack').click(function () {
         $('#myTab li:eq(1) a').tab('show');
         $('.tabBack').css("display",'none');
         $('.tabFront,.submitTable,.saveTable').css("display",'block');
-        //alert("a");
-    })
+    });
     $('.tabFront').click(function () {
         $('#myTab li:eq(0) a').tab('show');
         $('.tabBack').css("display",'block');
         $('.tabFront,.submitTable,.saveTable').css("display",'none');
-    })
+    });
     /*---------------------结束-----------------*/
-
-
     $(".grade3").append(' ' +
             '<div class="box demo2" style="display: inline-block;width:600px;"> ' +
             '<ul class="tab_menu" style="display: inline-block;"> ' +
@@ -465,78 +575,13 @@
             '<li class="bar5">明显不足</li> ' +
             '</ul> ' +
             '</div>');
-
-    $('h2:contains("授课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
-    $('h2:contains("听课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
-
-
-    //    var oh2 = document.getElementsByTagName('h2');
-    $('h2:contains("到课情况")').parent().children('ul').remove();
-    $('h2:contains("到课情况")').parent().append('<ul  style="display: inline-block;" class="grade3"> ' +
-            '<li class="student"> ' +
-            '<form class="form-horizontal"> ' +
-            '<div class="form-group"> ' +
-            '<label class="col-sm-3 control-label">应到人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：80"> ' +
-            '</div> ' +
-            '<label class="col-sm-3 control-label">实到人数约</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：80"> ' +
-            '</div> ' +
-            '</div> ' +
-            '<div class="form-group"> ' +
-            '<label class="col-sm-3 control-label">迟到人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：0"> </div> ' +
-            '<label class="col-sm-3 control-label">早退人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：0"> ' +
-            '</div> ' +
-            '</div> ' +
-            '</form>' +
-            '</li>' +
-            '</ul>');
-    //    $('h3:contains("应到人数")').parent().siblings('div').remove();
-    //    $('h3:contains("实到人数约")').parent().siblings('div').remove();
-    //    $('h3:contains("迟到人数")').parent().siblings('div').remove();
-    $('h1:contains("其他")').parent().children('ul').remove();
-    $('h1:contains("其他")').parent().append('<textarea class="form-control" rows="3" style="width: 95%;"></textarea>');
-
-    //移除自动生成的评述
-    $('label:contains("如果以上各方面不能准确表达您的意见")').parent().remove();
-
-    //背面附加内容说明
-    $('dd').append('<p>如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。</br>评述：</p>' +
-            '            <textarea class="form-control" rows="3"></textarea>');
-
-
-    $('label:contains("青年教师，且")').parent().addClass('radio');
-    $('label:contains("青年教师，且")').children().attr('type','radio').attr('name','qingnianjiaoshi');
-//
-//    $('label:contains("板书存在问题")').parent().addClass('radio');
-//    $('label:contains("板书存在问题")').children().attr('type','radio').attr('name','banshu');
-//
-//    $('label:contains("多媒体使用或搭配存在一些问题")').parent().addClass('radio');
-//    $('label:contains("多媒体使用或搭配存在一些问题")').children().attr('type','radio').attr('name','duomeiti');
-    //功能部分
-
-    //单选框取消问题：即radio问题
-/*
-* 1、确定是哪个单选框被选了
-* */
     $(function(){
             $(":radio").click(function(){
                 //检查当前单选框是否为选中状态
-
                 if($(this).attr('checked')){
                     $(this).attr('checked',false);
-                }else{
+                }else
                     $(this).attr('checked',true);
-                }
-
             });
     });
 
@@ -547,93 +592,119 @@
 <script src="js/HelpFunction.js"></script>
 <script>
     var split_flag='___';//课程信息的分隔符
-
-    //函数声明部分
-    //听课时间格式检测
     function GetContent(LessonState)
     {
-
-
-        var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
+//        var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
 //        2017-01-15暂时取消必填项检查功能
-//正面内容的值
-        var Frontlist = [];//正面选择框的值
-
-        //存储所有的选项框
-        for (i=0;i<$('.current').length;i++)
+//        var flagC = 0 ;
+        var Frontlist=[];//正面选择框的值
+        for(i=0;i<$('.current').length;i++)
         {
-            key = $('.current').eq(i).parent().parent().prev().children()[0].innerHTML;
-            if (key=='') {
+            key=$('.current').eq(i).parent().parent().prev().children()[0].innerHTML;
+            if(key=='')
                 key=$('.current').eq(i).parent().parent().parent().prev()[0].innerHTML;
-            }
-            value = $('.current').eq(i)[0].innerHTML;
-            obj = {
-                key : key,
-                value : value
-            };
-            Frontlist.push(obj);
-        }
-        //存储学生听课状态中的人数
-        for (k=0;k<$('label:contains("人数")').length;k++)
-        {
-            key = $('label:contains("人数")').eq(k)[0].innerHTML;
-            value = $('label:contains("人数")').eq(k).next().children().val();
-            if (value == '')
-                    value = '-';
-            obj = {
-                key : key,
-                value : value
-            };
-            Frontlist.push(obj);
-        }
-        //其他部分
-        obj = {
-            key : '其他',
-            value : $('h1:contains("其他")').next().eq(0).val()
-        }
-        Frontlist.push(obj);
-
-//如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
-        if(LessonState=='待提交')
-        {
-            if (flagC == 1)//必填项未完成
+            value=$('.current').eq(i)[0].innerHTML;
+            obj=
             {
-                LessonState+=flagC;
-                flagC = 0;
-            }
+                key:key,
+                value:value
+            };
+            Frontlist.push(obj);
         }
-
-        //后台传数据
-        if (flagC == 0)
+        for(k=0;k<$('label:contains("人数")').length;k++)
         {
-            var Headlist=TableHeadData();
-//            console.log(Headlist);
-//背面的值
+            key=$('label:contains("人数")').eq(k)[0].innerHTML;
+            value=$('label:contains("人数")').eq(k).next().children().val();
+            if(value=='')value='-';
+            obj=
+            {
+                key:key,
+                value:value
+            };
+            Frontlist.push(obj);
+        }
+        obj=
+        {
+            key:'其他',
+            value:$('h1:contains("其他")').next().eq(0).val()
+        };
+        Frontlist.push(obj);
+        //如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
+//        if(LessonState=='待提交')
+//            if (flagC==1)//必填项未完成
+//            {
+//                LessonState+=flagC;
+//                flagC = 0;
+//            }
+        //后台传数据
+        if(flagC==0)
+        {
+            var frontflag=null;
+//            var Headlist=TableHeadData();
+            var Headlist = [
+                obj0={
+                    key:"章节目录",
+                    value:""
+                },
+                obj1={
+                    key:"课程名称",
+                    value:"C++程序设计"
+                },
+                obj2={
+                    key:"任课教师",
+                    value:"张海燕"
+                },
+                obj3={
+                    key:"上课班级",
+                    value:"计算机类16-3-4"
+                },
+                obj4={
+                    key:"上课地点",
+                    value:"计算中心-6"
+                },
+                obj5={
+                    key:"听课时间",
+                    value:"2017-07-13"
+                },
+                obj6={
+                    key:"督导姓名",
+                    value:"殷宁"
+                },
+                obj7={
+                    key:"课程属性",
+                    value:null
+                },
+                obj8={
+                    key:"督导id",
+                    value:"19400703"
+                },
+                obj9={
+                    key:"听课节次",
+                    value:"1",
+                    value1:"1"
+                },
+            ];
             var Backlist1 =GetBackList1();
             var Backlist2 =GetBackList2();
-
-            var frontflag=null;
             $.ajax({
                 type: "post",
                 async: false,
-                url: "/DBTheoryFrontEvaluationTable",
+                url: "/DBPracticeFrontEvaluationTable",
                 data:{
                     '_token':'{{csrf_token()}}',
-                    headdata:Headlist,
+                    headdata: Headlist,
                     LessonState:LessonState,
                     frontdata:Frontlist,
                     backdata1:Backlist1,
                     backdata2:Backlist2,
                     valueID:flag
                 },
-                success: function (result) {
+                success: function (result)
+                {
                     if (result!='')
-                    {
                         frontflag = result;
-                    }
                 }
             });
-
             if (frontflag !='')
             {
                 alert(frontflag);
@@ -641,39 +712,26 @@
             }
         }
     }
-
-
-
     //督导姓名提示框
-    var SearchValue=document.getElementById('SearchBar');
-    var SearchValueID=document.getElementById('SearchBarID');
+    var SearchValue=document.getElementById('SearchBar');//督导姓名
+    var SearchValueID=document.getElementById('SearchBarID');//督导ID
     //课程提示框
-    var LessonValue=document.getElementById('LessonName');
-    var TeacherValue=document.getElementById('Teacher');
-    var LessonClassValue=document.getElementById('LessonClass');
-    var LessonRoomValue=document.getElementById('LessonRoom');
-
-
+    var LessonValue=document.getElementById('LessonName');//课程信息
+    var TeacherValue=document.getElementById('Teacher');//任课教师
+    var LessonClassValue=document.getElementById('LessonClass');//上课班级
+    var LessonRoomValue=document.getElementById('LessonRoom');//上课地点
     var lessondata=[];
     $(document).ready(function() {
         $('.evaluated-menu').addClass('active');
         $('.supervise-menu').addClass('active');
         $('.work-menu').addClass('active');
-
-
-
-
-
-
         //督导姓名输入框的操作事宜
         chooseSupervisor();
-
         var timeoutObj;//用于计时，课程信息请求次数限制
-
         //课程名称输入框的操作事宜
         $('#LessonName').bind('input propertychange',function(){
             var LessonText = $('#LessonName').val();
-            if( LessonValue.value=='')//课程change ，其余均change
+            if( LessonValue.value=='')
             {
                 TeacherValue.value='';
                 LessonClassValue.value='';
@@ -689,10 +747,9 @@
                 $.ajax({
                     type: "get",
                     async: false,
-                    url: "/GetLessonArrThe",
+                    url: "/GetLessonArrPra",
                     data:{dataIn:LessonText},
                     success: function (result) {
-//                    console.log(result);
                         lessondata = result;
                         var html='';
                         for (var i=0;i<result.length;i++)
@@ -703,7 +760,7 @@
                                     +result[i]['lesson_teacher_name']+split_flag
                                     +result[i]['lesson_week']+'周'+split_flag+'星期'
                                     +result[i]['lesson_weekday']+split_flag
-                                    + result[i]['lesson_time'] +split_flag
+                                    +result[i]['lesson_time'] +split_flag
                                     +result[i]['lesson_class']+split_flag
                                     +result[i]['lesson_room']+'</li>';
                         }
@@ -722,14 +779,13 @@
                 $('#Lesson_result').delegate('li','click',function(){
                     LessonValue.value=$(this).text().split(split_flag)[0];
                     TeacherValue.value=$(this).text().split(split_flag)[1];
+                    LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
                     LessonClassValue.value=$(this).text().split(split_flag)[5];
                     LessonRoomValue.value=$(this).text().split(split_flag)[6];
-                    LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
                     lessonTime =$(this).text().split(split_flag)[4];
                     $('#LessonTime').attr("disabled",false).val('');
                     $('#ListenTime').attr("disabled",false).val('');
-
-                    //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
+                    //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
                     if(LessonClassValue.value=='')
                     {
                         $('#LessonClass').attr("readonly",false);
@@ -748,16 +804,13 @@
                         date_arr.splice(LessonWeekday,1);
                     }
                     chooseDate(date_arr);
-//                console.log(lessondata[$(this).index()]);
                 });
             },400);
-
         }).bind('click',function(ev){
             var oEvent=ev||event;
             oEvent.stopPropagation();
-
             var LessonText = $('#LessonName').val();
-            if( LessonValue.value=='')
+            if(LessonValue.value=='')
             {
                 TeacherValue.value='';
                 LessonClassValue.value='';
@@ -767,12 +820,12 @@
             $.ajax({
                 type: "get",
                 async: false,
-                url: "/GetLessonArrThe",
+                url: "/GetLessonArrPra",
                 data:{dataIn:LessonText},
                 success: function (result) {
-                    lessondata = result;
+                    lessondata=result;
                     var html='';
-                    for (var i=0;i<result.length;i++)
+                    for(var i=0;i<result.length;i++)
                     {
                         html+='<li class="list-group-item" style="font-size: 14px; ' +
                                 'border-bottom: lightgrey solid 2px">'
@@ -780,16 +833,14 @@
                                 +result[i]['lesson_teacher_name']+split_flag
                                 +result[i]['lesson_week']+'周'+split_flag+'星期'
                                 +result[i]['lesson_weekday']+split_flag
-                                + result[i]['lesson_time'] +split_flag
+                                +result[i]['lesson_time'] +split_flag
                                 +result[i]['lesson_class']+split_flag
                                 +result[i]['lesson_room']+'</li>';
                     }
                     $('#Lesson_result').html(html);
-
                     $('#Lesson-suggest').show().css({
                         position:'absolute',
                         height:'220'
-
                     });
                     $('.suggestClass').css('border','1px solid #CCC');
                 }
@@ -800,13 +851,13 @@
             $('#Lesson_result').delegate('li','click',function(){
                 LessonValue.value=$(this).text().split(split_flag)[0];
                 TeacherValue.value=$(this).text().split(split_flag)[1];
-                LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
                 LessonClassValue.value=$(this).text().split(split_flag)[5];
                 LessonRoomValue.value=$(this).text().split(split_flag)[6];
+                LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
                 lessonTime =$(this).text().split(split_flag)[4];
                 $('#LessonTime').attr("disabled",false).val('');
                 $('#ListenTime').attr("disabled",false).val('');
-                //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
+                //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
                 if(LessonClassValue.value=='')
                 {
                     $('#LessonClass').attr("readonly",false);
@@ -827,7 +878,8 @@
                 chooseDate(date_arr);
             });
         });
-
+        //如果是从课程表中跳转过来的话，日历函数的操作为
+        //课程节次
         //课程节次的坐标
         var LessonTime_X = $('#LessonTime').position().left;
         var LessonTime_Y = $('#LessonTime').position().top;
@@ -835,9 +887,6 @@
             LessonTime_X = $('#LessonTime').position().left;
             LessonTime_Y = $('#LessonTime').position().top;
         });
-
-        //若一开始课程选择框为空时，则将课程节次选择框置为空
-//
         if($('#LessonName').val()=='')
             $('#LessonTime').attr("disabled",true);
         else
@@ -847,18 +896,17 @@
             $('#ListenTime').attr("disabled",true);
         else
             $('#ListenTime').attr("disabled",false);
-
-//        如果是从课程表中跳转过来的话，日历函数的操作为
-        if (flag == 0)
+        //如果是从课程表中跳转过来的话，日历函数的操作为
+        if(flag==0)
         {
-            var date_arr = null;
-            if (LessonWeekday!=null)
+            var date_arr=null;
+            if(LessonWeekday!=null)
             {
-                date_arr = new Array(0,1,2,3,4,5,6);
+                date_arr=new Array(0,1,2,3,4,5,6);
                 date_arr.splice(LessonWeekday,1);
             }
             chooseDate(date_arr);
-//        如果是从课程表中跳转过来的话，若课程没有提供上课地点，则为
+            //如果是从课程表中跳转过来的话，若课程没有提供上课地点，则为
             if(LessonClassValue.value=='')
             {
                 $('#LessonClass').attr("readonly",false);
@@ -870,79 +918,61 @@
                 $('#LessonRoom').attr("readonly",false);
             }
         }
-
-
         $("#LessonTime").focus(function (){
             $('#LessonTime-suggest').children().remove();
             if(LessonValue.value=='')
             {
                 alert('请先选择课程名称');
                 $('#LessonTime').attr("disabled",true);
-
             }
-            else {
+            else
+            {
                 $('#LessonTimeStyle').css("display","block");
-                if ( lessonTime == '')
-                {
+                if(lessonTime == '')
                     AddLessonTime(LessonTime_X,LessonTime_Y,'01020304050607080910');
-                }
-                else{
+                else
                     AddLessonTime(LessonTime_X,LessonTime_Y,lessonTime);
-                }
             }
         });
 
-
-//听课节次面板控制
-        $(function ()
-        {
+        $(function () {
             $("#LessonTime").click(function (event)
             {
-                // $(".box_classify").show();
                 $(document).one("click", function ()
-                {//对document绑定一个影藏Div方法
+                {
                     $("#LessonTimeStyle").hide();
                 });
-                event.stopPropagation();//阻止事件向上冒泡
+                event.stopPropagation();
             });
             $("#LessonTimeStyle").click(function (event)
             {
-                event.stopPropagation();//阻止事件向上冒泡
+                event.stopPropagation();
             });
         });
-
         $(function(){
             $('.demo2').Tabs({
                 event:'click'
             });
         });
-
         (function(){
             $('dl').on('click', 'dt', function() {
                 $(this).next().slideToggle(200);
             });
-
         })();
     });
 
-    //页面内容提交
     $('.submitTable').click(function(){
-        var LessonState='已完成';
-        GetContent(LessonState);
+//        var LessonState='已完成';
+//        GetContent(LessonState);
+        alert("哭哭");
     });
 
-    $('.saveTable').click(function(){
+    $('#saveTable').click(function(){
         var LessonState='待提交';
         GetContent(LessonState);
     });
-
-
-
-    var  contentFrontdata=[];
-    var  contentBackdata=[];
-
-
-    // 从Evaluation页面跳转过来的的信息填写表内容
+    var contentFrontdata=[];
+    var contentBackdata=[];
     $("#LessonName").val(lesson);
     $("#Teacher").val(Teacname);
     $("#LessonClass").val(Class);
@@ -952,17 +982,16 @@
         $("#inputChapter").val(chapter);
         $("#inputLessonAttr").val(Attr).css('color','black');
         $("#ListenTime").val(Listendate);
-//        根据日期判断星期几
-        var b = new Date(Date.parse(Listendate.replace(/\-/g,"/")));
-        var date_arr = null;
-        if (LessonWeekday!=null)
+        //根据日期判断星期几
+        var b=new Date(Date.parse(Listendate.replace(/\-/g,"/")));
+        var date_arr=null;
+        if(LessonWeekday!=null)
         {
             date_arr = new Array(0,1,2,3,4,5,6);
             date_arr.splice(b.getDay(),1);
         }
         chooseDate(date_arr);
         $("#LessonTime").val(lessontime);
-
         //向数据库请求填写信息
         $.ajax({
             type: "get",
@@ -979,83 +1008,6 @@
                 Lessontime: lessontime
             },//传递学院名称
             success: function (result) {
-//                console.log(result);
-
-                //正面 评价内容
-                contentFrontdata=result[1];
-
-                $('.grade3 h3').each(function () {
-//                    console.log( $(this).parent().next().children().children()[0].className)
-//                    console.log(contentFrontdata[0][$(this).text()]);
-                    for (j=0;j<$(this).parent().next().children().children().length;j++)
-                    {
-//                        console.log($(this).parent().next().children().children()[j])
-                        if($(this).parent().next().children().children()[j].innerText==contentFrontdata[0][$(this).text()])
-                        {
-                            $(this).parent().next().children().children()[j].className += (' current');
-//                            console.log(contentFrontdata[0][$(this).text()])
-                        }
-                    }
-                });
-//                console.log($('.grade2 h2')[0].innerText);
-
-//                 console.log(contentFrontdata[0][$(this).text()]);
-                for (j=0;j<$('.grade2').length;j++)
-                {
-                    if(contentFrontdata[0][$('.grade2 h2')[j].innerText] != null )
-                    {
-                        for (k=0;k< $('.grade2 h2').eq(j).next().children().eq(1).children().children().length;k++)
-                        {
-//                            console.log(contentFrontdata[0][$('.grade2 h2')[j].innerText]);
-                            if($('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].innerText == contentFrontdata[0][$('.grade2 h2')[j].innerText])
-                            {
-                                $('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].className +=(' current');
-                            }
-                        }
-                    }
-                }
-
-                $('.control-label').eq(0).next().children().val(contentFrontdata[0]['应到人数']);
-                $('.control-label').eq(1).next().children().val(contentFrontdata[0]['实到人数约']);
-                $('.control-label').eq(2).next().children().val(contentFrontdata[0]['迟到人数']);
-                $('.control-label').eq(3).next().children().val(contentFrontdata[0]['早退人数']);
-
-//                console.log($('h1:contains("其他")').next());
-                $('h1:contains("其他")').next().eq(0).val(contentFrontdata[0]['其他']);
-
-                //背面 评价内容
-                var  contentFrontdata=result[2];
-//                console.log(result[2]);
-                for (var key in result[2][0])
-                {
-                    if(result[2][0][key] != null )
-                    {
-                        for(k=0;k<$('.radio').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, ""));
-//                            console.log(key);
-//                            console.log($('.radio').eq(0).children().children().eq(0) );
-                            if($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.radio').eq(k).children().children().eq(0).attr('checked','checked');
-//                                console.log($('.radio').eq(k).children().children().eq(0));
-                            }
-                        }
-                        for(k=0;k<$('.checkbox').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText);
-//                            console.log( key );
-                            if($('.checkbox').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.checkbox').eq(k).children().children().eq(0).attr('checked','checked');
-                            }
-                        }
-                        $(' textarea').eq(1).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。4']);
-                        $(' textarea').eq(2).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。5']);
-                        $(' textarea').eq(3).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。6']);
-
-                    }
-                }
             }
         });
     }

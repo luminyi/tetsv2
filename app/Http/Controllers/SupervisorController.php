@@ -391,7 +391,8 @@ class SupervisorController extends Controller
         $supervisor_workstate = $request->get('workstate');
         $supervisor_ProRank = $request->get('ProRank');
         $supervisor_skill = $request->get('skill');
-
+        $nextTime = null;
+        $currentEndTerm = null;
         $flag1=\App\Model\User::updateOrCreate(
             ['user_id' => $user_id ],
             [
@@ -421,7 +422,7 @@ class SupervisorController extends Controller
 
         $title='操作成功！';
 
-        return view('UserManage.SupervisorInfo',compact('title','EndTime','nextTime'));
+        return view('UserManage.SupervisorInfo',compact('title','EndTime','nextTime','currentEndTerm'));
     }
 
     /*

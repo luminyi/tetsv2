@@ -510,7 +510,14 @@
             '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：80"> ' +
             '</div> ' +
             '</div> ' +
-            '<div class="form-group"> ' +
+            '<div class="form-group' +
+            '' +
+            '' +
+            '' +
+            '' +
+            '' +
+            '' +
+            '"> ' +
             '<label class="col-sm-3 control-label">迟到人数</label> ' +
             '<div class="col-sm-3"> ' +
             '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：0"> </div> ' +
@@ -525,8 +532,8 @@
     //    $('h3:contains("应到人数")').parent().siblings('div').remove();
     //    $('h3:contains("实到人数约")').parent().siblings('div').remove();
     //    $('h3:contains("迟到人数")').parent().siblings('div').remove();
-    $('h1:contains("其他")').parent().children('ul').remove();
-    $('h1:contains("其他")').parent().append('<textarea class="form-control" rows="3" style="width: 95%;"></textarea>');
+//    $('h1:contains("其他")').parent().children('ul').remove();
+//    $('h1:contains("其他")').parent().append('<textarea class="form-control" rows="3" style="width: 95%;"></textarea>');
     //移除自动生成的评述
     $('label:contains("如果以上各方面不能准确表达您的意见")').parent().remove();
     //背面附加内容说明
@@ -713,7 +720,7 @@
                                     +result[i]['lesson_teacher_name']+split_flag
                                     +result[i]['lesson_week']+'周'+split_flag+'星期'
                                     +result[i]['lesson_weekday']+split_flag
-                                    + result[i]['lesson_time'] +split_flag
+                                    +result[i]['lesson_time'] +split_flag
                                     +result[i]['lesson_class']+split_flag
                                     +result[i]['lesson_room']+'</li>';
                         }
@@ -1033,12 +1040,9 @@
                     {
                         for(k=0;k<$('.radio').length;k++)
                         {
-//                            console.log($('.radio').eq(k).children()[0].innerText);
-//                            console.log( key );
                             if($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
                             {
                                 $('.radio').eq(k).children().children().eq(0).attr('checked','checked');
-                                console.log($('.radio').eq(k).children().children().eq(0));
                             }
                         }
                         for(k=0;k<$('.checkbox').length;k++)
@@ -1058,6 +1062,5 @@
             }
         });
     }
-
 </script>
 </html>

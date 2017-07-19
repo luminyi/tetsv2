@@ -85,16 +85,21 @@ class HomeController extends Controller
 //理论表视图，需要数据，正面评价体系，背面评价体系
     public function TheoryEvaluationTableView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
+        $frontdata=$this->GetFrontValueTable();
+        for($i=0;$i<count($frontdata[1]);$i++)
+            if($frontdata[1][$i]->text=='理论课评价表')break;
         $front =array(
-            '1'=>$frontdata[2][0],//一级菜单项
-            '2'=>$frontdata[3][0],//二级菜单项
-            '3'=>$frontdata[4][0]//三级菜单项
+            '1'=>array_key_exists($i,$frontdata[2])?$frontdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$frontdata[3])?$frontdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$frontdata[4])?$frontdata[4][$i]:array()//三级菜单项
         );
+        $backdata=$this->GetBackValueTable();
+        for($i=0;$i<count($backdata[1]);$i++)
+            if($backdata[1][$i]->text=='理论课评价表')break;
         $back =array(
-            '1'=>$backdata[2][0],//背面1级
-            '2'=>$backdata[3][0]//背面2级
+            '1'=>array_key_exists($i,$backdata[2])?$backdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$backdata[3])?$backdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$backdata[4])?$backdata[4][$i]:array()//三级菜单项
         );
         return view('TheoryEvaluationTable',compact('front','back'));
     }
@@ -176,6 +181,85 @@ class HomeController extends Controller
         );
         return view('weixin.PhysicalEvaluationTable',compact('front','back'));
     }
+
+    public function GetFrontValueTable()
+    {
+        $mytime=new HelpController;
+        $Time=$mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
+        //通过GetCurrentTableName函数将2016-2017-1格式得到当前使用评价体系使用版本的后缀名
+        $TableName=$mytime->GetCurrentTableName($Time['YearSemester']);
+
+        $DataTable=array();
+        $DataFirst=array();
+        $DataSecond=array();
+        $DataThird=array();
+
+        $TableType=DB::table('front_contents'.$TableName)->where('fid','=',0)->get();
+
+        for($iType=0;$iType<count($TableType);$iType++)
+        {
+            $DataTable[$iType]=$TableType[$iType];
+            $IndexFirst=DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+            for($iF=0;$iF<count($IndexFirst);$iF++)
+            {
+                $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $IndexSecond=DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+                for($iS=0;$iS<count($IndexSecond);$iS++)
+                {
+                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $IndexThird=DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
+                    for($iT=0;$iT<count($IndexThird);$iT++)
+                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
+                }
+            }
+        }
+        $data = Array(
+            '1'=>$DataTable,
+            '2'=>$DataFirst,
+            '3'=>$DataSecond,
+            '4'=>$DataThird,
+        );
+        return $data;
+    }
+    public function GetBackValueTable()
+    {
+        $mytime=new HelpController;
+        $Time=$mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
+        //通过GetCurrentTableName函数将2016-2017-1格式  得到  当前使用评价体系使用版本的后缀名
+        $TableName=$mytime->GetCurrentTableName($Time['YearSemester']);
+
+        $DataTable=array();
+        $DataFirst=array();
+        $DataSecond=array();
+        $DataThird=array();
+
+        $TableType=DB::table('back_contents'.$TableName)->where('fid','=',0)->get();
+        for($iType=0;$iType<count($TableType);$iType++)
+        {
+            $DataTable[$iType]=$TableType[$iType];
+            $IndexFirst=DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+            for($iF=0;$iF<count($IndexFirst);$iF++)
+            {
+                $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $IndexSecond=DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+                for($iS=0;$iS<count($IndexSecond);$iS++)
+                {
+                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $IndexThird=DB::table('back_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
+                    for($iT=0;$iT<count($IndexThird);$iT++)
+                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
+                }
+            }
+        }
+        $data = Array(
+            '1'=>$DataTable,
+            '2'=>$DataFirst,
+            '3'=>$DataSecond,
+            '4'=>$DataThird
+        );
+        return $data;
+    }
+
     //获取正面评价表内容
 
     public function UpdateEvaluation_Migration(Request $request)
@@ -316,90 +400,90 @@ class HomeController extends Controller
 
     }
 
-    public function GetFrontValueTable()
-    {
-        $mytime = new HelpController;
-        $Time = $mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
-
-//通过GetCurrentTableName函数将2016-2017-1格式  得到  当前使用评价体系使用版本的后缀名
-        $TableName = $mytime->GetCurrentTableName($Time['YearSemester']);
-
-        $DataTable []=Array();
-        $DataFirst []=Array();
-        $DataSecond []=Array();
-        $DataThird []=Array();
-
-        $TableType = DB::table('front_contents'.$TableName)->where('fid','=','0')->get();
-        for ($iType=0;$iType<count($TableType);$iType++)
-        {
-            $DataTable[$iType]=$TableType[$iType]->text;
-            //获取一级菜单
-            $IndexFirst = DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
-            for ($iF=0;$iF<count($IndexFirst);$iF++)
-            {
-                $DataFirst[$iType][$iF]=$IndexFirst[$iF]->text;
-                $IndexSecond = DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
-                for($iS=0;$iS<count($IndexSecond);$iS++)
-                {
-                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS]->text;
-                    $IndexThird = DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
-                    for($iT=0;$iT<count($IndexThird);$iT++)
-                    {
-                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT]->text;
-                    }
-                }
-            }
-        }
-//        $TheoryTable []=Array();
-//        $PracticeTable []=Array();
-//        $PhysicalTable []=Array();
-        $data = Array(
-            '1'=>$DataTable,
-            '2'=>$DataFirst,
-            '3'=>$DataSecond,
-            '4'=>$DataThird,
-        );
-        return $data;
-    }
-    public function GetBackValueTable()
-    {
-//        见GetFrontValueTable()
-        $version  = new HelpController;
-        $mytime = new HelpController;
-        $Time = $mytime->GetYearSemester(date('Y-m'));
-        $TableName = $version->GetCurrentTableName($Time['YearSemester']);
-
-        $DataTable []=Array();
-        $DataFirst []=Array();
-        $DataSecond []=Array();
-
-        $TableType = DB::table('back_contents'.$TableName)->where('fid','=','0')->get();
-
-        for ($iType=0;$iType<count($TableType);$iType++)
-        {
-            $DataTable[$iType]=$TableType[$iType]->text;
-            //获取一级菜单
-            $IndexFirst = DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
-            for ($iF=0;$iF<count($IndexFirst);$iF++)
-            {
-                $DataFirst[$iType][$iF]=$IndexFirst[$iF]->text;
-                $IndexSecond = DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
-                for($iS=0;$iS<count($IndexSecond);$iS++)
-                {
-                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS]->text;
-                }
-            }
-        }
-        $data = Array(
-            '1'=>$DataTable,
-            '2'=>$DataFirst,
-            '3'=>$DataSecond,
-        );
-        return $data;
-    }
-
-
-
+//    public function GetFrontValueTable()
+//    {
+//        $mytime = new HelpController;
+//        $Time = $mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
+//
+////通过GetCurrentTableName函数将2016-2017-1格式  得到  当前使用评价体系使用版本的后缀名
+//        $TableName = $mytime->GetCurrentTableName($Time['YearSemester']);
+//
+//        $DataTable []=Array();
+//        $DataFirst []=Array();
+//        $DataSecond []=Array();
+//        $DataThird []=Array();
+//
+//        $TableType = DB::table('front_contents'.$TableName)->where('fid','=','0')->get();
+//        for ($iType=0;$iType<count($TableType);$iType++)
+//        {
+//            $DataTable[$iType]=$TableType[$iType]->text;
+//            //获取一级菜单
+//            $IndexFirst = DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+//            for ($iF=0;$iF<count($IndexFirst);$iF++)
+//            {
+//                $DataFirst[$iType][$iF]=$IndexFirst[$iF]->text;
+//                $IndexSecond = DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+//                for($iS=0;$iS<count($IndexSecond);$iS++)
+//                {
+//                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS]->text;
+//                    $IndexThird = DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
+//                    for($iT=0;$iT<count($IndexThird);$iT++)
+//                    {
+//                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT]->text;
+//                    }
+//                }
+//            }
+//        }
+////        $TheoryTable []=Array();
+////        $PracticeTable []=Array();
+////        $PhysicalTable []=Array();
+//        $data = Array(
+//            '1'=>$DataTable,
+//            '2'=>$DataFirst,
+//            '3'=>$DataSecond,
+//            '4'=>$DataThird,
+//        );
+//        return $data;
+//    }
+//    public function GetBackValueTable()
+//    {
+////        见GetFrontValueTable()
+//        $version  = new HelpController;
+//        $mytime = new HelpController;
+//        $Time = $mytime->GetYearSemester(date('Y-m'));
+//        $TableName = $version->GetCurrentTableName($Time['YearSemester']);
+//
+//        $DataTable []=Array();
+//        $DataFirst []=Array();
+//        $DataSecond []=Array();
+//
+//        $TableType = DB::table('back_contents'.$TableName)->where('fid','=','0')->get();
+//
+//        for ($iType=0;$iType<count($TableType);$iType++)
+//        {
+//            $DataTable[$iType]=$TableType[$iType]->text;
+//            //获取一级菜单
+//            $IndexFirst = DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+//            for ($iF=0;$iF<count($IndexFirst);$iF++)
+//            {
+//                $DataFirst[$iType][$iF]=$IndexFirst[$iF]->text;
+//                $IndexSecond = DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+//                for($iS=0;$iS<count($IndexSecond);$iS++)
+//                {
+//                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS]->text;
+//                }
+//            }
+//        }
+//        $data = Array(
+//            '1'=>$DataTable,
+//            '2'=>$DataFirst,
+//            '3'=>$DataSecond,
+//        );
+//        return $data;
+//    }
+//
+//
+//
     public function EvaluationContent(Request $request)
     {
         $version = new HelpController;
@@ -448,20 +532,14 @@ class HomeController extends Controller
             ->where('任课教师','=',$teacher)
             ->where('听课时间','=',$lesson_date)
             ->where('督导id','=',$supervisor)->get();
-
-        return $data=[
+        return $data=
+        [
             '1'=>$frontContent,
             '2'=>$backContent,
             '3'=>$tableF,
             '4'=>$tableB
         ];
     }
-
-
-
-
-
-
     public function getTree($result, $parent_id = 0, $level = 0)
     {
         static $arrTree = array();

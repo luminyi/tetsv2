@@ -169,9 +169,8 @@ class HelpController extends Controller
         $CreateTime = DB::table("Evaluation_Migration")->where("Create_Year",'=',$TableFlag)->get();
         if( $CreateTime!=null)
             return $CreateTime[0]->Table_Name;
-        else{
+        else
             return -1;
-        }
     }
     //获取数据lesson表中学院的名称
     public function UnitName()

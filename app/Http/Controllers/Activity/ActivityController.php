@@ -75,6 +75,7 @@ class ActivityController extends Controller
         $activity = Activities::where('term',$Term['YearSemester'])->with(['users'=>function($query) use($userId){
             return $query->select('users.id','users.user_id')->where('users.id','=',$userId);
         }])->get();
+
         return $activity;
 
     }
@@ -182,7 +183,6 @@ class ActivityController extends Controller
     public function change(Requests\ActivityChangeRequest $request)
     {
         $input = $request->all();
-
         $flag = DB::table('activities')->where('name',$input['nameChange'])
             ->update([
                 "teacher" => $input['teacherChange'],
@@ -247,12 +247,17 @@ class ActivityController extends Controller
         return $activity;
     }
 
+
+
+
+
     public function attendTeacher(Request $request){
         $activityId = $request->get('id');
         $attendPeople = DB::table('activities_user')
             ->select('users.unit','users.name')
             ->leftjoin('users','users.id', '=', 'activities_user.user_id')
             ->where('activities_id','=',$activityId)->get();
+
         return $attendPeople;
     }
 

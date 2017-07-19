@@ -730,6 +730,527 @@ class EvaluationController extends Controller
      * 理论表拥有课程时间（上课周次，课程节次，上课地点）
      * 实践表无课程时间和上课地址
      */
+    public function CheckFrontIsReady()
+    {
+        $Version=new HelpController;
+        $Current='2017-2018-1';
+        $TableName=$Version->GetCurrentTableName($Current);
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $cnt=0;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_contents$TableName"."'"))==1)
+            if(count(DB::table("front_theory_contents$TableName")->get())>1)
+                $cnt++;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_contents$TableName"."'"))==1)
+            if(count(DB::table("front_practice_contents$TableName")->get())>1)
+                $cnt++;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_contents$TableName"."'"))==1)
+            if(count(DB::table("front_physical_contents$TableName")->get())>1)
+                $cnt++;
+        return ($cnt==3);
+    }
+    public function CheckBackIsReady()
+    {
+        $Version=new HelpController;
+        $Current='2017-2018-1';
+        $TableName=$Version->GetCurrentTableName($Current);
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $cnt=0;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_contents$TableName"."'"))==1)
+            if(count(DB::table("back_theory_contents$TableName")->get())>1)
+                $cnt++;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_practice_contents$TableName"."'"))==1)
+            if(count(DB::table("back_practice_contents$TableName")->get())>1)
+                $cnt++;
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_physical_contents$TableName"."'"))==1)
+            if(count(DB::table("back_physical_contents$TableName")->get())>1)
+                $cnt++;
+        return ($cnt==3);
+    }
+    public function TheoryEvaluationTableToDB(Request $request)
+    {
+        $Version=new HelpController;
+        $Current='2017-2018-1';
+        $TableName=$Version->GetCurrentTableName($Current);
+
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+//        $TableName='_2017_09';
+        //理论表正面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table front_theory_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table front_theory_contents".$TableName." ($str);");
+        DB::table("front_theory_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '理论课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $frontdata = $request->frontdata;
+        for($i=0;$i<count($frontdata);$i++)
+        {
+            DB::table("front_theory_contents$TableName")->insert(
+                ['fid' => $frontdata[$i]['fid'], 'text' => trim($frontdata[$i]['text']), 'cssstyle' => $frontdata[$i]['cssstyle'], 'level' => $frontdata[$i]['level']]
+            );
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("front_contents$TableName")->where('text','=','理论课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("front_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("front_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("front_theory_contents$TableName")->where('text','=','理论课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("front_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("front_theory_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+        //理论表背面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table back_theory_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table back_theory_contents".$TableName." ($str);");
+        DB::table("back_theory_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '理论课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $backdata = $request->backdata;
+        for($i=0;$i<count($backdata);$i++)
+        {
+            DB::table("back_theory_contents$TableName")->insert(
+                ['fid' => $backdata[$i]['fid'], 'text' => trim($backdata[$i]['text']), 'cssstyle' => $backdata[$i]['cssstyle'], 'level' => $backdata[$i]['level']]
+            );
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("back_contents$TableName")->where('text','=','理论课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("back_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("back_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("back_theory_contents$TableName")->where('text','=','理论课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("back_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("back_theory_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+
+        return $Data=[
+            '1'=>$this->CheckFrontIsReady(),
+            '2'=>$this->CheckBackIsReady()
+        ];
+    }
+    public function PracticeEvaluationTableToDB(Request $request)
+    {
+        $Version=new HelpController;
+        $Current='2017-2018-1';
+        $TableName=$Version->GetCurrentTableName($Current);
+
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+//        $TableName='_2017_09';
+        //理论表正面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table front_practice_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table front_practice_contents".$TableName." ($str);");
+        DB::table("front_practice_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '实践课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $frontdata = $request->frontdata;
+        for($i=0;$i<count($frontdata);$i++)
+        {
+            DB::table("front_practice_contents$TableName")->insert(
+                ['fid' => $frontdata[$i]['fid'], 'text' => trim($frontdata[$i]['text']), 'cssstyle' => $frontdata[$i]['cssstyle'], 'level' => $frontdata[$i]['level']]
+            );
+        }
+
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("front_contents$TableName")->where('text','=','实践课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("front_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("front_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("front_practice_contents$TableName")->where('text','=','实践课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("front_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("front_practice_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+
+        //理论表背面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table back_practice_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table back_practice_contents".$TableName." ($str);");
+        DB::table("back_practice_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '实践课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $backdata = $request->backdata;
+        for($i=0;$i<count($backdata);$i++)
+        {
+            DB::table("back_practice_contents$TableName")->insert(
+                ['fid' => $backdata[$i]['fid'], 'text' => trim($backdata[$i]['text']), 'cssstyle' => $backdata[$i]['cssstyle'], 'level' => $backdata[$i]['level']]
+            );
+        }
+
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("back_contents$TableName")->where('text','=','实践课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("back_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("back_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("back_practice_contents$TableName")->where('text','=','实践课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("back_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("back_practice_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+
+        return $Data=[
+            '1'=>$this->CheckFrontIsReady(),
+            '2'=>$this->CheckBackIsReady()
+        ];
+    }
+    public function PhysicalEvaluationTableToDB(Request $request)
+    {
+        $Version=new HelpController;
+        $Current='2017-2018-1';
+        $TableName=$Version->GetCurrentTableName($Current);
+
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+//        $TableName='_2017_09';
+        //理论表正面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table front_physical_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table front_physical_contents".$TableName." ($str);");
+        DB::table("front_physical_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '体育课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $frontdata = $request->frontdata;
+        for($i=0;$i<count($frontdata);$i++)
+        {
+            DB::table("front_physical_contents$TableName")->insert(
+                ['fid' => $frontdata[$i]['fid'], 'text' => trim($frontdata[$i]['text']), 'cssstyle' => $frontdata[$i]['cssstyle'], 'level' => $frontdata[$i]['level']]
+            );
+        }
+
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("front_contents$TableName")->where('text','=','体育课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("front_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("front_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("front_physical_contents$TableName")->where('text','=','体育课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("front_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("front_physical_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+
+        //理论表背面
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_physical_contents$TableName"."'"))==1)
+        {
+            mysqli_query($con, "drop table back_physical_contents$TableName;");
+        }
+        $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
+        mysqli_query($con,"create table back_physical_contents".$TableName." ($str);");
+        DB::table("back_physical_contents$TableName")->insert(
+            ['fid' => 0, 'text' => '体育课评价表', 'cssstyle' => 1, 'level' => 0]
+        );
+        $backdata = $request->backdata;
+        for($i=0;$i<count($backdata);$i++)
+        {
+            DB::table("back_physical_contents$TableName")->insert(
+                ['fid' => $backdata[$i]['fid'], 'text' => trim($backdata[$i]['text']), 'cssstyle' => $backdata[$i]['cssstyle'], 'level' => $backdata[$i]['level']]
+            );
+        }
+
+        $queue=array();
+        $head=-1;$tail=0;
+        array_push($queue,DB::table("back_contents$TableName")->where('text','=','体育课评价表')->get()[0]->id);
+        while($head<$tail)
+        {
+            $head++;
+            $x=$queue[$head];
+            $result=DB::table("back_contents$TableName")->where('fid','=',$x)->get();
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,$result[$i]->id);
+                $tail++;
+            }
+        }
+        for($i=0;$i<count($queue);$i++)
+        {
+            $id=$queue[$i];
+            DB::table("back_contents$TableName")->where('id','=',$id)->delete();
+        }
+        $queue=array();
+        $head=-1;$tail=0;
+        $result=DB::table("back_physical_contents$TableName")->where('text','=','体育课评价表')->get();
+        array_push($queue,
+            [
+                'result'=>$result[0],
+                'fid'=>0
+            ]
+        );
+        while($head<$tail)
+        {
+            $head++;
+            $result=$queue[$head]['result'];
+            $fid=$queue[$head]['fid'];
+            $nowid=DB::table("back_contents$TableName")->insertGetId(
+                [
+                    'fid' => $fid,
+                    'text' => $result->text,
+                    'cssstyle' => $result->cssstyle,
+                    'level' => $result->level
+                ]
+            );
+            $id=$result->id;
+            $result=DB::table("back_physical_contents$TableName")->where('fid','=',$id)->get();
+            $fid=$nowid;
+            for($i=0;$i<count($result);$i++)
+            {
+                array_push($queue,
+                    [
+                        'result'=>$result[$i],
+                        'fid'=>$fid
+                    ]
+                );
+                $tail++;
+            }
+        }
+
+        return $Data=[
+            '1'=>$this->CheckFrontIsReady(),
+            '2'=>$this->CheckBackIsReady()
+        ];
+    }
     public function DBTheoryFrontEvaluationTable(Request $request)
     {
         $YearSemester=new HelpController;
