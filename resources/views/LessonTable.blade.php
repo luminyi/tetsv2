@@ -15,6 +15,27 @@
     .btn:hover,.btn:focus{
         color: #fff !important;
     }
+    #newmain{
+        overflow: auto;float: left;margin-left:2%;width: 1660px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:40%;width: 1660px;
+        }
+        #dtpick{
+            height: 33%;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:91%;width: 1660px;
+        }
+        #dtpick{
+            height: 24%;
+        }
+    }
 </style>
 <head>
 
@@ -54,7 +75,7 @@
 <body>
 <link rel="stylesheet" href="{{asset('css/LessonTable.css')}}">
 
-    <div class="container-fluid clearfix">
+    <div id="newmain" class="container-fluid clearfix">
         <div class="row clearfix">
                     <!-- 面板开始 -->
             <input id="getlevel" value="{{session('role')}}" style="display: none"/>
@@ -95,6 +116,7 @@
                                     </div>
 
                                     <div class="box_down clearfix">
+
                                     </div>
                                 </div>
                                 <div class="box_match clearfix">
@@ -105,7 +127,7 @@
                         <div style="display: inline-block; margin-bottom:20px;vertical-align:middle;" class="semester">学年学期
                             <input id="calender" class="select_year" type="text" data-field="date" readonly></div>
                         <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none;">
-                            <div class="dtpicker-bg">
+                            <div id="dtpick" class="dtpicker-bg">
                                 <div class="dtpicker-cont">
                                     <div class="dtpicker-content">
                                         <div class="dtpicker-subcontent">

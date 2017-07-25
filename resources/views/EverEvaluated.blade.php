@@ -32,6 +32,34 @@
         width: 9.7%!important;
         float:left!important;
     }
+    #newmain{
+        overflow: auto;float: left;margin-left:2%;width: 1660px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:38%;width: 1660px;
+        }
+        #dtpick{
+            left: 10%;
+            top: 10%;
+        }
+        #search-suggest{
+            left:750px!important;
+            height:300px!important;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:70%;width: 1660px;
+        }
+        #dtpick{
+            top: 5%;
+            left: 15%;
+        }
+    }
+
 </style>
 {{--日历相关--}}
 <link rel="stylesheet" type="text/css" href="calendar/DateTimePicker.css" />
@@ -45,7 +73,7 @@
 <body>
 @include('layout.header')
 @include('layout.sidebar')
-<div class="container-fluid clearfix">
+<div id="newmain" class="container-fluid clearfix" style="">
     <div class="row clearfix">
         <!-- 面板开始 -->
         <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
@@ -90,7 +118,9 @@
                     <div class="Teacher-Table">
                         <div>
                             @if(session('role')=='校级' || session('role')=='大组长')
-                                <p style="display: inline-block;">学年学期<input id="calender" class="select" type="text" data-field="date" ></p>
+                                <p style="display: inline-block;">
+                                    学年学期<input id="calender" class="select" type="text" data-field="date" >
+                                </p>
                                 <span>查询方式
                                 <select class="form-control" name="ViewWay" id="ViewWay" style="display: inline-block;width: 80px;">
                                     <option>学院</option>
@@ -102,16 +132,30 @@
                             @endif
 
                             @if(session('role')=='小组长')
-                                <p class="learnYear" style="display: inline-block;margin-left:60px">学年学期<input id="calender" class="select-year" type="text" data-field="date" ></p>
-                                <p class="selectZu" style="display: inline-block; margin-left: 100px;"><input  id="groupName" class="form-control" type="text" value="{{Auth::User()->group}}" placeholder="{{Auth::User()->group}}" style="margin-left:110px;width:60%"></p>
+                                <p class="learnYear" style="display: inline-block;margin-left:60px">
+                                    学年学期<input id="calender" class="select-year" type="text" data-field="date" >
+                                </p>
+                                <p class="selectZu" style="display: inline-block; margin-left: 100px;">
+                                    <input  id="groupName" class="form-control" type="text" value="{{Auth::User()->group}}" placeholder="{{Auth::User()->group}}" style="margin-left:110px;width:60%">
+                                </p>
                             @endif
+
                             @if(session('role')=='院级')
-                                <p style="display: inline-block;">学年学期<input id="calender" class="select-year" type="text" data-field="date" readonly></p>
-                                <p style="display: inline-block; margin-left: 30px;"><input  id="name" type="text" value="{{Auth::User()->unit}}" style="display: none"></p>
+                                <p style="display: inline-block;">
+                                    学年学期<input id="calender" class="select-year" type="text" data-field="date" readonly>
+                                </p>
+                                <p style="display: inline-block; margin-left: 30px;">
+                                    <input  id="name" type="text" value="{{Auth::User()->unit}}" style="display: none">
+                                </p>
                             @endif
+
                             @if(session('role')=='督导')
-                                <p style="display: inline-block;">学年学期<input id="calender" class="select-year" type="text" data-field="date" readonly></p>
-                                <p style="display: inline-block; margin-left: 30px;"><input  id="name" type="text" value="{{Auth::User()->user_id}}" style="display: none"></p>
+                                <p style="display: inline-block;">
+                                    学年学期<input id="calender" class="select-year" type="text" data-field="date" readonly>
+                                </p>
+                                <p style="display: inline-block; margin-left: 30px;">
+                                    <input  id="name" type="text" value="{{Auth::User()->user_id}}" style="display: none">
+                                </p>
                             @endif
 
 
@@ -125,7 +169,7 @@
                         </div>
 
                         {{--搜索框下拉列表--}}
-                        <div class="suggest" id="search-suggest" style="z-index: 9999">
+                        <div class="suggest" id="search-suggest" style="z-index: 9998;">
                             <ul id="search_result">
 
                             </ul>
@@ -245,13 +289,9 @@
                                                             <th data-field="填表时间" data-halign="center" data-align="center">填表时间</th>
                                                             <th data-field="听课节次" data-halign="center" data-align="center">听课节次</th>
                                                             <th data-field="授课总体评价" data-halign="center" data-align="center">授课总体评价</th>
-
-                                                            {{--<th data-field="上课地点" data-halign="center" data-align="center">上课地点</th>--}}
-                                                            {{--<th data-field="上课班级" data-halign="center" data-align="center">上课班级</th>--}}
-                                                            {{--<th data-field="章节目录" data-halign="center" data-align="center">章节目录</th>--}}
                                                             <th data-field="lesson_level"  data-halign="center" data-align="center">课程分类</th>
                                                             <th data-field="action" data-align="center" data-formatter="actionUnitFormatter" data-events="actionEvents">评价详情</th>
-                                                            {{--<th data-field="action1" data-formatter="actionResetFormatter" data-events="actionEvents">重置</th>--}}
+
                                                         @elseif(session('role')=='小组长')
                                                             <th data-field="课程名称" data-halign="center" data-align="center">课程名称</th>
                                                             <th data-field="任课教师" data-halign="center" data-align="center">任课教师</th>
@@ -519,6 +559,37 @@
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal -->
                                 </div>
+
+
+                                {{--撤销按钮提示框--}}
+                                <button id="cancelModel" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#cancelmodal" style="display: none">
+                                    开始演示模态框
+                                </button>
+                                <div class="modal fade" id="cancelmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    &times;
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    重要！！！
+                                                </h4>
+                                            </div>
+                                            <div id="cancelContent" class="modal-body">
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">
+                                                    关闭
+                                                </button>
+                                                <button id='cancelOK' type="button" class="btn btn-success btn-raised">
+                                                    确定
+                                                </button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal -->
+                                </div>
                             </div>
 
 
@@ -527,7 +598,7 @@
 
                         <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none;">
                             <div class="dtpicker-bg">
-                                <div class="dtpicker-cont">
+                                <div id="dtpick" class="dtpicker-cont">
                                     <div class="dtpicker-content" style="margin-left: 266px;">
                                         <div class="dtpicker-subcontent">
 
@@ -634,7 +705,7 @@
             $("#detail").click();
             $('#front').empty();
             $('#back').empty();
-            console.log(row);
+//            console.log(row);
             var valurID = row.valueID;
             var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
             var LessonTeacher=row.任课教师.replace(/(^\s+)|(\s+$)/g,"");
@@ -655,7 +726,7 @@
                     Lesson_date:LessonValueTime,
                     Lessontime:LessonTime},//传递学院名称
                 success: function (result) {
-//                    console.log(result);
+                    console.log(result);
                     var chapterVal=result[1][0].章节目录;
                     var LessonNameVal=result[1][0].课程名称;
                     var TeacherVal=result[1][0].任课教师;
@@ -1032,7 +1103,7 @@
         },
         'click .remove': function (e, value, row, index){//重置
             $('#resetModel').click();
-            $('#resetContent').html('确定要重置 '+row.督导id+" "+row.督导姓名+"督导 在"+row.听课时间+"日，第"+row.听课节次+"节课中" +
+            $('#resetContent').html('确定要重置 '+row.督导id+" "+row.督导姓名+"督导 在"+row.听课时间+"日，"+row.听课节次+"课中" +
                     " 对 "+row.课程名称+" 的评价?");
             $('#OK').click(function (){
                 var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
@@ -1097,34 +1168,42 @@
             });
         },
         'click .SDEL': function (e, value, row, index){//撤销
-            var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
-            var LessonTeacher=row.任课教师.replace(/(^\s+)|(\s+$)/g,"");
-            var LessonSupervisorID=row.督导id.replace(/(^\s+)|(\s+$)/g,"");
-            var LessonValueTime=row.听课时间.replace(/(^\s+)|(\s+$)/g,"");
-            var LessonTime=row.听课节次.replace(/(^\s+)|(\s+$)/g,"");
-            var valueID = row.valueID;
+            $('#cancelModel').click();
+            $('#cancelContent').html('确定要取消 '+row.督导姓名+"督导 在"+row.听课时间+"日，"+row.听课节次+"课中" +
+                    " 对 "+row.课程名称+" 的评价?");
+            $('#cancelOK').click(function (){
+                var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
+                var LessonTeacher=row.任课教师.replace(/(^\s+)|(\s+$)/g,"");
+                var LessonSupervisorID=row.督导id.replace(/(^\s+)|(\s+$)/g,"");
+                var LessonValueTime=row.听课时间.replace(/(^\s+)|(\s+$)/g,"");
+                var LessonTime=row.听课节次.replace(/(^\s+)|(\s+$)/g,"");
+                var valueID = row.valueID;
 
-            $.ajax({
-                type: "get",
-                async: false,
-                url: "/DelEvaluationContent",
-                data: {
-                    year1:$("#year1").val(),
-                    year2:$("#year2").val(),
-                    semester:$("#terminal").val().match(/\d/g),
-                    lessonname:LessonName,
-                    lessonteacher:LessonTeacher,
-                    lessonvaluetime:LessonValueTime,//听课时间
-                    LessonSupervisorID:LessonSupervisorID,
-                    LessonTime:LessonTime,//听课节次
-                    valueID:valueID
-                },//传递学院名称
-                success: function (result) {
-                    alert(result);
-                    if(result=='撤销成功')
-                        window.location.reload();
-                }
+                $.ajax({
+                    type: "get",
+                    async: false,
+                    url: "/DelEvaluationContent",
+                    data: {
+                        year1:$("#year1").val(),
+                        year2:$("#year2").val(),
+                        semester:$("#terminal").val().match(/\d/g),
+                        lessonname:LessonName,
+                        lessonteacher:LessonTeacher,
+                        lessonvaluetime:LessonValueTime,//听课时间
+                        LessonSupervisorID:LessonSupervisorID,
+                        LessonTime:LessonTime,//听课节次
+                        valueID:valueID
+                    },//传递学院名称
+                    success: function (result) {
+                        alert(result);
+                        if(result=='撤销成功')
+                            window.location.reload();
+                    }
+                });
             });
+
+
+
         }
 
     };

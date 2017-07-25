@@ -4,6 +4,22 @@
 <html lang="en">
 <style>
     *{font-family:"Microsoft YaHei"}
+    #newmain{
+        overflow: auto;float: left;margin-left:2%;width: 1660px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain {
+            overflow: auto;
+            float: left;
+            margin-left: 47%;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:90%;width: 1660px;
+        }
+    }
 </style>
 <link rel="stylesheet" href="css/Evaluation.css" />
 
@@ -33,7 +49,7 @@
 @include('layout.header')
 @include('layout.sidebar')
 <body>
-<div class="container-fluid clearfix">
+<div id="newmain" class="container-fluid clearfix">
     <div class="row clearfix">
         {{--@include('layout.sidebar')--}}
                 <!-- 面板开始 -->
@@ -207,13 +223,13 @@
                                             <td><input type="text" class="form-control" id="ListenTime" readonly="readonly"></td>
                                         </tr>
                                     </table>
-                                    <div>
+                                    <div class="alert alert-danger" style="font-size: 20px;text-align: center;">
                                         <span class="icon-exclamation-sign" style="color: #f35454;"></span>
                                         <strong>  &nbsp;&nbsp;&nbsp;&nbsp; 注：</strong>
                                         &nbsp;&nbsp;&nbsp;（1）5个评价等级为：非常满意、满意、正常、存在不足、存在明显不足。<br>
                                         （2）评价内容共两部分：评价表正面和评价表背面。<br>
                                         （3）评价表正面除“章节目录、课程属性、学生到课情况、其他”外均为必填项，背面为选填项。<br>
-                                    </div>
+                                    </div >
                                     <br><br>
                                     <ul id="myTab" class="nav nav-tabs">
                                         <li class="active"><a href="#front" data-toggle="tab">评价表正面</a></li>

@@ -82,14 +82,14 @@
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															{{--<input type="hidden" name="_token" value="{{ csrf_token() }}" />--}}
-                                                            <input type="text" name="user_id" class="form-control" value="testteacher" placeholder="" />
+                                                            <input type="text" name="user_id" class="form-control" value="" placeholder="" />
 															<i class="icon-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" name="password" class="form-control" value="1qaz2wsx" placeholder="" />
+															<input type="password" name="password" class="form-control" value="" placeholder="" />
 															<i class="icon-lock"></i>
 														</span>
                                             </label>
@@ -108,12 +108,15 @@
                                                     <input type="checkbox" class="ace" name="remember" value="1"/>
                                                     <span class="lbl"> 记住我</span>
                                                 </label>
+                                                <label style="float: right">
+                                                </label>
 
-                                                <button type="button" class="width-35 pull-right btn btn-sm btn-primary" onclick='$("#formid").submit()'>
-                                                    <i class="icon-key" ></i>
-                                                    登录
-                                                </button>
                                             </div>
+                                            <button type="button" class="width-35 pull-right btn btn-sm btn-primary" onclick='$("#formid").submit()'>
+                                                <i class="icon-key" ></i>
+                                                登录
+                                            </button>
+                                            <a class="btn btn-link" href="{{ url('/password/reset') }}">忘记密码？</a>
 
                                             <div class="space-4"></div>
                                         </fieldset>

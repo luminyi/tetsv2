@@ -504,7 +504,6 @@ $(".fixed-table-loading").hide();
                         height:'150px',
                         overflow:'auto'
                     });
-
                 }
             });
         }

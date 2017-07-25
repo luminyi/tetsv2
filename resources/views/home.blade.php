@@ -40,6 +40,7 @@
     <meta name="description" content="北京林业大学教评中心业务平台"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
+    {{--<link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />--}}
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/dashboard.css')}}" />
@@ -59,7 +60,7 @@
 </head>
 <link rel="stylesheet" href="{{asset('css/Index.css')}}">
 <html lang="en">
-<body>
+<body style="overflow-x: auto;">
 @if(session('role')=='教师')
     <script>
         window.location = "/activity/index";
@@ -81,8 +82,8 @@
             <input id="getunit" value="{{Auth::User()->unit}}" style="display: none"/>
             <input id="getgroup" value="{{Auth::User()->group}}" style="display: none"/>
 
-
-            <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+            {{--<div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2" style="width: 1676px">--}}
+            <div class="" style="float: left;margin-left:260px;width: 1660px">
                 <!-- .breadcrumb -->
                 <div class="breadcrumbs" id="breadcrumbs">
                     <ul class="breadcrumb" style="padding-top: 22px; padding-bottom: 12px;">
@@ -103,7 +104,8 @@
                             <!-- Page start here ( usual with .row ) -->
                             <div class="row">
                                 <!-- Start .row -->
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <div class="" style="float: left;width: 380px;margin-left: 11px;margin-right: 11px">
+                                {{--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">--}}
                                     <div class="carousel-tile carousel vertical slide">
                                         <div class="carousel-inner">
                                             <div class="item active">
@@ -135,7 +137,8 @@
                                     </div>
                                     <!-- End Carousel -->
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                {{--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">--}}
+                                <div class="" style="float: left;width: 380px;margin-left: 11px;margin-right: 11px">
                                     <div class="carousel-tile carousel slide">
                                         <div class="carousel-inner">
                                             <div class="item active">
@@ -168,7 +171,8 @@
                                     </div>
                                     <!-- End Carousel -->
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                                <div class="" style="float: left;width: 380px;margin-left: 11px;margin-right: 11px">
                                     <div class="carousel-tile carousel vertical slide">
                                         <div class="carousel-inner">
                                             <div class="item active">
@@ -200,7 +204,8 @@
                                     </div>
                                     <!-- End Carousel -->
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                                <div class="" style="float: left;width: 380px;margin-left: 11px;margin-right: 11px">
                                     <div class="carousel-tile carousel slide">
                                         <div class="carousel-inner">
                                             <div class="item active">

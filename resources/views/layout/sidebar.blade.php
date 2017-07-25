@@ -6,6 +6,9 @@
     a{
         color:#fff;
     }
+    .sidebar{
+        position: fixed;
+    }
     .indents{
         margin-left:20px;
     }
@@ -20,14 +23,26 @@
         padding:12px 10px;
 
     }
+    #aside{
+        width: 250px;
+    }
     @media screen and (max-width: 1400px){
         .nav>li>a{
             padding: 10px 2px;
         }
     }
-    .nav>li>a
+    @media screen and (max-width: 768px){
+        #aside{
+            position: absolute;
+            width: 240px;
+            min-height: 750px;
+        }
+    }
 </style>
-<div class="col-sm-2 col-md-2 sidebar sidebar-collapse">
+<div id="aside" class="sidebar sidebar-collapse" style="top: 51px;bottom: 0;left: 0;z-index: 1000;
+display: block;padding: 20px;overflow-x: hidden;overflow-y: auto;background-color: #0a1d2f;
+border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);">
+{{--<div class="col-sm-2 col-md-2 sidebar sidebar-collapse">--}}
     <ul id="sidebar_id" class="nav nav-sidebar ">
         @if(session('role')=='')
             <script language="JavaScript">
@@ -78,7 +93,7 @@
                                 </a>
                             </li>
                             <li class="indents">
-                                <a href="/DataStatistics">
+                                <a href="#">
                                     <i class="glyphicon glyphicon-minus" ></i>
                                     听课数据统计
                                 </a>
@@ -294,6 +309,12 @@
                         学院用户列表
                     </a>
                 </li>
+                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
+                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
+                        <i class="icon-bullhorn"></i>
+                        活动与咨询系统
+                    </a>
+                </li>
             @endif
 
         @if(session('role')=='小组长')
@@ -355,6 +376,12 @@
                         学院用户列表
                     </a>
                 </li>
+                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
+                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
+                        <i class="icon-bullhorn"></i>
+                        活动与咨询系统
+                    </a>
+                </li>
         @endif
 
         @if(session('role')=='院级')
@@ -386,12 +413,12 @@
                             {{--</a>--}}
                         {{--</li>--}}
 
-                        <li class="indentManage" style="border-left:3px solid #4AA3DE;">
-                            <a href="/DataStatistics">
-                                <i class="icon-file-alt"></i>
-                                评价统计
-                            </a>
-                        </li>
+                        {{--<li class="indentManage" style="border-left:3px solid #4AA3DE;">--}}
+                            {{--<a href="/DataStatistics">--}}
+                                {{--<i class="icon-file-alt"></i>--}}
+                                {{--评价统计--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     {{--</ul>--}}
                 {{--</li>--}}
 
@@ -461,6 +488,13 @@
                         学院用户列表
                 </a>
             </li>
+
+                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
+                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
+                        <i class="icon-bullhorn"></i>
+                        活动与咨询系统
+                    </a>
+                </li>
         @endif
     </ul>
 </div>

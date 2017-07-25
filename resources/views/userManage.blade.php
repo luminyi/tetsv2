@@ -44,6 +44,21 @@
         box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(75, 75, 75, 0.3);
         text-align: left;
     }
+    #newmain{
+        overflow: auto;float: left;margin-left:2%;width: 1660px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:38%;width: 1660px;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:91%;width: 1660px;
+        }
+    }
 </style>
 <head>
     <meta charset="utf-8" />
@@ -72,7 +87,7 @@
 
 @include('layout.header')
         <!-- 面板开始 -->
-<div class="container-fluid" style="padding: 0 12px">
+<div id="newmain" class="container-fluid" style="padding: 0 12px">
     <div class="row">
         <input type="hidden" id="hidden" name="_token" value="{{ csrf_token() }}" />
         @include('layout.sidebar')

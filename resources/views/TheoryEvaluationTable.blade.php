@@ -27,15 +27,92 @@
     <![endif]-->
 </head>
 <style>
-    .col-lg-1{
-        width: 6.7%!important;
-        float:left!important;
-        padding-left:10px!important;
-        padding-right:0!important;
+    #newmain{
+         float: left;margin-left:2%;width: 1660px;
+     }
+    .KIKO{
+        float: left;
+        margin-left:15px;
+        margin-bottom: 3px;
         text-align: center;
     }
-    .col-sm-1 {
-        width: 10.33333%!important;
+    .KIKO1{
+        float: left;
+        margin-left:15px;
+        margin-bottom: 3px;
+        text-align: center;
+        width: 30%;
+    }
+    .KIKO2{
+        float: left;
+        margin-left:15px;
+        margin-bottom: 3px;
+        width: 16%;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:44%;width: 1660px;
+        }
+        .KIKO{
+            float: left;
+            margin-left:15px;
+            margin-bottom: 3px;
+            text-align: left;
+            width: 70%;
+        }
+        .KIKO1{
+            float: none;
+            margin-left:15px;
+            margin-bottom: 3px;
+            width: 80%;
+        }
+        .KIKO2{
+            float: none;
+            margin-left:15px;
+            margin-bottom: 3px;
+            width: 80%;
+        }
+        #search-suggest{
+            left: -11px;
+            top: 440px;
+        }
+        #Lesson-suggest{
+            top: 510px;
+        }
+
+    }
+    @media screen and (max-width: 415px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:70%;width: 1660px;
+        }
+        .KIKO{
+            float: none;
+            margin-left:15px;
+            margin-bottom: 3px;
+            text-align: left;
+            width: 70%;
+        }
+        .KIKO1{
+            float: none;
+            margin-left:15px;
+            margin-bottom: 3px;
+            width: 80%;
+        }
+        .KIKO2{
+            float: none;
+            margin-left:15px;
+            margin-bottom: 3px;
+            width: 80%;
+        }
+        #search-suggest {
+            left: -11px;
+            top: 400px;
+        }
+        #Lesson-suggest{
+            top: 464px;
+        }
     }
 </style>
 
@@ -120,11 +197,11 @@
 
 @include('layout.header')
 
-<div class="container-fluid clearfix">
+<div id="newmain" class="container-fluid clearfix">
     <div class="row clearfix">
         @include('layout.sidebar')
                 <!-- 面板开始 -->
-        <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2"  style="margin-top: 20px">
+        <div class="col-sm-12 col-sm-offset-2 col-md-12 col-md-offset-2"  style="margin-top: 20px">
             <div class="page-content form-content">
                 <div class="page-box">
                     <div class="panel panel-success">
@@ -138,13 +215,13 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
 
-                                    <span for="inputChapter" class="col-lg-1" style="padding-top: 8px;">章节目录</span>
-                                    <div class="col-sm-4">
+                                    <span for="inputChapter" id="" class="KIKO" style="padding-top: 8px;">章节目录</span>
+                                    <div class="KIKO1" style="">
                                         <input type="text" class="form-control" id="inputChapter">
                                     </div>
 
-                                    <span for="inputLessonAttr" class="col-lg-1" style="padding-top: 8px;">课程属性</span>
-                                    <div class="col-sm-2">
+                                    <span for="inputLessonAttr" class="KIKO" style="padding-top: 8px;">课程属性</span>
+                                    <div class="KIKO2" style="">
                                         <select class="form-control" name="inputLessonAttr" id="inputLessonAttr"
                                                 style="display: inline-block!important; color: lightgrey"
                                                 onchange="inputLessonAttrAddCss()">
@@ -156,9 +233,9 @@
                                     </div>
 
                                     @if(session('role')=='校级')
-                                        <span for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
+                                        <span for="inputChapterID" id="" class="KIKO" style="padding-top: 8px;width: auto">督导ID</span>
                                         {{--原来的搜索框--}}
-                                        <div class="col-sm-1">
+                                        <div class="KIKO2" >
                                             <div class="search" >
                                                 <form target="_blank" id="search-formID">
                                                     <input id="SearchBarID" class="form-control icon-remove"
@@ -167,9 +244,9 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <span for="inputChapter" class="col-lg-1" style="padding-top: 8px;">督导姓名</span>
+                                        <span for="inputChapter" class="KIKO" style="padding-top: 8px;width: auto">督导姓名</span>
                                         {{--原来的搜索框--}}
-                                        <div class="col-sm-1">
+                                        <div class="KIKO2">
                                             <div class="search" >
                                                 <form target="_blank" id="search-form">
                                                     <input id="SearchBar" class="form-control icon-remove"
@@ -182,12 +259,12 @@
                                         </div>
                                     @endif
                                     @if(session('role')=='督导'||session('role')=='小组长')
-                                        <span for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
-                                        <div class="col-sm-1">
+                                        <span for="inputChapterID" class="KIKO" style="padding-top: 8px;">督导ID</span>
+                                        <div class="KIKO2">
                                             <input type="text" class="form-control" id="SearchBarID" value="{{Auth::User()->user_id}}" readonly="readonly">
                                         </div>
-                                        <span for="inputChapter" class="col-lg-1" style="padding-top: 8px;">督导姓名</span>
-                                        <div class="col-sm-1">
+                                        <span for="inputChapter" class="KIKO" style="padding-top: 8px;">督导姓名</span>
+                                        <div class="KIKO2">
                                             <input type="text" class="form-control" id="SearchBar" value="{{Auth::User()->name}}" readonly="readonly">
                                         </div>
                                     @endif

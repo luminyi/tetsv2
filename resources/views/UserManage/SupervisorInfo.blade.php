@@ -115,6 +115,21 @@
     .search input{
         margin-top: 10px;
     }
+    #newmain{
+        overflow: auto;float: left;margin-left:255px;width: 1660px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:50%;width: 1660px;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:91%;width: 1660px;
+        }
+    }
 </style>
 <head>
     <meta charset="utf-8" />
@@ -147,7 +162,7 @@
 <body>
 @include('layout.header')
 @include('layout.sidebar')
-<div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+<div id="newmain" class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
     <div class="row">
         <!-- .breadcrumb -->
         <div class="breadcrumbs" id="breadcrumbs">

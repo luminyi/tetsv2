@@ -222,7 +222,7 @@ class ActivityController extends Controller
         return $attendPeople;
     }
 
-    public function delete(Request $request){
+    public function deleteActivity(Request $request){
         $input = $request->all();
         DB::table('activities')->whereIn('id',$input['dataArr'])->delete();
         return ('删除成功！');

@@ -2,7 +2,7 @@
     width: 1200px!important;
     overflow-x:hidden;
 }
-.form-control{
+.form-control {
     display: inline-block!important;
 }
 *{font-family:"Microsoft YaHei"}
@@ -30,9 +30,9 @@
         border-radius: 4px;
         color: #555;
     }#search-suggest{
-         position: absolute;
+         position: fixed;
          display: none;
-         left:200px !important;
+         left:200px;
              height:300px;
          /*z-index: 100;*/
      }
@@ -72,7 +72,7 @@
     #search-suggest{
         position: absolute;
         display: none;
-        left:200px !important;
+        left:200px;
         /*z-index: 100;*/
     }
     .suggest{
@@ -98,7 +98,7 @@
     #search-suggest{
         position: absolute;
         display: none;
-        left:830px !important;
+        left:830px;
         /*z-index: 100;*/
     }
     .questionData{

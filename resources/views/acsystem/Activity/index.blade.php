@@ -66,7 +66,7 @@
             </button>
             <!-- 查看详情的 模态框（Modal） -->
             <div class="modal fade" id="checkout-activity" tabindex="-1" role="dialog" aria-hidden="true">
-                <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 10%">
+                <div id="#add-activity-modal" class="modal-dialog" style="margin-top: 10%">
                     <div class="modal-content">
                         <div class="panel panel-default">
                             <div class="panel-heading">
