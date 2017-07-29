@@ -113,7 +113,7 @@ $(document).ready(function() {
         }
         else {
             $.ajax({
-                type: "DELETE",
+                type: "post",
                 async: false,
                 url: "/activity/admin/delete",
                 data: {

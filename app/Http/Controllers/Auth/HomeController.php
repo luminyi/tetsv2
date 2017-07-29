@@ -403,7 +403,6 @@ class HomeController extends Controller
             ->where('任课教师','=',$teacher)
             ->where('听课时间','=',$lesson_date)
             ->where('督导id','=',$supervisor)->get();
-//        Log::write('info',$supervisor);
 
         return $data=[
             '1'=>$frontContent,

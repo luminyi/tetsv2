@@ -9,6 +9,10 @@
         <li @if (Request::is('teachEvaluation/*')) class="active" @endif>
             <a href="/teachEvaluation/index">我的评价</a>
         </li>
+        <li @if (session('role')!='教师') class="active">
+            <a href="/index">教评平台</a>
+            @endif
+        </li>
     @endif
 </ul>
 

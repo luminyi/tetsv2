@@ -118,6 +118,33 @@
     .widget-body-blue{
         background-color: rgba(148, 193, 222, 0.14);
     }
+    #newmain{
+        overflow: auto;margin-left:30px;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:40%;width: 1660px;
+        }
+        #dtpick{
+            left: 0%;
+            top: 38%;
+        }
+
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:70%;width: 1660px;
+        }
+        #minisize{
+            float: none;
+        }
+        #dtpick{
+            top: 20%;
+            left: 10%;
+        }
+    }
 </style>
 <head>
     <meta charset="utf-8" />
@@ -148,11 +175,11 @@
     <script type="text/javascript" src="calendar/DateTimePicker-ltie9.js"></script>
 
 </head>
+
+<body>
 @include('layout.header')
 @include('layout.sidebar')
-<body>
-
-<div class="container-fluid clearfix">
+<div id="newmain" class="container-fluid clearfix">
     <div class="row clearfix">
 
         <input id="getlevel" value="{{session('role')}}" style="display: none"/>
@@ -184,7 +211,7 @@
 
                 <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none;">
                         <div class="dtpicker-bg">
-                            <div class="dtpicker-cont">
+                            <div id="dtpick" class="dtpicker-cont">
                                 <div class="dtpicker-content" style="margin-left: 15%;">
                                     <div class="dtpicker-subcontent">
 
@@ -235,7 +262,7 @@
                 @if(session('role')=='校级'||session('role')=='大组长' )
 
 
-                <div class="col-xs-6 col-sm-6">
+                <div id="minisize" class="col-xs-6 col-sm-6">
                     <div class="widget-box-green">
                         <div class="widget-header header-color-green">
                             <h5 class="bigger lighter"></h5>
@@ -275,7 +302,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div id="minisize" class="col-xs-6 col-sm-6">
                     <div class="widget-box-red">
                         <div class="widget-header header-color-red">
                             <h5 class="bigger lighter"></h5>
@@ -316,7 +343,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div id="minisize" class="col-xs-6 col-sm-6">
                     <div class="widget-box-red">
                         <div class="widget-header header-color-red">
                             <h5 class="bigger lighter"></h5>
@@ -357,7 +384,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div id="minisize" class="col-xs-6 col-sm-6">
                     <div class="widget-box-green">
                         <div class="widget-header header-color-green">
                             <h5 class="bigger lighter"></h5>

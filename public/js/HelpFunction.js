@@ -374,8 +374,8 @@ function chooseSupervisor()
                     var oEvent = ev || event;
                     oEvent.stopPropagation();
                     $('#search-suggest').show().css({
-                        top:$('#SearchBar').offset().top+$('#SearchBar').height(),
-                        left:$('#SearchBar').offset().left,
+                        //top:$('#SearchBar').offset().top+$('#SearchBar').height(),
+                        //left:$('#SearchBar').offset().left,
                         position:'absolute',
                         height:'220px',
                         overflow:'auto'
@@ -418,8 +418,8 @@ function chooseSupervisor()
                         var oEvent = ev || event;
                         oEvent.stopPropagation();
                         $('#search-suggest').show().css({
-                            top:$('#SearchBar').offset().top+$('#SearchBar').height(),
-                            left:$('#SearchBar').offset().left,
+                            //top:$('#SearchBar').offset().top+$('#SearchBar').height(),
+                            //left:$('#SearchBar').offset().left,
                             position:'absolute',
                             height:'220px',
                             overflow:'auto'

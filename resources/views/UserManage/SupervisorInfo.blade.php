@@ -115,6 +115,39 @@
     .search input{
         margin-top: 10px;
     }
+    #newmain{
+        float: left;margin-left:255px;width: 84%;
+    }
+    @media screen and (max-width: 1400px){
+        #newmain{
+            float: left;margin-left:255px;width: 79%;
+        }
+    }
+    @media screen and (max-width: 1100px){
+        #newmain{
+            float: left;margin-left:255px;width: auto;
+        }
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:39%;width: 1660px;
+        }
+        #dtpick{
+            left: -13%;
+            top: 38%;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:69%;width: 1660px;
+        }
+        #dtpick{
+            top: 19%;
+            left: -19%;
+        }
+    }
 </style>
 <head>
     <meta charset="utf-8" />
@@ -147,7 +180,7 @@
 <body>
 @include('layout.header')
 @include('layout.sidebar')
-<div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+<div id="newmain" class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
     <div class="row">
         <!-- .breadcrumb -->
         <div class="breadcrumbs" id="breadcrumbs">
@@ -210,7 +243,7 @@
 
                 <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none;">
                     <div class="dtpicker-bg">
-                        <div class="dtpicker-cont">
+                        <div id="dtpick" class="dtpicker-cont">
                             <div class="dtpicker-content">
                                 <div class="dtpicker-subcontent">
 

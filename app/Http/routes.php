@@ -30,6 +30,7 @@ Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 // 密码重置路由
+Route::get('password/reset', 'Auth\PasswordController@getReset');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
@@ -300,7 +301,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/activity/admin/change','ActivityController@modify');
 
         //delete the request of adding the activities
-        Route::DELETE('/activity/admin/delete','ActivityController@delete');
+        Route::post('/activity/admin/delete','ActivityController@deleteActivity');
         Route::get('/activity/admin/delete','ActivityController@modify');
         //activate the request of adding the activities
         Route::get('/activity/admin/activate','ActivityController@activate');
@@ -332,7 +333,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/consult/admin/create','ConsultController@create');
         Route::get('/consult/admin/create','ConsultController@modify');
         //delete the request of adding the activities
-        Route::DELETE('/consult/admin/delete','ConsultController@delete');
+        Route::post('/consult/admin/delete','ConsultController@deleteConsult');
         Route::get('/consult/admin/delete','ConsultController@modify');
         //the view of adjusting the consult content
         Route::get('/consult/adjust','AdjustController@index');

@@ -7,11 +7,6 @@
 }
 *{font-family:"Microsoft YaHei"}
 @media (max-width: 767px){
-   /* .modal-dialog{
-        width: 860px !important;
-        padding-top: 60px !important;
-        margin-left: 200px !important;
-    }*/
     .questionData{
         width: 500px;
         min-height: 50px;
@@ -23,11 +18,12 @@
         border:1px solid #ccc;
         border-radius: 4px;
         color: #555;
-    }#search-suggest{
-         position: absolute;
+    }
+    #search-suggest{
+         position: fixed;
          display: none;
-         left:200px !important;
-             height:300px;
+         left:200px;
+         height:300px;
          /*z-index: 100;*/
      }
     .suggest{
@@ -45,6 +41,7 @@
         margin-top:50px !important;
     }
 }
+
 @media screen and (min-width: 768px){
     .modal-dialog{
         /*width: 860px !important;*/
@@ -66,7 +63,7 @@
     #search-suggest{
         position: absolute;
         display: none;
-        left:200px !important;
+        left:200px;
         /*z-index: 100;*/
     }
     .suggest{
@@ -92,7 +89,7 @@
     #search-suggest{
         position: absolute;
         display: none;
-        left:830px !important;
+        left:830px;
         /*z-index: 100;*/
     }
     .questionData{
@@ -143,7 +140,7 @@
     #search-suggest{
         position: absolute;
         display: none;
-        left:830px !important;
+        left:830px;
         /*z-index: 100;*/
     }
     .questionData{
@@ -178,7 +175,7 @@
     #search-suggest{
     position: absolute;
     display: none;
-    left:850px !important;
+    left:850px ;
     /*z-index: 100;*/
     }
     #name{

@@ -257,6 +257,7 @@ class HelpController extends Controller
         $varArray = func_get_args();
 //        required value:
         $startTerm = $varArray[0];
+        //判断第二个参数是数字还是字符串
         if ($numargs == 2 && is_integer($varArray[1]))
         {
             $num = $varArray[1];

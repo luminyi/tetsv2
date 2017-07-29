@@ -70,7 +70,7 @@ class ConsultController extends Controller
         return redirect('/consult/modify')->withSuccess('添加成功！');
     }
 
-    public function delete(Request $request)
+    public function deleteConsult(Request $request)
     {
         $input = $request->all();
         DB::table('consults_type')->whereIn('id',$input['dataArr'])->delete();

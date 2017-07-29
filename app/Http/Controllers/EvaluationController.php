@@ -1844,7 +1844,7 @@ class EvaluationController extends Controller
                             $headdata[6]['key']=> $headdata[6]['value'],//督导姓名
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
-                            $headdata[9]['key']=> $headdata[9]['value'],//听课节次
+                            $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]

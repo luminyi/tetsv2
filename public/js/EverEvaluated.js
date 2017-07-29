@@ -498,13 +498,14 @@ $(".fixed-table-loading").hide();
                     var oEvent = ev || event;
                     oEvent.stopPropagation();
                     $('#search-suggest').show().css({
-                        top:$('#name').offset().top+$('#name').height(),
-                        left:$('#name').offset().left,
+                        /*top:$('#name').offset().top+$('#name').height(),
+                        left:$('#name').offset().left,*/
                         position:'absolute',
                         height:'150px',
                         overflow:'auto'
                     });
-
+                    $('#search-suggest').offset({top:$('#name').offset().top+$('#name').height()+13,
+                        left:$('#name').offset().left});
                 }
             });
         }
@@ -519,10 +520,12 @@ $(".fixed-table-loading").hide();
             var oEvent = ev || event;
             oEvent.stopPropagation();
             $('#search-suggest').show().css({
-                top:$('#name').offset().top+$('#name').height(),
-                left:$('#name').offset().left,
+                /*top:$('#name').offset().top+$('#name').height(),
+                left:$('#name').offset().left,*/
                 position:'absolute'
             });
+            $('#search-suggest').offset({top:$('#name').offset().top+$('#name').height()+13,
+                left:$('#name').offset().left});
         }
         if (way == '督导')
         {
@@ -549,13 +552,14 @@ $(".fixed-table-loading").hide();
                     var oEvent = ev || event;
                     oEvent.stopPropagation();
                     $('#search-suggest').show().css({
-                        top:$('#name').offset().top+$('#name').height(),
-                        left:$('#name').offset().left,
+/*                        top:$('#name').offset().top+$('#name').height(),
+                        left:$('#name').offset().left,*/
                         position:'absolute',
                         height:'150px',
                         overflow:'auto'
                     });
-
+                    $('#search-suggest').offset({top:$('#name').offset().top+$('#name').height()+13,
+                        left:$('#name').offset().left});
                 }
             });
         }
@@ -599,11 +603,12 @@ $(".fixed-table-loading").hide();
                 var oEvent = ev || event;
                 oEvent.stopPropagation();
                 $('#search-suggest').show().css({
-                    top:$('#groupName').offset().top+$('#groupName').height(),
-                    left:$('#groupName').offset().left,
+/*                    top:$('#groupName').offset().top+$('#groupName').height(),
+                    left:$('#groupName').offset().left,*/
                     position:'absolute'
                 });
-
+                $('#search-suggest').offset({top:$('#groupName').offset().top+$('#groupName').height(),
+                    left:$('#groupName').offset().left});
             }
         });
 
