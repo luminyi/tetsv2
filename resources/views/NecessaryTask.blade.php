@@ -40,14 +40,36 @@
 <![endif]-->
 </head>
 <script src="assets/js/jquery-1.10.2.min.js"></script>
+<style>
+    #newmain{
+        margin-left:67px;width:auto;
+    }
+    @media screen and (max-width: 768px){
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:38%;width: 1660px;
+        }
+        #dtpick{
+            height: 90%;
+        }
+    }
+    @media screen and (max-width: 415px) {
+        #newmain{
+            overflow: auto;float: left;
+            margin-left:75%;width: 1660px;
+        }
+        #dtpick{
+            height: 40%;
+        }
+    }
+</style>
 
+<body>
 @include('layout.header')
 @include('layout.sidebar')
-<body>
 
 
-
-<div class="container-fluid clearfix">
+<div id="newmain" class="container-fluid clearfix">
     <div class="row clearfix">
                 <!-- 面板开始 -->
         <input id="getlevel" value="{{session('role')}}" style="display: none"/>
@@ -74,7 +96,7 @@
                         </button>
                     </p>
                     <div id="dtBox" class="dtpicker-overlay dtpicker-mobile" style="display: none;">
-                        <div class="dtpicker-bg">
+                        <div id="dtpick" class="dtpicker-bg">
                             <div class="dtpicker-cont">
                                 <div class="dtpicker-content">
                                     <div class="dtpicker-subcontent">

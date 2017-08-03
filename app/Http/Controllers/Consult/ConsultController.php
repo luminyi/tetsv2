@@ -23,6 +23,15 @@ class ConsultController extends Controller
         return view('acsystem.Consult.index',compact(['phone','consultType']));
     }
 
+    public function index1()
+    {
+
+        $phone = Auth::User()->phone;
+        $consultType = ConsultType::all();
+        return view('acsystem1.Consult.index',compact(['phone','consultType']));
+    }
+
+
     public function storePost(Requests\ConsultPostRequest $request)
     {
         $submit_time = date("Y-m-d H:i:s");
@@ -40,6 +49,25 @@ class ConsultController extends Controller
         ];
         ConsultsUser::create($Info);
         return redirect('/consult/index')->withSuccess('添加成功！');
+    }
+
+    public function storePost1(Requests\ConsultPostRequest $request)
+    {
+        $submit_time = date("Y-m-d H:i:s");
+        $userId = Auth::User()->id;
+        $help = new HelpController;
+        $Term = $help->GetYearSemester($submit_time);
+        $Info = [
+            'user_id'=> $userId,
+            'consults_type_id' => $request->get('consults_type_id'),
+            'submit_time' => $submit_time,
+            'term' => $Term['YearSemester'],
+            'state'=>'待协调',
+            'meta_description' =>$request->get('meta_description'),
+            'phone' =>$request->get('phone'),
+        ];
+        ConsultsUser::create($Info);
+        return redirect('/consult/index-suv')->withSuccess('添加成功！');
     }
 
     public function consultHistory($userId)
@@ -70,7 +98,7 @@ class ConsultController extends Controller
         return redirect('/consult/modify')->withSuccess('添加成功！');
     }
 
-    public function delete(Request $request)
+    public function deleteConsult(Request $request)
     {
         $input = $request->all();
         DB::table('consults_type')->whereIn('id',$input['dataArr'])->delete();

@@ -202,7 +202,7 @@ class ExcelController extends Controller
 
         $excelData = array ();
         for($row = 2; $row <= $highestRow; $row++) {
-            for($col = 0; $col < $highestColumnIndex; $col++) {
+            for($col = 0; $col <= $highestColumnIndex; $col++) {
                 $excelData[$row-2][] = $objWorksheet->getCellByColumnAndRow ( $col, $row )->getValue ();
             }
         }
@@ -211,21 +211,34 @@ class ExcelController extends Controller
 //        echo "</pre>";
         for ($i=0;$i<count($excelData);$i++)
         {
+            $user_id = intval($excelData[$i][0]);
             User::updateOrCreate(
-                ['user_id'=>intval($excelData[$i][1])],
+                ['user_id'=>$user_id],
                 [
-                    'name'=>$excelData[$i][2],
-                    'password'=>bcrypt(intval($excelData[$i][1])),
-                    'sex'=>$excelData[$i][6],
-                    'email'=>$excelData[$i][7],
-                    'phone'=>intval($excelData[$i][8]),
-                    'unit'=>$excelData[$i][11],
+                    'name'=>$excelData[$i][1],
+                    'password'=>bcrypt(intval($excelData[$i][0])),
+                    'sex'=>$excelData[$i][2],
+                    'email'=>$excelData[$i][3],
+                    'phone'=>intval($excelData[$i][4]),
+                    'unit'=>$excelData[$i][6],
+                    'state'=>$excelData[$i][5],
                     'status'=>'活跃',
-                    'prorank'=>$excelData[$i][15],
-                    'skill'=>$excelData[$i][16],
-
+                    'prorank'=>$excelData[$i][8],
+                    'skill'=>$excelData[$i][9],
                 ]
             );
+            //更新 role_user表，添加教师权限
+            $result = DB::table('users')->select('id')->where('user_id','=',$user_id)->get();
+            $id = $result[0]->id;
+
+            DB::table('role_user')
+                ->where('user_id', '=', $id)
+                ->where('role_id', '=', 6)
+                ->delete();
+
+            $user = \App\Model\User::find($id);
+            $user->roles()->attach(Role::find(6));
+
         }
 
         return Redirect::action('TeacherUserController@teacherManage')->withCookie('mess','导入教师信息成功');

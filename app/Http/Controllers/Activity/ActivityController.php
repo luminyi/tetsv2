@@ -35,6 +35,14 @@ class ActivityController extends Controller
         return view('acsystem.Activity.index', compact('titleterm'));
     }
 
+    public function index1()
+    {
+        $help = new HelpController;
+        $Term = $help->GetYearSemester(date("Y-m-d"));
+        $titleterm = $Term['YearSemester'];
+        return view('acsystem1.Activity.index', compact('titleterm'));
+    }
+
     /**
      * @param $flag
      * flag is user's id
@@ -222,7 +230,7 @@ class ActivityController extends Controller
         return $attendPeople;
     }
 
-    public function delete(Request $request){
+    public function deleteActivity(Request $request){
         $input = $request->all();
         DB::table('activities')->whereIn('id',$input['dataArr'])->delete();
         return ('删除成功！');

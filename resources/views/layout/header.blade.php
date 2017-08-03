@@ -1,20 +1,30 @@
 <style>
-    @media (max-width: 767px){
+    @media (min-width: 10px){
         #change_user{
             position:absolute;
-            margin-left:38% ;
-            margin-top:22px;
+            margin-left:53% ;
         }
         #navbar{
-            position: absolute; margin-left: 57%
+            position: absolute; margin-left: 88%
+        }
+        #natop{
+            position: absolute;
+            width: 1913px;
         }
     }
+
     @media screen and (min-width: 768px){
         #change_user{
-            position:absolute;margin-left:63% ;margin-top:22px;
+            position:absolute;
+            margin-left:53% ;
+            margin-top:15px;
         }
         #navbar{
-            position: absolute; margin-left: 95%
+            position: absolute; margin-left: 90%
+        }
+        #natop{
+            position: fixed;
+            width: auto;
         }
         #welcomeText{
             margin-left: -80px;
@@ -23,7 +33,7 @@
     }
     @media screen and (min-width: 1400px){
         #change_user{
-            position:absolute;margin-left:70% ;margin-top:22px;
+            position:absolute;margin-left:70% ;margin-top:15px;
         }
         #navbar{
             position: absolute; margin-left: 95%
@@ -36,7 +46,7 @@
         #change_user{
             position:absolute;
             margin-left:75% ;
-            margin-top:22px;
+            margin-top:15px;
         }
         #navbar{
             position: absolute; margin-left: 95%
@@ -45,10 +55,13 @@
             margin-left: 20px;
         }
     }
+    #change_user{
+        margin-top:15px;
+    }
     #welcomeText{
         color: white;font-size: 22px;
-        padding-top: 3%;
-        float: right;
+        padding-top: 15px;
+        float: left;
     }
     #welcomeText:hover,.navbar-brand:hover,.nav a:hover{
         text-decoration: none;
@@ -65,22 +78,22 @@
         color: white;font-size: 18px;
     }
 </style>
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="background: linear-gradient(to right,#0a1d2f, #091929)!important;background: -moz-linear-gradient(left,#0a1d2f, #091929)!important;background: -webkit-linear-gradient(left,#0a1d2f, #091929)!important;">
+    <nav id="natop" class="navbar navbar-inverse navbar-fixed-top" style="background: linear-gradient(to right,#0a1d2f, #091929)!important;background: -moz-linear-gradient(left,#0a1d2f, #091929)!important;background: -webkit-linear-gradient(left,#0a1d2f, #091929)!important;">
     <div class="container-fluid" style="height: 60px;">
-        <div class="navbar-header">
+        <div class="navbar-header" >
 
             <a class="navbar-brand" href="#" style="color: white;font-size: 22px; margin-top: 3px;">
                 <img src="{{asset('assets/images/logo.png')}}" alt="" style="width: 8%;margin-right:10px;">教评中心业务平台
             </a>
-            <a id="welcomeText">欢迎您，{{Auth::User()->name}}老师</a>
+            <a id="welcomeText" style="">欢迎您，{{Auth::User()->name}}老师</a>
 
-            <div id="change_user"  style="display: none">
+            <div id="change_user"  style="float: right;">
                 <span id="id_title">切换用户身份：</span>
                 <span id="level" style="color: #fff;display: none;">{{session('role')}}</span>
                 <span id="user-level" style="color: #CDCDCD;"></span>
             </div>
 
-            <div id="navbar" class="navbar-collapse collapse">
+            <div id="navbar" class="navbar-collapse" style="float:right;">
                 <ul class="nav navbar-nav navbar-right" style="margin-top: 6px;">
                     <li class="light-blue">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -88,7 +101,7 @@
                             <input id="id" value=" {{ Auth::user()->id }}" style="display: none"/>
                             <i class="icon-caret-down"></i>
                         </a>
-                        <ul class="user-menu pull-right dropdown-menu dropdown-caret dropdown-close ">
+                        <ul class="user-menu pull-right dropdown-menu dropdown-caret dropdown-close " style="background: #FFF">
                             <li>
                                 <a href="/userManage">
                                     <i class="icon-user"></i>

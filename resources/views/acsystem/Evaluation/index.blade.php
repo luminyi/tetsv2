@@ -52,7 +52,7 @@
     </button>
 
     <div class="modal fade bs-example-modal-lg" id="myModal1" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
+         aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-x: auto">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
