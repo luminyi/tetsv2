@@ -217,8 +217,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    Route::get('/GetLessonTime', 'HelpController@GetLessonTime');//理论课、实践课 每门课程的课程节次
-    Route::get('/GetLessonTimeBylistendate', 'HelpController@GetLessonTimeBylistendate');//理论课、实践课 每门课程的课程节次
+    Route::get('/GetLessonTime', 'Help\HelpController@GetLessonTime');//理论课、实践课 每门课程的课程节次
+    Route::get('/GetLessonTimeBylistendate', 'Help\HelpController@GetLessonTimeBylistendate');//理论课、实践课 每门课程的课程节次
 
 
 

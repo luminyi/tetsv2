@@ -54,10 +54,8 @@ class SupervisorController extends Controller
         $YearSemester=new HelpController;
         $version = $YearSemester->GetYearSemester($time);
         $key = $request->get('supervisor');
-//        $InputValue = DB::select('select DISTINCT name from users where name like "' . $key . '%" limit 10');
-//        $InputValue = DB::select('select DISTINCT teacher_id,name from users where supervise_time="'.$version['YearSemester'].'";');
-        $InputValue = DB::table('users')->select('teacher_id')
-            ->where('supervise_time','=',$version['YearSemester'])
+        $InputValue = DB::table('users')->select('user_id')
+//            ->where('supervise_time','=',$version['YearSemester'])
             ->where('name','=',$key)
             ->where('name','not like','%教学负责人')
             ->where('name','not like','%管理员')
@@ -77,7 +75,7 @@ class SupervisorController extends Controller
         $time = date("Y-m-d");
         $YearSemester=new HelpController;
         $version = $YearSemester->GetYearSemester($time);
-        $InputValue = DB::select('select DISTINCT name from users where unit="'.$unit.'" and supervise_time="'.$version['YearSemester'].'";');
+        $InputValue = DB::select('select DISTINCT name from users where unit="'.$unit.'" and status=活跃;');
         $data = [];
         for ($i=0;$i<count($InputValue);$i++)
         {
@@ -96,9 +94,8 @@ class SupervisorController extends Controller
 //        $group ='B组';
 
         $InputValue = DB::table('users')
-            ->select('name','teacher_id')
+            ->select('name','user_id')
             ->where('group','=',$group)
-            ->where('supervise_time','=',$supervise_time)
             ->distinct()->get();
 
         return $InputValue;
