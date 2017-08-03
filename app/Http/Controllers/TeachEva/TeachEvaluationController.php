@@ -37,10 +37,10 @@ class TeachEvaluationController extends Controller
         $userId = $request->get('userId');
         $userName = $request->get('userName');
 
-        $year = '2016-2017';
-        $semester = '1';
-        $userId = '19740208';
-        $userName = '于春战';
+//        $year = '2016-2017';
+//        $semester = '1';
+//        $userId = '19740208';
+//        $userName = '于春战';
 
 
         $TableFlag = $year."-".$semester;//使用表版本的标识
