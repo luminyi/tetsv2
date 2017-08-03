@@ -82,8 +82,5 @@ $(document).ready(function() {
     //
 
 
-
-
-
-
 });
+

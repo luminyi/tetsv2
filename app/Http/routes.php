@@ -272,6 +272,8 @@ Route::group(['middleware' => 'auth'], function () {
         //普通教师端
         Route::get('/activity/index','ActivityController@index');
         //showing the attended activities with array (teacher)
+        Route::get('/activity/index-suv','ActivityController@index1');
+        //showing the attended activities with array (supervisor)
         Route::get('/activity/teacher/attend/{flag}','ActivityController@ShowAttendActivities');
 
         //showing the activities with array (teacher)
@@ -314,10 +316,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace'=>'Consult'],function(){
         //the view of teacher consult
         Route::get('/consult/index','ConsultController@index');
+        //the view of supervior consult
+        Route::get('/consult/index-suv','ConsultController@index1');
         //post the consult request
         Route::post('/consult/post','ConsultController@storePost');
         Route::get('/consult/post','ConsultController@index');
-
+        //post the consult request(supervior)
+        Route::post('/consult/post1','ConsultController@storePost1');
+        Route::get('/consult/post1','ConsultController@index1');
         //view the consult history
         Route::get('/consult/ConsultHistory/{userId}','ConsultController@consultHistory');
 
@@ -348,6 +354,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace'=>'TeachEva'],function(){
         //the view of teacher evaluation
         Route::get('/teachEvaluation/index','TeachEvaluationController@index');
+        //the view of teacher evaluation(supervior)
+        Route::get('/teachEvaluation/index-suv','TeachEvaluationController@index1');
         //the data of teacher evaluation
         Route::get('/teachEvaluation/evaluationData','TeachEvaluationController@evaluationData');
     });

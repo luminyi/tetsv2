@@ -16,6 +16,9 @@ class TeachEvaluationController extends Controller
         return view('acsystem.Evaluation.index');
     }
 
+    public function index1(){
+        return view('acsystem1.Evaluation.index');
+    }
     /**
      * @param Request $request
      * 在设计数据库时被评价教师不是主键之一，为防止重名教师的问题

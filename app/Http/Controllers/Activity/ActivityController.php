@@ -35,6 +35,14 @@ class ActivityController extends Controller
         return view('acsystem.Activity.index', compact('titleterm'));
     }
 
+    public function index1()
+    {
+        $help = new HelpController;
+        $Term = $help->GetYearSemester(date("Y-m-d"));
+        $titleterm = $Term['YearSemester'];
+        return view('acsystem1.Activity.index', compact('titleterm'));
+    }
+
     /**
      * @param $flag
      * flag is user's id
