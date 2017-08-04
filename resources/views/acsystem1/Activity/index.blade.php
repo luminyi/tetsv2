@@ -50,15 +50,18 @@
         @media screen and (max-width: 768px){
             .container-fluid{
                 overflow-x: auto;
-                min-width: 1250px;
-            }
-            .col-md-12{
-                width: 1000px;
+                min-width: 1900px;
             }
             /*详细信息的弹出窗口位置*/
             .modal-content{
                 width: 600px;
                 left: 25%;
+            }
+        }
+        @media screen and (max-width: 415px){
+            .container-fluid{
+                overflow-x: auto;
+                min-width: 1275px;
             }
         }
     </style>

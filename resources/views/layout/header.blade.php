@@ -36,7 +36,7 @@
             position:absolute;margin-left:70% ;margin-top:15px;
         }
         #navbar{
-            position: absolute; margin-left: 95%
+            position: absolute; margin-left: 93%
         }
         #welcomeText{
             margin-left: 10px;
