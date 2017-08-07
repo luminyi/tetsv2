@@ -112,7 +112,7 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                             </a>
                             <ul id="contentManager" class="nav nav-list collapse in">
                                 <li class="indents">
-                                    <a href="/weixintest">
+                                    <a href="/weixinTheoryEvaluationTableView"> {{--a test link--}}
                                         <i class="glyphicon glyphicon-minus" ></i>
                                         理论课评价用表
                                     </a>

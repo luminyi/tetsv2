@@ -194,18 +194,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/PracticeEvaluationTableView', 'Auth\HomeController@PracticeEvaluationTableView');//实践评价表视图
     Route::get('/PhysicalEvaluationTableView', 'Auth\HomeController@PhysicalEvaluationTableView');//体育评价表视图
 
-    Route::get('/weixintest', 'Auth\HomeController@weixintest');//waiting delate test
+    //评价内容管理 微信端链接
+    Route::get('/weixinTheoryEvaluationTableView', 'Auth\HomeController@weixinTheoryEvaluationTableView');//理论评价表视图
+    Route::get('/weixinPracticeEvaluationTableView', 'Auth\HomeController@weixinPracticeEvaluationTableView');//实践评价表视图
+    Route::get('/weixinPhysicalEvaluationTableView', 'Auth\HomeController@weixinPhysicalEvaluationTableView');//体育评价表视图
 
     //通过web端填写评价表写入数据库
     Route::any('/DBTheoryFrontEvaluationTable', 'EvaluationController@DBTheoryFrontEvaluationTable');//填写理论评价表的正面内容
-
     Route::any('/DBPracticeFrontEvaluationTable', 'EvaluationController@DBPracticeFrontEvaluationTable');//管理员填写实践评价表
-
     Route::any('/DBPhysicalFrontEvaluationTable', 'EvaluationController@DBPhysicalFrontEvaluationTable');//管理员填写体育评价表
-
-
-
-
 
     Route::get('/CreateEvalFrontTable', 'Auth\HomeController@CreateEvalFrontTable');//动态创建评价表:正面
     Route::get('/CreateEvalBackTable', 'Auth\HomeController@CreateEvalBackTable');//动态创建评价表：背面
@@ -266,9 +263,15 @@ Route::group(['middleware' => 'auth'], function () {
     //修改密码
     Route::get('/TeacherChangePass', 'Auth\UserController@TeacherChangePass');//咨询系统的修改密码页面
     Route::post('/TeacherChangePass', 'Auth\UserController@SubmitTeacherPass');//修改用户密码
+    //修改密码 微信端
+    Route::get('/weixinChangePass', 'Auth\UserController@weixinChangePass');//咨询系统的修改密码页面
+    Route::post('/weixinChangePass', 'Auth\UserController@SubmitTeacherPass1');//修改用户密码
     //修改信息
     Route::get('/TeacherUserManage', 'Auth\UserController@TeacherUserManage');//咨询系统的使用者具体信息
     Route::post('/TeacherUserManage','Auth\UserController@getTeacherUserInfo');
+    //修改信息 微信端
+    Route::get('/weixinUserManage', 'Auth\UserController@weixinUserManage');//咨询系统的使用者具体信息
+    Route::post('/weixinUserManage','Auth\UserController@getTeacherUserInfo1');
 
     Route::group(['namespace'=>'Activity'],function(){
         //普通教师端

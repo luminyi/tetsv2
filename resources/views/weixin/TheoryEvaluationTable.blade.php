@@ -27,6 +27,9 @@
     <![endif]-->
 </head>
 <style>
+    body {
+        padding-top: 0px;
+    }
     .col-lg-1{
         width: 6.7%;
         float:left;
@@ -37,34 +40,11 @@
     .col-sm-1 {
         width: 10.33333%;
     }
-    #newmain{
-    }
-
     #search-suggest{
         left: 95%;
         top: 200px;
     }
-    #mianban{
-        padding-right: 0px;
-    }
-    @media screen and (max-width: 1666px){
-        #mianban{
-            padding-left: 3%;
-        }
-    }
-    @media screen and (max-width: 1214px){
-        .form-content{
-            padding-right: 3px;
-        }
-    }
     @media screen and (max-width: 768px){
-        #mianban{
-            padding-left: 0px;
-        }
-        #newmain{
-            overflow: auto;float: left;
-            margin-left:44%;width: 1660px;
-        }
         #KIKO{
             float: left;
             margin-left:15px;
@@ -79,18 +59,20 @@
             width: 80%;
         }
         #search-suggest{
-            left: -11px;
+            left: 27px;
             top: 440px;
         }
         #Lesson-suggest{
             top: 510px;
         }
+        .content{
+            padding-left: 12px;
+        }
 
     }
     @media screen and (max-width: 415px){
-        #newmain{
-            overflow: auto;float: left;
-            margin-left:70%;width: 1660px;
+        .navbar-brand{
+            font-size: 16px;
         }
         #KIKO{
             float: none;
@@ -194,14 +176,13 @@
 </script>
 <body onLoad="isReady=true">
 
-@include('layout.header')
+@include('weixin.header')
 
-<div id="newmain" class="container-fluid clearfix">
+<div class="container-fluid clearfix" style="overflow-x: hidden">
     <div class="row clearfix">
-        @include('layout.sidebar')
                 <!-- 面板开始 -->
-        <div id="mianban" class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2"  style="margin-top: 20px">
-            <div class="page-content form-content">
+        <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
+            <div class="content">
                 <div class="page-box">
                     <div class="panel panel-success">
                         <div class="panel-heading">

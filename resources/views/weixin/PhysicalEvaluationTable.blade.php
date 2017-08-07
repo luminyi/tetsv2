@@ -12,7 +12,8 @@
     <meta name="description" content="北林教学评价系统" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    {{--<link href="assets/css/bootstrap.min.css" rel="stylesheet" />--}}
+    <link href="{{asset('origin_bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/dashboard.css" />
     <link rel="stylesheet" href="assets/css/common.css" />
@@ -101,6 +102,9 @@
 
 </script>
 <style>
+    body {
+        padding-top: 0px;
+    }
     .col-lg-1{
         width: 6.7%;
         float:left;
@@ -111,66 +115,12 @@
     .col-sm-1 {
         width: 10.33333%;
     }
-    #newmain{
-
-    }
-    #mianban{
-        /*padding-left: 45px;*/
-    }
-   /* .KIKO{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        text-align: center;
-    }
-    .KIKO1{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        text-align: center;
-        width: 20%;
-    }
-    .KIKO2{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        width: 16%;
-    }*/
     #search-suggest{
         left: 95%;
         top: 200px;
     }
-    #mianban{
-        padding-right: 0px;
-    }
-    @media screen and (max-width: 1666px){
-        #mianban{
-            padding-left: 3%;
-        }
-    }
-    @media screen and (max-width: 1214px){
-        .form-content{
-            padding-right: 3px;
-        }
-    }
-    @media screen and (max-width: 1666px){
-        #mianban{
-            padding-left: 3%;
-        }
-    }
-    @media screen and (max-width: 1214px){
-        .form-content{
-            padding-right: 3px;
-        }
-    }
+
     @media screen and (max-width: 768px){
-        #mianban{
-            padding-left: 0px;
-        }
-        #newmain{
-            overflow: auto;float: left;
-            margin-left:40%;width: 1660px;
-        }
         #KIKO{
             float: left;
             margin-left:15px;
@@ -185,7 +135,7 @@
             width: 80%;
         }
         #search-suggest{
-            left: -11px;
+            left: 27px;
             top: 440px;
         }
         #Lesson-suggest{
@@ -194,9 +144,8 @@
 
     }
     @media screen and (max-width: 415px){
-        #newmain{
-            overflow: auto;float: left;
-            margin-left:69%;width: 1660px;
+        .navbar-brand{
+            font-size: 16px;
         }
         #KIKO{
             float: none;
@@ -222,17 +171,16 @@
 </style>
 <body>
 
-@include('layout.header')
+@include('weixin.header')
 
-<div id="newmain" class="container-fluid clearfix">
+<div class="container-fluid clearfix" style="overflow-x: hidden">
     <div class="row clearfix">
-        @include('layout.sidebar')
                 <!-- 面板开始 -->
-        <div id="mianban" class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2"  style="margin-top: 20px">
+        <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2">
 
             <!-- .breadcrumb -->
             <!-- .page-content 开始 -->
-            <div class="page-content form-content">
+            <div class="content">
                 <div class="page-box" >
                     <div class="panel panel-success">
                         <div class="panel-heading">
