@@ -194,6 +194,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/PracticeEvaluationTableView', 'Auth\HomeController@PracticeEvaluationTableView');//实践评价表视图
     Route::get('/PhysicalEvaluationTableView', 'Auth\HomeController@PhysicalEvaluationTableView');//体育评价表视图
 
+    Route::get('/weixintest', 'Auth\HomeController@weixintest');//waiting delate test
+
     //通过web端填写评价表写入数据库
     Route::any('/DBTheoryFrontEvaluationTable', 'EvaluationController@DBTheoryFrontEvaluationTable');//填写理论评价表的正面内容
 

@@ -98,6 +98,22 @@ class HomeController extends Controller
         );
         return view('TheoryEvaluationTable',compact('front','back'));
     }
+// a weixin test
+    public function weixintest()
+    {
+        $frontdata = $this->GetFrontValueTable();
+        $backdata = $this->GetBackValueTable();
+        $front =array(
+            '1'=>$frontdata[2][0],//一级菜单项
+            '2'=>$frontdata[3][0],//二级菜单项
+            '3'=>$frontdata[4][0]//三级菜单项
+        );
+        $back =array(
+            '1'=>$backdata[2][0],//背面1级
+            '2'=>$backdata[3][0]//背面2级
+        );
+        return view('weixin.TheoryEvaluationTable',compact('front','back'));
+    }
 //    实践评价表，需要数据理论评价表
     public function PracticeEvaluationTableView()
     {
