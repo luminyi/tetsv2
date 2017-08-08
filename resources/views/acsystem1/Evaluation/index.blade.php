@@ -53,11 +53,17 @@
         @media screen and (max-width: 768px){
             .container-fluid{
                 overflow-x: auto;
-                min-width: 870px;
+                min-width: 1900px;
             }
             #dtpick{
                 top: 22%;
                 left: 12%;
+            }
+        }
+        @media screen and (max-width: 415px){
+            .container-fluid{
+                overflow-x: auto;
+                min-width: 1275px;
             }
         }
     </style>
