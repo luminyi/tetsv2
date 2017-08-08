@@ -382,7 +382,6 @@ class HomeController extends Controller
         $lesson_time = $request->Lessontime;//听课节次
 
         $lesson_name = $request->Lesson_name;
-//        $lesson_name = "林学概论";
         $LessonList = $version->GetCurrentTableName2($lesson_name,$teacher,$lesson_date,$lesson_time,$supervisor,$TableFlag);//确定该课程所在的表
         //把该表的字段返回
 

@@ -95,11 +95,33 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                                     各小组听课情况
                                 </a>
                             </li>
-                            <li class="indents">
-                                <a href="#">
+                            <li class="Upper_menu indentManage indents">
+                                <a href="#indents" class="nav-header collapse" data-toggle="collapse">
                                     <i class="glyphicon glyphicon-minus" ></i>
                                     听课数据统计
+                                    <b class="arrow icon-angle-down"></b>
                                 </a>
+                                <ul id="indents" class="nav nav-list collapse in">
+                                    <li class="indents">
+                                        <a href="/TheoryStatistics">
+                                            <i class="glyphicon" ></i>
+                                            理论课部分
+                                        </a>
+                                    </li>
+                                    <li class="indents">
+                                        <a href="/PracticeStatistics">
+                                            <i class="glyphicon" ></i>
+                                            实践课部分
+                                        </a>
+                                    </li>
+                                    <li class="indents">
+                                        <a href="/PhysicalStatistics">
+                                            <i class="glyphicon"></i>
+                                            体育课部分
+                                        </a>
+                                    </li>
+                                </ul>
+
                             </li>
                         </ul>
                     </li>
