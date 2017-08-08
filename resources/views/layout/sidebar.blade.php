@@ -313,10 +313,31 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </a>
                 </li>
                 <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
-                        <i class="icon-bullhorn"></i>
-                        活动与咨询系统
+                    <a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
+                        <i class="icon-user"></i>
+                        培训活动与教学咨询
+                        <b class="arrow icon-angle-down"></b>
                     </a>
+                    <ul id="UserManage" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus" ></i>
+                                报名培训活动
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus" ></i>
+                                报名教学咨询
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus"></i>
+                                对我的教学评价
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             @endif
 
@@ -380,10 +401,31 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </a>
                 </li>
                 <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
-                        <i class="icon-bullhorn"></i>
-                        活动与咨询系统
+                    <a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
+                        <i class="icon-user"></i>
+                        培训活动与教学咨询
+                        <b class="arrow icon-angle-down"></b>
                     </a>
+                    <ul id="UserManage" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus" ></i>
+                                报名培训活动
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus" ></i>
+                                报名教学咨询
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">
+                                <i class="icon-minus"></i>
+                                对我的教学评价
+                            </a>
+                        </li>
+                    </ul>
                 </li>
         @endif
 
