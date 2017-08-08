@@ -312,12 +312,7 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         学院用户列表
                     </a>
                 </li>
-                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
-                        <i class="icon-bullhorn"></i>
-                        活动与咨询系统
-                    </a>
-                </li>
+
             @endif
 
         @if(session('role')=='小组长')
@@ -379,12 +374,7 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         学院用户列表
                     </a>
                 </li>
-                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="/activity/index" class="nav-header" style="font-size: 15px;">
-                        <i class="icon-bullhorn"></i>
-                        活动与咨询系统
-                    </a>
-                </li>
+
         @endif
 
         @if(session('role')=='院级')
