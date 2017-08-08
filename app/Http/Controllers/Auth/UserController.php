@@ -66,6 +66,7 @@ class UserController extends Controller
         ];
         return view('acsystem.UserManage.TeacherUserManage',compact('data'));
     }
+    
 
     public function getTeacherUserInfo(Request $request)
     {
@@ -75,6 +76,7 @@ class UserController extends Controller
 //        Auth::user()->where('email',$request->get('email'))->update($all['phone']);
         return Redirect::to('/TeacherUserManage')->withCookie('mess','个人信息修改成功！');
     }
+    
 
 
 
@@ -142,6 +144,8 @@ class UserController extends Controller
         return view('acsystem.UserManage.TeacherChangePass');
     }
 
+    
+
     public function SubmitTeacherPass(Request $request)
     {
         $rules = array(
@@ -171,4 +175,6 @@ class UserController extends Controller
             return  Redirect::back()->withErrors('原密码输入有误，重新输入!');
         }
     }
+
+    
 }
