@@ -26,6 +26,9 @@ class ActivityController extends Controller
         'all_num' => '',
         'information' => '',
         'state' => '',
+        'apply_start_time' => '',
+        'apply_end_time' => '',
+        'apply_state' => '',
     ];
     public function index()
     {
@@ -190,7 +193,10 @@ class ActivityController extends Controller
                 "term" => $input['termChange'],
                 "all_num" => $input['all_numChange'],
                 "information" =>$input['informationChange'],
-                "state" => $input['stateChange']
+                "state" => $input['stateChange'],
+                "apply_start_time" => $input['apply_start_timeChange'],
+                "apply_end_time" => $input['apply_end_timeChange'],
+                "apply_state" => $input['apply_stateChange']
             ]);
         return redirect('/activity/modify')->withSuccess('修改成功！');
     }

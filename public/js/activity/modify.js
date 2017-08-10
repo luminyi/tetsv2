@@ -20,6 +20,7 @@ window.actionEvents = {
         $("#act-name").html(row.name);
         $("#act-place").html(row.place);
         $("#act-time").html(row.start_time +" ～ " + row.end_time);
+        $("#apply_act-time").html(row.apply_start_time +" ～ " + row.apply_end_time);
         $("#act-info").html(row.information);
         $.ajax({
             type: "get",
@@ -45,7 +46,8 @@ window.actionEvents = {
         $("#termChange").val(row.term);
         $("#all_numChange").val(row.all_num);
         $("#informationChange").val(row.information);
-
+        $("#apply_start_timeChange").val(row.apply_start_time);
+        $("#apply_end_timeChange").val(row.apply_end_time);
     }
 };
 
@@ -98,6 +100,21 @@ $(document).ready(function() {
         minuteStep: 10
     });
 
+    $("#apply_start_time").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+
+    $("#apply_end_time").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
 
 
     $("#del-activity").click(function(){
