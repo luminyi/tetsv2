@@ -21,14 +21,13 @@
         <input type="text" class="form-control" name="placeChange" id="placeChange" value="">
     </div>
 
-
 </div>
 
 <div class="form-group">
-    <label for="start_time" class="col-md-2 control-label">
+    <label for="start_timeChange" class="col-md-2 control-label">
         &nbsp;&nbsp;活动开始时间
     </label>
-    <div class="col-md-4 ">
+    <div class="col-md-4">
         <input type="text" class="form-control" name="start_timeChange" id="start_timeChange" value="">
     </div>
 
@@ -41,7 +40,7 @@
 </div>
 
 <div class="form-group">
-    <label for="apply_start_time" class="col-md-2 control-label">
+    <label for="apply_start_timeChange" class="col-md-2 control-label">
         &nbsp;&nbsp;报名开始时间
     </label>
     <div class="col-md-4 ">

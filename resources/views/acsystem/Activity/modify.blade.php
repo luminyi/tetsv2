@@ -291,13 +291,12 @@
                             <th data-field="apply_end_time" data-halign="center" data-align="center">报名结束时间</th>
                             <th data-field="attend_num" data-halign="center" data-align="center">报名人数</th>
                             <th data-field="remainder_num" data-halign="center" data-align="center">剩余名额</th>
+                            <th data-field="action" data-halign="center" data-align="center"
+                                data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>
                             <th data-field="apply_state" data-halign="center" data-align="center">报名状态</th>
                             @if($titleterm=='all')
                             <th data-field="term" data-halign="center" data-align="center">活动学期</th>
                             @endif
-                            <th data-field="action" data-halign="center" data-align="center"
-                                data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>
-
                             <th data-field="modify" data-halign="center" data-align="center"
                                 data-formatter="activityModify" data-events="actionEvents" >修改活动</th>
 

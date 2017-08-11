@@ -40,7 +40,6 @@
 </div>
 
 <div class="form-group">
-
     <label for="start_time" class="col-md-2 control-label ">
         &nbsp;&nbsp;活动开始时间
     </label>

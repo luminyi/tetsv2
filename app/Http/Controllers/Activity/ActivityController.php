@@ -182,6 +182,8 @@ class ActivityController extends Controller
     public function change(Requests\ActivityChangeRequest $request)
     {
         $input = $request->all();
+        //$new_remainder_num = DB::table('activities')->select('attend_num')->where('name',$input['nameChange']);
+
         $flag = DB::table('activities')->where('name',$input['nameChange'])
             ->update([
                 "teacher" => $input['teacherChange'],
@@ -196,6 +198,7 @@ class ActivityController extends Controller
                 "apply_end_time" => $input['apply_end_timeChange'],
                 "apply_state" => $input['apply_stateChange']
             ]);
+        $flag = DB::update('update activities set remainder_num = all_num - attend_num');
         return redirect('/activity/modify')->withSuccess('修改成功！');
     }
 

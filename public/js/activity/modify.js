@@ -116,6 +116,37 @@ $(document).ready(function() {
         minuteStep: 10
     });
 
+    $("#start_timeChange").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+
+    $("#end_timeChange").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+
+    $("#apply_start_timeChange").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
+
+    $("#apply_end_timeChange").datetimepicker({
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        startDate: "2013-02-14 10:00",
+        minuteStep: 10
+    });
 
     $("#del-activity").click(function(){
         var ids = $.map($("#activityTable").bootstrapTable('getSelections'),function(row){//获取选中的行
