@@ -36,6 +36,7 @@ window.actionEvents = {
         $("#act-name").html(row.name);
         $("#act-place").html(row.place);
         $("#act-time").html(row.start_time +" ～ " + row.end_time);
+        $("#apply_act-time").html(row.apply_start_time +" ～ " + row.apply_end_time);
         $("#act-info").html(row.information);
     },
 
