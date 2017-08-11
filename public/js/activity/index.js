@@ -11,11 +11,12 @@ function activityInfo(value, row, index) {
 
 function attendInfo(value, row, index) {
     var nowdate = new Date();
+    // console.log(row);
     var beginDate = new Date(Date.parse(row.apply_start_time.replace(/-/g, "/")));
     var endDate = new Date(Date.parse(row.apply_end_time.replace(/-/g, "/")));
     if(beginDate.getTime() < nowdate.getTime() && endDate.getTime() > nowdate.getTime())
     {
-        if(row.apply_state != "已结束") {
+        if(row.apply_state == "正在进行") {
             if (row.users.length != 0) {
                 return [
                     '<a class="cancel seeDetail" href="javascript:void(0)" title="cancel">取消预约</a>'
@@ -27,6 +28,13 @@ function attendInfo(value, row, index) {
                 ].join('');
             }
         }
+    }
+
+    if(row.apply_state == "已结束" && row.users.length != 0)
+    {
+        return [
+            '已报名'
+        ].join('');
     }
 }
 

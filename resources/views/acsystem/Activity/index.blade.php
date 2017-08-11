@@ -31,6 +31,7 @@
                                     data-formatter="attendInfo" data-events="actionEvents" >报名情况</th>
                             </tr>
                             </thead>
+
                         </table>
                     </div>
                 </div>

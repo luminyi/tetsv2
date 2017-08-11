@@ -25,7 +25,6 @@ class ActivityController extends Controller
         'term' => '',
         'all_num' => '',
         'information' => '',
-   //     'state' => '',
         'apply_start_time' => '',
         'apply_end_time' => '',
         'apply_state' => '',
@@ -76,7 +75,6 @@ class ActivityController extends Controller
         $activity = Activities::where('term',$Term['YearSemester'])->with(['users'=>function($query) use($userId){
             return $query->select('users.id','users.user_id')->where('users.id','=',$userId);
         }])->get();
-
         return $activity;
 
     }
