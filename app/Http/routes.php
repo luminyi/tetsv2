@@ -311,7 +311,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/activity/admin/delete','ActivityController@deleteActivity');
         Route::get('/activity/admin/delete','ActivityController@modify');
         //activate the request of adding the activities
-        Route::get('/activity/admin/activate','ActivityController@activate');
+//        Route::get('/activity/admin/activate','ActivityController@activate');
         //get the teacher wants to attend the activities
         Route::get('/activity/admin/attendTeacher','ActivityController@attendTeacher');
 

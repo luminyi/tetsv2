@@ -145,7 +145,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#activate-activity").click(function(){
+    /*$("#activate-activity").click(function(){
         var ids = $.map($("#activityTable").bootstrapTable('getSelections'),function(row){//获取选中的行
             //console.log(row);
             var obj = {
@@ -172,7 +172,7 @@ $(document).ready(function() {
             });
         }
 
-    });
+    });*/
 
     $("#export-activity").click(function(){
         window.open(getRootPath()+"/excel/ActivityExport?flag="+term);

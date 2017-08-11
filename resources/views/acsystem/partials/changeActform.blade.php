@@ -85,31 +85,6 @@
 
 
 <div class="form-group">
-    <label for="stateChange" class="col-md-2 control-label">
-        活动状态
-    </label>
-    <div class="col-md-9">
-        <label class="radio-inline col-md-3">
-            <input type="radio" name="stateChange"
-                   checked="checked"
-                   value="未开始">
-            未开始
-        </label>
-        <label class="radio-inline col-md-3">
-            <input type="radio" name="stateChange"
-                   {{--checked="checked"--}}
-                   value="正在进行">
-            正在进行
-        </label>
-        <label class="radio-inline col-md-3">
-            <input type="radio" name="stateChange"
-                   {{--checked="checked"--}}
-                   value="已结束">
-            已结束
-        </label>
-    </div>
-</div>
-<div class="form-group">
     <label for="apply_stateChange" class="col-md-2 control-label">
         报名状态
     </label>

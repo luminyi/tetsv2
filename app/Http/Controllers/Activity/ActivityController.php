@@ -25,7 +25,7 @@ class ActivityController extends Controller
         'term' => '',
         'all_num' => '',
         'information' => '',
-        'state' => '',
+   //     'state' => '',
         'apply_start_time' => '',
         'apply_end_time' => '',
         'apply_state' => '',
@@ -193,7 +193,7 @@ class ActivityController extends Controller
                 "term" => $input['termChange'],
                 "all_num" => $input['all_numChange'],
                 "information" =>$input['informationChange'],
-                "state" => $input['stateChange'],
+                //"state" => $input['stateChange'],
                 "apply_start_time" => $input['apply_start_timeChange'],
                 "apply_end_time" => $input['apply_end_timeChange'],
                 "apply_state" => $input['apply_stateChange']
@@ -242,9 +242,9 @@ class ActivityController extends Controller
         return ('删除成功！');
     }
 
-    public function activate(Request $request){
+    /*public function activate(Request $request){
         $input = $request->all();
         $falg=DB::table('activities')->whereIn('id',$input['dataArr'])->update(['state' => '正在进行']);
         return ('激活成功！');
-    }
+    }*/
 }
