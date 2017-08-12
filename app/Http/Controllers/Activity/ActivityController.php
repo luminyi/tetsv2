@@ -25,7 +25,9 @@ class ActivityController extends Controller
         'term' => '',
         'all_num' => '',
         'information' => '',
-        'state' => '',
+        'apply_start_time' => '',
+        'apply_end_time' => '',
+        'apply_state' => '',
     ];
     public function index()
     {
@@ -73,7 +75,6 @@ class ActivityController extends Controller
         $activity = Activities::where('term',$Term['YearSemester'])->with(['users'=>function($query) use($userId){
             return $query->select('users.id','users.user_id')->where('users.id','=',$userId);
         }])->get();
-
         return $activity;
 
     }
@@ -181,6 +182,8 @@ class ActivityController extends Controller
     public function change(Requests\ActivityChangeRequest $request)
     {
         $input = $request->all();
+        //$new_remainder_num = DB::table('activities')->select('attend_num')->where('name',$input['nameChange']);
+
         $flag = DB::table('activities')->where('name',$input['nameChange'])
             ->update([
                 "teacher" => $input['teacherChange'],
@@ -190,8 +193,12 @@ class ActivityController extends Controller
                 "term" => $input['termChange'],
                 "all_num" => $input['all_numChange'],
                 "information" =>$input['informationChange'],
-                "state" => $input['stateChange']
+                //"state" => $input['stateChange'],
+                "apply_start_time" => $input['apply_start_timeChange'],
+                "apply_end_time" => $input['apply_end_timeChange'],
+                "apply_state" => $input['apply_stateChange']
             ]);
+        $flag = DB::update('update activities set remainder_num = all_num - attend_num');
         return redirect('/activity/modify')->withSuccess('修改成功！');
     }
 
@@ -236,9 +243,9 @@ class ActivityController extends Controller
         return ('删除成功！');
     }
 
-    public function activate(Request $request){
+    /*public function activate(Request $request){
         $input = $request->all();
         $falg=DB::table('activities')->whereIn('id',$input['dataArr'])->update(['state' => '正在进行']);
         return ('激活成功！');
-    }
+    }*/
 }

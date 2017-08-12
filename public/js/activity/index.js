@@ -9,23 +9,32 @@ function activityInfo(value, row, index) {
     ].join('');
 }
 
-
 function attendInfo(value, row, index) {
-
-    if(row.state == '正在进行')
+    var nowdate = new Date();
+    // console.log(row);
+    var beginDate = new Date(Date.parse(row.apply_start_time.replace(/-/g, "/")));
+    var endDate = new Date(Date.parse(row.apply_end_time.replace(/-/g, "/")));
+    if(beginDate.getTime() < nowdate.getTime() && endDate.getTime() > nowdate.getTime())
     {
-        if(row.users.length != 0)
-        {
-            return [
-                '<a class="cancel seeDetail" href="javascript:void(0)" title="cancel">取消预约</a>'
-            ].join('');
+        if(row.apply_state == "正在进行") {
+            if (row.users.length != 0) {
+                return [
+                    '<a class="cancel seeDetail" href="javascript:void(0)" title="cancel">取消预约</a>'
+                ].join('');
+            }
+            else {
+                return [
+                    '<a class="attend seeDetail" href="javascript:void(0)" title="attend">我要报名</a>'
+                ].join('');
+            }
         }
-        else{
-            return [
-                '<a class="attend seeDetail" href="javascript:void(0)" title="attend">我要报名</a>'
-            ].join('');
-        }
+    }
 
+    if(row.apply_state == "已结束" && row.users.length != 0)
+    {
+        return [
+            '已报名'
+        ].join('');
     }
 }
 
@@ -35,6 +44,7 @@ window.actionEvents = {
         $("#act-name").html(row.name);
         $("#act-place").html(row.place);
         $("#act-time").html(row.start_time +" ～ " + row.end_time);
+        $("#apply_act-time").html(row.apply_start_time +" ～ " + row.apply_end_time);
         $("#act-info").html(row.information);
     },
 

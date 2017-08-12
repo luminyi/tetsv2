@@ -30,8 +30,9 @@ class ActivityChangeRequest extends Request
             'nameChange' => 'required',
             'start_timeChange' => 'required|date',
             'end_timeChange' => 'required|date|after:start_time',
+            'apply_start_timeChange' => 'required|date|before:start_timeChange',
+            'apply_end_timeChange' => 'required|date|after:apply_start_time',
             'placeChange' => 'required',
-            'stateChange' => 'required',
             'all_numChange' => 'required',
             'termChange' => 'regex:/\d{4}-\d{4}-[1-2]$/',
         ];

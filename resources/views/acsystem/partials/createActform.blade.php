@@ -10,50 +10,65 @@
     <label for="teacher" class="col-md-2 control-label">
         主讲教师
     </label>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <input type="text" class="form-control" name="teacher" id="teacher" value="{{ $teacher }}">
     </div>
 
-    <label for="start_time" class="col-md-2 control-label col-md-offset-1">
-        &nbsp;&nbsp;开始时间
-    </label>
-    <div class="col-md-3 ">
-        <input type="text" class="form-control" name="start_time" id="start_time" value="{{ $start_time }}">
-    </div>
-
-
-
-</div>
-
-<div class="form-group">
     <label for="place" class="col-md-2  control-label">
         活动地点
     </label>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <input type="text" class="form-control" name="place" id="place" value="{{ $place }}">
     </div>
 
-    <label for="end_time" class="col-md-2 control-label col-md-offset-1">
-        &nbsp;&nbsp;结束时间
-    </label>
-    <div class="col-md-3 ">
-        <input type="text" class="form-control" name="end_time" id="end_time" value="{{ $end_time }}">
-    </div>
 </div>
 
 <div class="form-group">
     <label for="term" class="col-md-2 control-label">
         活动学期
     </label>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <input type="text" class="form-control" name="term" id="term" value="{{ $term }}">
     </div>
 
-    <label for="all_num" class="col-md-2 control-label col-md-offset-1">
-       活动人数
+    <label for="all_num" class="col-md-2 control-label">
+        活动人数
     </label>
-    <div class="col-md-3 ">
+    <div class="col-md-4 ">
         <input type="text" class="form-control" name="all_num" id="all_num" value="{{ $all_num }}">
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="start_time" class="col-md-2 control-label ">
+        &nbsp;&nbsp;活动开始时间
+    </label>
+    <div class="col-md-4 ">
+        <input type="text" class="form-control" name="start_time" id="start_time" value="{{ $start_time }}">
+    </div>
+
+    <label for="end_time" class="col-md-2 control-label">
+        &nbsp;&nbsp;活动结束时间
+    </label>
+    <div class="col-md-4 ">
+        <input type="text" class="form-control" name="end_time" id="end_time" value="{{ $end_time }}">
+    </div>
+</div>
+
+<div class="form-group">
+
+    <label for="apply_start_time" class="col-md-2 control-label ">
+        &nbsp;&nbsp;报名开始时间
+    </label>
+    <div class="col-md-4 ">
+        <input type="text" class="form-control" name="apply_start_time" id="apply_start_time" value="{{ $apply_start_time }}">
+    </div>
+
+    <label for="apply_end_time" class="col-md-2 control-label">
+        &nbsp;&nbsp;报名结束时间
+    </label>
+    <div class="col-md-4 ">
+        <input type="text" class="form-control" name="apply_end_time" id="apply_end_time" value="{{ $apply_end_time }}">
     </div>
 </div>
 
@@ -70,27 +85,27 @@
 
 
 <div class="form-group">
-    <label for="state" class="col-md-2 control-label">
-        活动状态
+    <label for="apply_state" class="col-md-2 control-label">
+        报名状态
     </label>
     <div class="col-md-9">
         <label class="radio-inline col-md-3">
-            <input type="radio" name="state"
+            <input type="radio" name="apply_state"
                    checked="checked"
                    value="未开始">
             未开始
         </label>
         <label class="radio-inline col-md-3">
-            <input type="radio" name="state"
+            <input type="radio" name="apply_state"
                    {{--checked="checked"--}}
                    value="正在进行">
             正在进行
         </label>
         <label class="radio-inline col-md-3">
-            <input type="radio" name="state"
+            <input type="radio" name="apply_state"
                    {{--checked="checked"--}}
                    value="已结束">
-            已结束
+            报名结束
         </label>
     </div>
 </div>

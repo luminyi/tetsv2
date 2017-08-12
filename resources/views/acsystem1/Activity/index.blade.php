@@ -88,10 +88,10 @@
                             <th data-field="name" data-halign="center" data-align="center">活动名称</th>
                             <th data-field="teacher" data-halign="center" data-align="center">主讲人</th>
                             <th data-field="place" data-halign="center" data-align="center">活动地点</th>
-                            <th data-field="start_time" data-halign="center" data-align="center">开始时间</th>
-                            <th data-field="end_time" data-halign="center" data-align="center">结束时间</th>
+                            <th data-field="start_time" data-halign="center" data-align="center">活动开始时间</th>
+                            <th data-field="end_time" data-halign="center" data-align="center">活动结束时间</th>
                             <th data-field="remainder_num" data-halign="center" data-align="center">剩余名额</th>
-                            <th data-field="state" data-halign="center" data-align="center">活动状态</th>
+                            <th data-field="apply_state" data-halign="center" data-align="center">报名状态</th>
                             <th data-field="action" data-halign="center" data-align="center"
                                 data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>
                             <th data-field="attend" data-halign="center" data-align="center"
@@ -146,7 +146,7 @@
                             </h2>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row" style="margin-left: 0px">
                                 <p><span style="font-weight: bold;">活动名称：&nbsp;&nbsp;</span>
                                     <span id="act-name" ></span>
                                 </p>
@@ -155,6 +155,9 @@
                                 </p>
                                 <p><span style="font-weight: bold;">活动时间：&nbsp;&nbsp;</span>
                                     <span id="act-time" ></span>
+                                </p>
+                                <p><span style="font-weight: bold;">报名时间：&nbsp;&nbsp;</span>
+                                    <span id="apply_act-time" ></span>
                                 </p>
                                 <p><span style="font-weight: bold;">活动信息：&nbsp;&nbsp;</span>
                                     <span id="act-info" ></span>
