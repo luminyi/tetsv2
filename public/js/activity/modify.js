@@ -22,6 +22,8 @@ window.actionEvents = {
         $("#act-time").html(row.start_time +" ～ " + row.end_time);
         $("#apply_act-time").html(row.apply_start_time +" ～ " + row.apply_end_time);
         $("#act-info").html(row.information);
+        $("#act-ID").val(row.id).attr('readonly',true);
+        $("#remind_num").val(row.remainder_num).attr('readonly',true);
         $.ajax({
             type: "get",
             async: false,
@@ -33,7 +35,7 @@ window.actionEvents = {
                 $('#attendTable').bootstrapTable('load', result);
             }
         });
-
+        console.log(row.id);
 
     },
     'click .modify': function (e, value, row, index) {
