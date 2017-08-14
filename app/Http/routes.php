@@ -306,7 +306,9 @@ Route::group(['middleware' => 'auth'], function () {
         //submit the request of adding the activities
         Route::post('/activity/admin/change','ActivityController@change');
         Route::get('/activity/admin/change','ActivityController@modify');
-
+        //submit the request of adding the teacher
+        Route::post('/activity/admin/addteacher','ActivityController@addteacher');
+        Route::get('/activity/admin/addteacher','ActivityController@modify');
         //delete the request of adding the activities
         Route::post('/activity/admin/delete','ActivityController@deleteActivity');
         Route::get('/activity/admin/delete','ActivityController@modify');

@@ -182,7 +182,6 @@ class ActivityController extends Controller
     public function change(Requests\ActivityChangeRequest $request)
     {
         $input = $request->all();
-        //$new_remainder_num = DB::table('activities')->select('attend_num')->where('name',$input['nameChange']);
 
         $flag = DB::table('activities')->where('name',$input['nameChange'])
             ->update([
@@ -200,6 +199,31 @@ class ActivityController extends Controller
             ]);
         $flag = DB::update('update activities set remainder_num = all_num - attend_num');
         return redirect('/activity/modify')->withSuccess('修改成功！');
+    }
+
+    public function addteacher(Requests\TeacherAddRequest $request)
+    {
+        $input = $request->all();
+        $arr = explode(',',$input['add-teacherid']);
+        if(count($arr)>$input['remind_num'])
+            return redirect('/activity/modify')->withErrors('超出剩余名额！');
+        for($index=0;$index<count($arr);$index++) {
+            $results = DB::select('select id from users where user_id = '.$arr[$index]);
+            if(!$results)
+                return redirect('/activity/modify')->withErrors($arr[$index].' 不存在的教师ID！');
+            $sql1 = 'insert into activities_user select id,';
+            $sql2 = ' as activities_id,\'已报名\' as state from users where user_id = ';
+            $sql = $sql1 . $input['act-ID'] . $sql2 . $arr[$index];
+            $results = DB::select('select * from users a,activities_user b where a.user_id='.$arr[$index].' and a.id=b.user_id;');
+            if($results)
+                return redirect('/activity/modify')->withErrors($arr[$index].' 参与教师ID已存在！');
+            $flag = DB::insert($sql);
+
+            DB::update('update activities set attend_num = attend_num + 1,remainder_num = all_num - attend_num where id ='.$input['act-ID']);
+
+        }
+       // Log::info();
+        return redirect('/activity/modify')->withSuccess('添加成功！');
     }
 
     public function ShowActivities($timeflag){

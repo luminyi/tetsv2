@@ -243,7 +243,45 @@
                                     </tr>
                                     </thead>
                                 </table>
+                                <button id="#add-joined-teacher" class="btn btn-primary btn" data-toggle="modal" data-target="#add-joined">
+                                    增加参与教师
+                                </button>
                             </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 增加参与教师 模态框（Modal） -->
+        <div class="modal fade" id="add-joined" tabindex="-1" role="dialog" aria-hidden="true">
+            <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 10%">
+                <div class="modal-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">增加参与教师
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" method="POST" action="/activity/admin/addteacher">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @include('acsystem.partials.addActTeacher')
+                                <div class="form-group">
+                                    <div class="col-md-3 add-button-group">
+                                        <button type="submit" class="btn btn-primary btn-md" id="submit">
+                                            <i class="fa fa-plus-circle"></i>
+                                            确定
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
 
                         </div>
                     </div>
@@ -251,7 +289,6 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
-
 
     </div>
 
