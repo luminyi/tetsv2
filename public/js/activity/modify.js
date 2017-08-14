@@ -35,7 +35,21 @@ window.actionEvents = {
                 $('#attendTable').bootstrapTable('load', result);
             }
         });
-        console.log(row.id);
+        //教师名单
+        $("#activityName").html(row.name).attr('readonly',true);
+        $("#activityID").html(row.id).attr('readonly',true);
+        $.ajax({
+            type: "get",
+            async: false,
+            url: '/activity/admin/Teachers',
+            data: {
+                id:row.id
+            },//传递学院名称
+            success: function (result) {
+                $('#ACteacherTable').bootstrapTable('load', result);
+            }
+        });
+
 
     },
     'click .modify': function (e, value, row, index) {
@@ -177,10 +191,10 @@ $(document).ready(function() {
             });
         }
     });
-
-    /*$("#activate-activity").click(function(){
-        var ids = $.map($("#activityTable").bootstrapTable('getSelections'),function(row){//获取选中的行
-            //console.log(row);
+    //报名已参加
+    $("#review11").click(function(){
+        var ChangeState = "报名已参加";
+        var ids = $.map($("#ACteacherTable").bootstrapTable('getSelections'),function(row){//获取选中的行
             var obj = {
                 id:row.id
             };
@@ -188,27 +202,95 @@ $(document).ready(function() {
         });
         if(ids.length==0)
         {
-            alert('请选择需要激活的活动！');
+            alert('无选择人员！');
         }
         else {
             $.ajax({
-                type: "get",
+                type: "post",
                 async: false,
-                url: "/activity/admin/activate",
+                url: "/activity/admin/TeachersState",
                 data: {
-                    dataArr:ids
+                    '_token': csrf_token,
+                    dataArr: ids,
+                    newState: ChangeState
                 },//传递学院名称
                 success: function (result) {
                     alert(result);
-                    window.location.reload();
+                    $(".close").click();
                 }
             });
         }
+    });
+    //报名未参加
+    $("#review10").click(function(){
+        var ChangeState = "报名未参加";
+        var ids = $.map($("#ACteacherTable").bootstrapTable('getSelections'),function(row){//获取选中的行
+            var obj = {
+                id:row.id
+            };
+            return obj;
+        });
+        if(ids.length==0)
+        {
+            alert('无选择人员！');
+        }
+        else {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/activity/admin/TeachersState",
+                data: {
+                    '_token': csrf_token,
+                    dataArr: ids,
+                    newState: ChangeState
+                },//传递学院名称
+                success: function (result) {
+                    alert(result);
+                    $(".close").click();
+                }
+            });
+        }
+    });
+    //未报名参加
+    $("#review01").click(function(){
+        var ChangeState = "未报名参加";
+        var ids = $.map($("#ACteacherTable").bootstrapTable('getSelections'),function(row){//获取选中的行
+            var obj = {
+                id:row.id
+            };
+            return obj;
+        });
+        if(ids.length==0)
+        {
+            alert('无选择人员！');
+        }
+        else {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/activity/admin/TeachersState",
+                data: {
+                    '_token': csrf_token,
+                    dataArr: ids,
+                    newState: ChangeState
+                },//传递学院名称
+                success: function (result) {
+                    alert(result);
+                    $(".close").click();
+                    // window.location.reload();
+                }
+            });
+        }
+    });
 
-    });*/
 
+    $("#export-teacher").click(function(){
+
+        var act = $("#activityID").html();
+        var aname = $("#activityName").html();
+        window.open(getRootPath()+"/excel/teacherExport?activity="+act+"&ActName="+aname);
+    });
     $("#export-activity").click(function(){
         window.open(getRootPath()+"/excel/ActivityExport?flag="+term);
-
     });
 });

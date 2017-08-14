@@ -247,18 +247,31 @@ class ActivityController extends Controller
         return $activity;
     }
 
-
-
-
-
     public function attendTeacher(Request $request){
         $activityId = $request->get('id');
         $attendPeople = DB::table('activities_user')
             ->select('users.unit','users.name')
             ->leftjoin('users','users.id', '=', 'activities_user.user_id')
             ->where('activities_id','=',$activityId)->get();
-
         return $attendPeople;
+    }
+
+    public function showTeachers(Request $request){
+        $activityId = $request->get('id');
+        $teachers = DB::table('activities_user')
+            ->select('users.id','users.user_id','users.unit','users.name','activities_user.fin_state')
+            ->leftjoin('users','users.id', '=', 'activities_user.user_id')
+            ->where('activities_id','=',$activityId)->get();
+        //log::info($teachers);
+        return $teachers;
+    }
+
+    public function showTeachersExcel($activityId){
+        $teachers = DB::table('activities_user')
+            ->select('users.id','users.user_id','users.unit','users.name','activities_user.fin_state')
+            ->leftjoin('users','users.id', '=', 'activities_user.user_id')
+            ->where('activities_id','=',$activityId)->get();
+        return $teachers;
     }
 
     public function deleteActivity(Request $request){
@@ -267,9 +280,12 @@ class ActivityController extends Controller
         return ('删除成功！');
     }
 
-    /*public function activate(Request $request){
+    public function TeachersStateChange(Request $request){
         $input = $request->all();
-        $falg=DB::table('activities')->whereIn('id',$input['dataArr'])->update(['state' => '正在进行']);
-        return ('激活成功！');
-    }*/
+        //log::info($input);
+        $flag=DB::table('activities_user')
+            ->whereIn('user_id',$input['dataArr'])
+            ->update(['fin_state' => $input['newState']]);
+        return ('修改成功！');
+    }
 }

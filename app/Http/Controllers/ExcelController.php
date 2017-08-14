@@ -2181,7 +2181,7 @@ and (课程名称 = ANY (
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
     }
-
+    //导出活动
     public function ActivityExport(Request $request)
     {
         $flag = $request->get('flag');
@@ -2201,17 +2201,19 @@ and (课程名称 = ANY (
         //表头
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', '活动名称');
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B1', '主讲教师');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C1', '开始时间');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D1', '结束时间');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E1', '活动地点');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F1', '活动状态');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G1', '活动总人数');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H1', '参与人数');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I1', '剩余名额');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J1', '活动学期');
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K1', '其他信息');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C1', '活动开始时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D1', '活动结束时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E1', '报名开始时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F1', '报名结束时间');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G1', '活动地点');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H1', '报名状态');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I1', '活动总人数');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J1', '参与人数');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K1', '剩余名额');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L1', '活动学期');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M1', '其他信息');
 
-        $objPHPExcel->getActiveSheet()->getStyle('A1:K1')->applyFromArray(
+        $objPHPExcel->getActiveSheet()->getStyle('A1:M1')->applyFromArray(
             array(
                 'font' => array (
                     'bold' => true
@@ -2234,13 +2236,15 @@ and (课程名称 = ANY (
                 ->setCellValue('B' . ($i + 2), $activity[$i]['teacher'])
                 ->setCellValue('C' . ($i + 2), $activity[$i]['start_time'])
                 ->setCellValue('D' . ($i + 2), $activity[$i]['end_time'])
-                ->setCellValue('E' . ($i + 2), $activity[$i]['place'])
-                ->setCellValue('F' . ($i + 2), $activity[$i]['state'])
-                ->setCellValue('G' . ($i + 2), $activity[$i]['all_num'])
-                ->setCellValue('H' . ($i + 2), $activity[$i]['attend_num'])
-                ->setCellValue('I' . ($i + 2), $activity[$i]['remainder_num'])
-                ->setCellValue('J' . ($i + 2), $activity[$i]['term'])
-                ->setCellValue('K' . ($i + 2), $activity[$i]['information']);
+                ->setCellValue('E' . ($i + 2), $activity[$i]['apply_start_time'])
+                ->setCellValue('F' . ($i + 2), $activity[$i]['apply_end_time'])
+                ->setCellValue('G' . ($i + 2), $activity[$i]['place'])
+                ->setCellValue('H' . ($i + 2), $activity[$i]['apply_state'])
+                ->setCellValue('I' . ($i + 2), $activity[$i]['all_num'])
+                ->setCellValue('J' . ($i + 2), $activity[$i]['attend_num'])
+                ->setCellValue('K' . ($i + 2), $activity[$i]['remainder_num'])
+                ->setCellValue('L' . ($i + 2), $activity[$i]['term'])
+                ->setCellValue('M' . ($i + 2), $activity[$i]['information']);
         }
         $objPHPExcel->getActiveSheet()->setTitle("1");
         $objPHPExcel->setActiveSheetIndex(0);
@@ -2267,4 +2271,78 @@ and (课程名称 = ANY (
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
     }
+
+    //导出活动-teachers
+    public function teacherExport(Request $request)
+    {
+        $flag = $request->get('activity');
+        $filename = $request->get('ActName');
+        $activityObj = new ActivityController;
+
+        $activity = $activityObj->showTeachersExcel($flag);
+        $activity = json_decode(json_encode($activity), true);
+        //log::info(count($activity));
+        $objPHPExcel = new PHPExcel();
+
+        // Set properties
+        $objPHPExcel->getProperties()->setCreator("BJFU-DFI")->setTitle("Office 2007 XLSX Test Document");
+        //set width
+        $objPHPExcel->setActiveSheetIndex()->getColumnDimension('A')->setWidth(20);
+        $objPHPExcel->setActiveSheetIndex()->getColumnDimension('B')->setAutoSize(true);
+        //合并
+//        $objPHPExcel->getActiveSheet()->mergeCells('A1:B1:C1');
+        //表头
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', '教师ID');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B1', '姓名');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C1', '学院');
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D1', '最终状态');
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1:D1')->applyFromArray(
+            array(
+                'font' => array (
+                    'bold' => true
+                ),
+                'alignment' => array (
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER ,
+                ),
+            )
+        );
+        $objPHPExcel->getActiveSheet()->getStyle('A:K')->applyFromArray(
+            array(
+                'alignment' => array (
+                    'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER ,
+                ),
+            )
+        );
+        for ($i = 0; $i < count($activity); $i++) {
+            $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('A' . ($i + 2), $activity[$i]['user_id'])
+                ->setCellValue('B' . ($i + 2), $activity[$i]['name'])
+                ->setCellValue('C' . ($i + 2), $activity[$i]['unit'])
+                ->setCellValue('D' . ($i + 2), $activity[$i]['fin_state']);
+        }
+        $objPHPExcel->getActiveSheet()->setTitle("1");
+        $objPHPExcel->setActiveSheetIndex(0);
+        // 输出
+        $filename = $filename. '活动的教师名单.xls';
+        $ua = $_SERVER["HTTP_USER_AGENT"];//探测主机所用内核
+        header('Content-Type: application/octet-stream');
+
+        if (preg_match("/Chrome/", $ua)) {//谷歌内核
+            iconv("utf-8", "gb2312", $filename);
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+        } else if (preg_match("/Firefox/", $ua)) {//火狐内核
+            iconv("utf-8", "gb2312", $filename);
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+        } else {
+            $encoded_filename = urlencode($filename);//ie内核
+            header('Content-Disposition: attachment; filename="' . $encoded_filename . '"');
+        }
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+    }
+
 }
+
