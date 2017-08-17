@@ -282,12 +282,6 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         </li>
                     </ul>
                 </li>
-                {{--<li class="indentManage" style="border-left:3px solid #4AA3DE;">--}}
-                    {{--<a href="/DataStatistics">--}}
-                        {{--<i class="icon-file-alt"></i>--}}
-                        {{--评价统计--}}
-                    {{--</a>--}}
-                {{--</li>--}}
                 <li class="indents"   style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/NecessaryTask">
                         <i class="glyphicon icon-random"></i>
