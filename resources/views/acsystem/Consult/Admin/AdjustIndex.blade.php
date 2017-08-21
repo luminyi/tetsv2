@@ -62,7 +62,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('calendar/DateTimePicker.css')}}" />
 
 
-   {{--the style of school-term-choose--}}
+    {{--the style of school-term-choose--}}
     <link rel="stylesheet" type="text/css" href="{{asset('calendar1/css/bootstrap-datetimepicker.css')}}" />
 
 
@@ -132,6 +132,61 @@
         </div>
     </div>
 
+
+    <div class="row">
+
+        <button id="coordinate" data-toggle="modal" data-target="#Coordinate" style="display: none">
+            查看活动
+        </button>
+        <!-- 查看详情的 模态框（Modal） -->
+        <div class="modal fade" id="Coordinate" tabindex="-1" role="dialog" aria-hidden="true">
+            <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 0%">
+                <div class="modal-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">咨询详情
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                            </h2>
+                        </div>
+                        <form class="form-horizontal" role="form" method="POST" action="/consult/coordinate">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <p><span style="font-weight: bold;">申请教师：&nbsp;&nbsp;</span>
+                                        <span id="act-teacher-co" ></span>
+                                    </p>
+                                    <p><span style="font-weight: bold;">咨询名称：&nbsp;&nbsp;</span>
+                                        <span id="act-name-co" ></span>
+                                    </p>
+                                    <p><span style="font-weight: bold;">咨询内容：&nbsp;&nbsp;</span>
+                                        <span id="act-info-co" ></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <p align="center">回复内容</p>
+                            <input type="hidden" value="" name="consult_id" id="consult_id">
+                            <input type="hidden" value="" name="comment_user_id" id="comment_user_id">
+                            <textarea class="form-control" id="reply" name="reply" rows="20"></textarea>
+                            <div style="text-align:center">
+                                <button type="submit" class="btn btn-primary btn-md">
+                                    <i class="fa fa-plus-circle"></i>
+                                    回复
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+    </div>
+
+
+
     <div class="row">
 
         <button id="check-consult" data-toggle="modal" data-target="#checkout-consult" style="display: none">
@@ -152,13 +207,16 @@
                         <div class="panel-body">
                             <div class="row">
                                 <p><span style="font-weight: bold;">申请教师：&nbsp;&nbsp;</span>
-                                    <span id="act-teacher" ></span>
+                                    <span id="act-teacher-in" ></span>
                                 </p>
                                 <p><span style="font-weight: bold;">咨询名称：&nbsp;&nbsp;</span>
-                                    <span id="act-name" ></span>
+                                    <span id="act-name-in" ></span>
                                 </p>
-                                <p><span style="font-weight: bold;">其他信息：&nbsp;&nbsp;</span>
-                                    <span id="act-info" ></span>
+                                <p><span style="font-weight: bold;">咨询内容：&nbsp;&nbsp;</span>
+                                    <span id="act-info-in" ></span>
+                                </p>
+                                <p><span style="font-weight: bold;">回复内容：&nbsp;&nbsp;</span>
+                                    <span id="act-content-in" ></span>
                                 </p>
                             </div>
                         </div>
