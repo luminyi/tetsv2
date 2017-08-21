@@ -357,6 +357,9 @@ Route::group(['middleware' => 'auth'], function () {
         //the view of adjusting the consult content
         Route::get('/consult/adjust','AdjustController@index');
 
+        //finish the work of coordination
+        Route::post('/consult/coordinate','ConsultController@StoreCoordination');
+
 
         //the data of done/undo
         Route::get('/consult/adjust/{action}','AdjustController@ConsultResult');

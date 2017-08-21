@@ -46,8 +46,7 @@
                                     咨询细节(选填)
                                 </label>
                                 <div class="col-md-8">
-                                    <textarea class="form-control" id="meta_description" name="meta_description" rows="20">
-                                    </textarea>
+                                    <textarea class="form-control" id="meta_description" name="meta_description" rows="20"></textarea>
                                 </div>
                             </div>
 
@@ -113,8 +112,11 @@
                                     <p><span style="font-weight: bold;">咨询名称：&nbsp;&nbsp;</span>
                                         <span id="act-name" ></span>
                                     </p>
-                                    <p><span style="font-weight: bold;">其他信息：&nbsp;&nbsp;</span>
+                                    <p><span style="font-weight: bold;">咨询内容：&nbsp;&nbsp;</span>
                                         <span id="act-info" ></span>
+                                    </p>
+                                    <p><span style="font-weight: bold;">回复内容：&nbsp;&nbsp;</span>
+                                        <span id="act-content" ></span>
                                     </p>
                                 </div>
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Consult;
 
+USE App\Model\ConsultsCoordination;
 use App\Model\ConsultsUser;
 use App\Model\ConsultType;
 use Carbon\Carbon;
@@ -103,5 +104,25 @@ class ConsultController extends Controller
         $input = $request->all();
         DB::table('consults_type')->whereIn('id',$input['dataArr'])->delete();
         return ('删除成功！');
+    }
+
+    public function StoreCoordination(Request $request)
+    {
+        $comment_user_id = $request->get('comment_user_id');
+        $reply = $request->get('reply');
+        $reply = mb_ereg_replace('^(　| )+', '', $reply);//去前空格
+        $reply = mb_ereg_replace('(　| )+$', '', $reply);//去后空格
+        $consult_id = $request->get('consult_id');
+        $Info = [
+            'consult_id'=> $consult_id,
+            'floor_id' => 1,
+            'comment_user_id' => $comment_user_id,
+            'content' => $reply,
+        ];
+        ConsultsCoordination::create($Info);
+        DB::table('consult_user')
+            ->where('consult_id',$consult_id)
+            ->update(['state' => '已协调']);
+        return redirect('/consult/adjust');
     }
 }
