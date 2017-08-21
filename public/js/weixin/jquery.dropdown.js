@@ -1,7 +1,6 @@
 ;
 (function ($) {
   'use strict';
-
   function throttle(func, wait, options) {
     var context, args, result;
     var timeout = null;
@@ -139,9 +138,9 @@
       var isSelected = val.selected && !isDisabled ? ' selected' : '';
 
       var temp = '<option' + isDisabled + isSelected + ' value="' + val.id + '">' + val.name + '</option>';
-
+      var lesson = val.name.split('___');
       if (isSelected) {
-        name.push('<span class="dropdown-selected">' + val.name + '<i class="del" data-id="' + val.id + '"></i></span>');
+        name.push('<span class="dropdown-selected">' + lesson[0] + '<i class="del" data-id="' + val.id + '"></i></span>');
         selectAmount++;
       }
 
@@ -300,7 +299,9 @@
         }
         if (item.selected) {
           selectedName.push(item.name);
-          _dropdown.name.push('<span class="dropdown-selected">' + item.name + '<i class="del" data-id="' + item.id + '"></i></span>');
+          var lesson = item.name.split('___');
+            console.log("3");
+          _dropdown.name.push('<span class="dropdown-selected">' + lesson[0] + '<i class="del" data-id="' + item.id + '"></i></span>');
         }
       });
 
@@ -308,6 +309,7 @@
 
       _dropdown.$choseList.find('.dropdown-selected').remove();
       _dropdown.$choseList.prepend(_dropdown.name.join(''));
+        console.log("1");
       _dropdown.$el.find('.dropdown-display').attr('title', selectedName.join(','));
       _config.choice.call(_dropdown, event);
     },
@@ -332,18 +334,61 @@
       $.each(_config.data, function (key, item) {
         // id 有可能是数字也有可能是字符串，强制全等有弊端 2017-03-20 22:19:21
         item.selected = false;
+        var lesson = item.name.split('___');
         if ('' + item.id === '' + value) {
           item.selected = hasSelected ? 0 : 1;
           if (item.selected) {
-            _dropdown.name.push('<span class="dropdown-selected">' + item.name + '<i class="del" data-id="' + item.id + '"></i></span>');
+            _dropdown.name.push('<span class="dropdown-selected">' + lesson[0] + '<i class="del" data-id="' + item.id + '"></i></span>');
+            $('#Teacher').val(lesson[1]);
+            $('#LessonClass').val(lesson[5]);
+            $('#LessonRoom').val(lesson[6]);
+              $('#LessonTime').attr("disabled",false).val('');
+              $('#ListenTime').attr("disabled",false).val('');
+             var LessonWeekday=lesson[3].match(/\d/g);
+              var lesTime= lesson[4];
+              //课程节次的坐标
+              var LessonTime_X = $('#LessonTime').position().left;
+              var LessonTime_Y = $('#LessonTime').position().top;
+              $(window).resize(function (){
+                  LessonTime_X = $('#LessonTime').position().left;
+                  LessonTime_Y = $('#LessonTime').position().top;
+              });
+            if(lesson[5] == "")
+            {
+                $('#LessonClass').attr("readonly",false);
+                $('#LessonClass').attr("disabled",false);
+            }
+            if(lesson[6] == "")
+            {
+                $('#LessonRoom').attr("disabled",false);
+                $('#LessonRoom').attr("readonly",false);
+            }
+              var date_arr = null;
+              if (LessonWeekday!=null)
+              {
+                  date_arr = new Array(0,1,2,3,4,5,6);
+                  date_arr.splice(LessonWeekday,1);
+              }
+              chooseDate(date_arr);
+              $("#LessonTime").focus(function (){
+                  $('#LessonTime-suggest').children().remove();
+                  $('#LessonTimeStyle').css("display","block");
+                  if (lesTime=="")
+                  {
+                      AddLessonTime(LessonTime_X,LessonTime_Y,'01020304050607080910');
+                  }
+                  else{
+                      AddLessonTime(LessonTime_X,LessonTime_Y,lesTime);
+                  }
+
+              });
           }
         }
       });
-
       $select.find('option[value="' + value + '"]').prop('selected', true);
-
       _dropdown.name.push('<span class="placeholder">' + _dropdown.placeholder + '</span>');
       _dropdown.$choseList.html(_dropdown.name.join(''));
+      console.log("2");
       _config.choice.call(_dropdown, event);
     },
     del: function del(event) {
@@ -425,7 +470,6 @@
       var $select = _this.$select;
       var elemLi = selectToDiv($select.prop('outerHTML'));
       var template;
-
       if (isUpdate) {
         $el.find('ul')[isCover ? 'html' : 'append'](elemLi);
       } else {
@@ -444,7 +488,7 @@
       if (!_this.isLabelMode) {
         _this.$choseList.html($('<span class="placeholder"></span>').text(_this.placeholder));
       }
-
+      console.log("4");
       _this.$choseList.prepend(_this.name.join(''));
     },
     bindEvent: function bindEvent() {
