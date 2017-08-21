@@ -39,6 +39,8 @@ class AuthController extends Controller
     protected $redirectTo = '/home';
     protected $username = 'user_id';
     protected $redirectAfterLogout = '/login';
+
+
     /**
      * Create a new authentication controller instance.
      *
@@ -97,6 +99,17 @@ class AuthController extends Controller
      */
     public function postLogin(UserLoginRequest $request)
     {
+        /**
+         * 判断是否为微信浏览器登陆
+         *
+         * @return true or false
+         */
+        function is_weixin(){
+            if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
+                return true;
+            }
+            return false;
+        }
         $cpt_validator = $this->validat_cpt();
 //        dd($cpt_validator);
         if($cpt_validator == false) {
@@ -115,7 +128,10 @@ class AuthController extends Controller
             //如果要使用记住密码的话，需要在数据表里有remember_token字段
             if (\Auth::attempt(['user_id' => $user_id, 'password' => $password, 'status' => '活跃'], $remember)) {
 //            dd($request->all());
-
+                if(is_weixin() == true)
+                {
+                    return redirect()->intended('/weixinTheoryEvaluationTableView');
+                }
                 return redirect()->intended('/index');
             }
             return Redirect::back()->withErrors('用户名/密码错误');
@@ -147,4 +163,5 @@ class AuthController extends Controller
             return view('auth.login');
         }
     }
+
 }

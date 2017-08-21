@@ -588,8 +588,9 @@ function checkNeceHead_Input(LessonState)
     //    alert('请输入课程属性！');
     //}
 
-    if($('#LessonName').val() == '')
+    if($('.dropdown-selected').length == 0)
     {
+        console.log($('.dropdown-selected').val());
         if(LessonState=='已完成')//已完成的话弹出提示框
         {
             flagC = 1;

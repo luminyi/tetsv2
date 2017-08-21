@@ -56,7 +56,7 @@
             float: none;
             margin-left:15px;
             margin-bottom: 3px;
-            width: 80%;
+            width: 94%;
         }
         #search-suggest{
             left: 27px;
@@ -85,7 +85,7 @@
             float: none;
             margin-left:15px;
             margin-bottom: 3px;
-            width: 80%;
+            width: 91%;
         }
         #search-suggest {
             left: -11px;
@@ -93,6 +93,9 @@
         }
         #Lesson-suggest{
             top: 464px;
+        }
+        .content-font {
+            padding-left: 0;
         }
     }
 </style>
@@ -105,75 +108,12 @@
 <script type="text/javascript" src="calendar/DateTimePicker-ltie9.js"></script>
 <![endif]-->
 
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/reset.css" />--}}
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/style.css" />--}}
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/zzsc.css" />--}}
 <script src="assets/js/jquery-2.0.3.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-<script>
-    var url=location.href;
-    var flag = null;
-    var LessonWeekday=null;//听课星期的值
-    var lessonTime = null;
-    url = url.replace(/</g,"&lt;").replace(/>/g,"&gt");
-    var tmp1=url.split("?")[1];
-    if (tmp1!=null)
-    {
-        tmp1=decodeURI(tmp1);
-        flag=tmp1.split("&")[0].split("=")[1];
-        if(flag ==0)//课程表跳转
-        {
 
-            var unit=tmp1.split("&")[1].split("=")[1];
-            var year=tmp1.split("&")[2].split("=")[1];
-            var semester=tmp1.split("&")[3].split("=")[1];
-            var Teacname=tmp1.split("&")[4].split("=")[1];
-            var lesson=tmp1.split("&")[5].split("=")[1];
-            var room=tmp1.split("&")[6].split("=")[1];
-            var Class=tmp1.split("&")[7].split("=")[1];
-            LessonWeekday=tmp1.split("&")[8].split("=")[1];
-            lessonTime=tmp1.split("&")[9].split("=")[1];
-        }
-        if(flag !=0)//评价详情跳转
-        {
-            var chapter=tmp1.split("&")[1].split("=")[1];
-            var lesson=tmp1.split("&")[2].split("=")[1];
-            var Teacname=tmp1.split("&")[3].split("=")[1];
-            var Class=tmp1.split("&")[4].split("=")[1];
-            var room=tmp1.split("&")[5].split("=")[1];
-            var Listendate=tmp1.split("&")[6].split("=")[1];
-            var lessontime=tmp1.split("&")[7].split("=")[1];
-            var Attr=tmp1.split("&")[8].split("=")[1];
-            var Super=tmp1.split("&")[9].split("=")[1];
-            LessonWeekday=new Date(Listendate).getDay();
-            //获取课程节次和周数
-            $.ajax({
-                        type: "get",
-                        async: false,
-                        url: "/GetLessonTimeBylistendate",
-                        data: {
-                            Lesson_name: lesson,
-                            Teacher: Teacname,
-                            Class: Class,
-                            Room:room,
-                            LessonWeekday:LessonWeekday
-                        },//传递学院名称
-                        success: function (result) {
-                            if (result != '')
-                                lessonTime=result[0]['lesson_time'];
-                            else
-                                lessonTime = '';
-                        }
-                    });
+<link rel="stylesheet" type="text/css" href="js/weixin/jquery.dropdown.css">
+<script src="js/weixin/jquery.dropdown.js"></script>
 
-        }
-    }
-
-
-
-
-
-</script>
 <body onLoad="isReady=true">
 
 @include('weixin.header')
@@ -212,34 +152,7 @@
                                         </select>
                                     </div>
 
-                                    @if(session('role')=='校级')
-                                        <span id="KIKO"  for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
-                                        {{--原来的搜索框--}}
-                                        <div id="KIKO1" class="col-sm-1">
-                                            <div class="search" >
-                                                <form target="_blank" id="search-formID">
-                                                    <input id="SearchBarID" class="form-control icon-remove"
-                                                           type="text" value="" autocomplete="off" readonly="readonly"
-                                                           style="width: 90%;">
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <span id="KIKO" for="inputChapter" class="col-lg-1" style="padding-top: 8px;">督导姓名</span>
-                                        {{--原来的搜索框--}}
-                                        <div id="KIKO1" class="col-sm-1">
-                                            <div class="search" >
-                                                <form target="_blank" id="search-form">
-                                                    <input id="SearchBar" class="form-control icon-remove"
-                                                           type="text" value="" autocomplete="off" placeholder="督导姓名"
-                                                           style="width: 100%;" unselectable="on"
-                                                            {{--onkeydown="$('#SearchBar').val('');$('#SearchBarID').val('');"--}}
-                                                    >
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @endif
 
-                                    @if(session('role')=='督导'||session('role')=='小组长')
                                         <span id="KIKO" for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
                                         <div id="KIKO1" class="col-sm-1">
                                             <input type="text" class="form-control" id="SearchBarID" value="{{Auth::User()->user_id}}" readonly="readonly">
@@ -248,22 +161,7 @@
                                         <div id="KIKO1" class="col-sm-1">
                                             <input type="text" class="form-control" id="SearchBar" value="{{Auth::User()->name}}" readonly="readonly">
                                         </div>
-                                    @endif
 
-                                    @if(session('role')=='校级')
-                                        <div class="suggest" id="search-suggest" style="z-index: 9999">
-                                            <ul id="search_result">
-
-                                            </ul>
-                                        </div>
-                                    @endif
-
-                                    {{--课程搜索框下拉列表--}}
-                                    <div class="suggestClass" id="Lesson-suggest" >
-                                        <ul id="Lesson_result">
-
-                                        </ul>
-                                    </div>
 
                                     {{--课程节次框--}}
                                     <div id="LessonTimeStyle">
@@ -273,30 +171,57 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </form>
                             <table class="table table-bordered">
                                 <tr>
                                     <th>课程信息</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="dropdown-sin-1">
+                                            <select  style="display:none" placeholder="">
+                                                <option>1</option>
+
+                                            </select>
+                                        </div>
+                                        <input type="text" class="form-control" id="LessonName" placeholder="课程名   教师名进行搜索" style="display: none">
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>任课教师</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="Teacher" readonly="readonly"></td>
+                                </tr>
+                                <tr>
                                     <th>听课时间</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="ListenTime" placeholder="选择日期"></td>
+                                </tr>
+                                <tr>
                                     <th>听课节次</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="LessonTime" placeholder="请选择听课时长"></td>
+                                </tr>
+                                <tr>
                                     <th>上课班级</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" id="LessonClass" readonly="readonly"></td>
+                                </tr>
+                                <tr>
                                     <th>上课地点</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" id="LessonName" placeholder="课程名   教师名进行搜索"></td>
-                                    <td><input type="text" class="form-control" id="Teacher" readonly="readonly"></td>
-                                    <td><input type="text" class="form-control" id="ListenTime" placeholder="选择日期"></td>
-                                    <td><input type="text" class="form-control" id="LessonTime" placeholder="请选择听课时长"></td>
-                                    <td><input type="text" class="form-control" id="LessonClass" readonly="readonly"></td>
                                     <td><input type="text" class="form-control" id="LessonRoom"  readonly="readonly" ></td>
-
                                 </tr>
+
                             </table>
-                            <div class="alert alert-danger" style="font-size: 19px; text-align: center;">
-                                <strong>  &nbsp;&nbsp;&nbsp;&nbsp; 注：</strong>
-                                &nbsp;&nbsp;&nbsp;（1）5个评价等级为：非常满意、满意、正常、存在不足、存在明显不足。<br>
+                            <div class="alert alert-danger" style="font-size: 19px; text-align: left;">
+                                <strong>  &nbsp;&nbsp;&nbsp;&nbsp; 注：</strong><br>
+                                (1）5个评价等级为：非常满意、满意、正常、存在不足、存在明显不足。<br>
                                 （2）评价内容共两部分：评价表正面和评价表背面。<br>
                                 （3）评价表正面除“章节目录、课程属性、学生到课情况、其他”外均为必填项，背面为选填项。<br>
                                 （4）此评价表为理论课评价表。
@@ -525,7 +450,7 @@
 <script src="js/jquery.tabs.js"></script>
 <script src="calendar1/js/bootstrap-datetimepicker1.min.js"></script>
 <script src="calendar1/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-<script src="js/HelpFunction.js"></script>
+<script src="js/weixin/HelpFunction.js"></script>
 <script>
     var split_flag='___';//课程信息的分隔符
 
@@ -605,7 +530,7 @@
                     frontdata:Frontlist,
                     backdata1:Backlist1,
                     backdata2:Backlist2,
-                    valueID:flag
+//                    valueID:flag
                 },
                 success: function (result) {
                     if (result!='')
@@ -624,198 +549,43 @@
     }
 
 
-
-    //督导姓名提示框
-    var SearchValue=document.getElementById('SearchBar');
-    var SearchValueID=document.getElementById('SearchBarID');
-    //课程提示框
-    var LessonValue=document.getElementById('LessonName');
-    var TeacherValue=document.getElementById('Teacher');
-    var LessonClassValue=document.getElementById('LessonClass');
-    var LessonRoomValue=document.getElementById('LessonRoom');
-
-
-    var lessondata=[];
+    var ack=[];
+    var ArrLessonName=[];
     $(document).ready(function() {
         $('.evaluated-menu').addClass('active');
         $('.supervise-menu').addClass('active');
         $('.work-menu').addClass('active');
-
-
-
-
-
-
         //督导姓名输入框的操作事宜
         chooseSupervisor();
 
-        var timeoutObj;//用于计时，课程信息请求次数限制
-
-        //课程名称输入框的操作事宜
-        $('#LessonName').bind('input propertychange',function(){
-            var LessonText = $('#LessonName').val();
-            if( LessonValue.value=='')//课程change ，其余均change
-            {
-                TeacherValue.value='';
-                LessonClassValue.value='';
-                LessonRoomValue.value='';
-                $('#ListenTime').val('');
-            }
-            if(timeoutObj)
-            {
-                clearTimeout(timeoutObj);
-            }
-            timeoutObj = setTimeout(function(){
-                var LessonText = $('#LessonName').val();
-                $.ajax({
-                    type: "get",
-                    async: false,
-                    url: "/GetLessonArrThe",
-                    data:{dataIn:LessonText},
-                    success: function (result) {
-//                    console.log(result);
-                        lessondata = result;
-                        var html='';
-                        for (var i=0;i<result.length;i++)
-                        {
-                            html+='<li class="list-group-item" style="font-size: 14px; ' +
-                                    'border-bottom: lightgrey solid 2px">'
-                                    +result[i]['lesson_name']+split_flag
-                                    +result[i]['lesson_teacher_name']+split_flag
-                                    +result[i]['lesson_week']+'周'+split_flag+'星期'
-                                    +result[i]['lesson_weekday']+split_flag
-                                    + result[i]['lesson_time'] +split_flag
-                                    +result[i]['lesson_class']+split_flag
-                                    +result[i]['lesson_room']+'</li>';
-                        }
-                        $('#Lesson_result').html(html);
-
-                        $('#Lesson-suggest').show().css({
-                            position:'absolute',
-                            height:'220'
-                        });
-                        $('.suggestClass').css('border','1px solid #CCC');
-                    }
-                });
-                $(document).bind('click',function(){
-                    $('#Lesson-suggest').hide();
-                });
-                $('#Lesson_result').delegate('li','click',function(){
-                    LessonValue.value=$(this).text().split(split_flag)[0];
-                    TeacherValue.value=$(this).text().split(split_flag)[1];
-                    LessonClassValue.value=$(this).text().split(split_flag)[5];
-                    LessonRoomValue.value=$(this).text().split(split_flag)[6];
-                    LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
-                    lessonTime =$(this).text().split(split_flag)[4];
-                    $('#LessonTime').attr("disabled",false).val('');
-                    $('#ListenTime').attr("disabled",false).val('');
-
-                    //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
-                    if(LessonClassValue.value=='')
-                    {
-                        $('#LessonClass').attr("readonly",false);
-                        $('#LessonClass').attr("disabled",false);
-                    }
-                    if(LessonRoomValue.value=='')
-                    {
-                        $('#LessonRoom').attr("disabled",false);
-                        $('#LessonRoom').attr("readonly",false);
-                    }
-                    /************************************************日历相关函数***************************************************/
-                    var date_arr = null;
-                    if (LessonWeekday!=null)
-                    {
-                        date_arr = new Array(0,1,2,3,4,5,6);
-                        date_arr.splice(LessonWeekday,1);
-                    }
-                    chooseDate(date_arr);
-//                console.log(lessondata[$(this).index()]);
-                });
-            },400);
-
-        }).bind('click',function(ev){
-            var oEvent=ev||event;
-            oEvent.stopPropagation();
-
-            var LessonText = $('#LessonName').val();
-            if( LessonValue.value=='')
-            {
-                TeacherValue.value='';
-                LessonClassValue.value='';
-                LessonRoomValue.value='';
-                $('#ListenTime').val('');
-            }
-            $.ajax({
+         $.ajax({
                 type: "get",
                 async: false,
                 url: "/GetLessonArrThe",
-                data:{dataIn:LessonText},
+                data:{dataIn:""},
                 success: function (result) {
-                    lessondata = result;
-                    var html='';
                     for (var i=0;i<result.length;i++)
                     {
-                        html+='<li class="list-group-item" style="font-size: 14px; ' +
-                                'border-bottom: lightgrey solid 2px">'
-                                +result[i]['lesson_name']+split_flag
-                                +result[i]['lesson_teacher_name']+split_flag
-                                +result[i]['lesson_week']+'周'+split_flag+'星期'
-                                +result[i]['lesson_weekday']+split_flag
-                                + result[i]['lesson_time'] +split_flag
-                                +result[i]['lesson_class']+split_flag
-                                +result[i]['lesson_room']+'</li>';
+                        ArrLessonName[i]= result[i]['lesson_name']+split_flag
+                            +result[i]['lesson_teacher_name']+split_flag
+                            +result[i]['lesson_week']+'周'+split_flag+'星期'
+                            +result[i]['lesson_weekday']+split_flag
+                            +result[i]['lesson_time'] +split_flag
+                            +result[i]['lesson_class']+split_flag
+                            +result[i]['lesson_room'];
                     }
-                    $('#Lesson_result').html(html);
-
-                    $('#Lesson-suggest').show().css({
-                        position:'absolute',
-                        height:'220'
-
-                    });
-                    $('.suggestClass').css('border','1px solid #CCC');
                 }
             });
-            $(document).bind('click',function(){
-                $('#Lesson-suggest').hide();
-            });
-            $('#Lesson_result').delegate('li','click',function(){
-                LessonValue.value=$(this).text().split(split_flag)[0];
-                TeacherValue.value=$(this).text().split(split_flag)[1];
-                LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
-                LessonClassValue.value=$(this).text().split(split_flag)[5];
-                LessonRoomValue.value=$(this).text().split(split_flag)[6];
-                lessonTime =$(this).text().split(split_flag)[4];
-                $('#LessonTime').attr("disabled",false).val('');
-                $('#ListenTime').attr("disabled",false).val('');
-                //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
-                if(LessonClassValue.value=='')
-                {
-                    $('#LessonClass').attr("readonly",false);
-                    $('#LessonClass').attr("disabled",false);
-                }
-                if(LessonRoomValue.value=='')
-                {
-                    $('#LessonRoom').attr("disabled",false);
-                    $('#LessonRoom').attr("readonly",false);
-                }
-                /************************************************日历相关函数***************************************************/
-                var date_arr = null;
-                if (LessonWeekday!=null)
-                {
-                    date_arr = new Array(0,1,2,3,4,5,6);
-                    date_arr.splice(LessonWeekday,1);
-                }
-                chooseDate(date_arr);
-            });
-        });
-
-        //课程节次的坐标
-        var LessonTime_X = $('#LessonTime').position().left;
-        var LessonTime_Y = $('#LessonTime').position().top;
-        $(window).resize(function (){
-            LessonTime_X = $('#LessonTime').position().left;
-            LessonTime_Y = $('#LessonTime').position().top;
-        });
+            for(var i=0;i<ArrLessonName.length;i++)
+            {
+                ack[i]={
+                    "name": ArrLessonName[i],
+                    "id": i+1,
+                    "disabled": false,
+                    "selected": false
+                };
+            }
+            $('.dropdown-sin-1').data('dropdown').update(ack, true);
 
         //若一开始课程选择框为空时，则将课程节次选择框置为空
 //
@@ -829,49 +599,6 @@
         else
             $('#ListenTime').attr("disabled",false);
 
-//        如果是从课程表中跳转过来的话，日历函数的操作为
-        if (flag == 0)
-        {
-            var date_arr = null;
-            if (LessonWeekday!=null)
-            {
-                date_arr = new Array(0,1,2,3,4,5,6);
-                date_arr.splice(LessonWeekday,1);
-            }
-            chooseDate(date_arr);
-//        如果是从课程表中跳转过来的话，若课程没有提供上课地点，则为
-            if(LessonClassValue.value=='')
-            {
-                $('#LessonClass').attr("readonly",false);
-                $('#LessonClass').attr("disabled",false);
-            }
-            if(LessonRoomValue.value=='')
-            {
-                $('#LessonRoom').attr("disabled",false);
-                $('#LessonRoom').attr("readonly",false);
-            }
-        }
-
-
-        $("#LessonTime").focus(function (){
-            $('#LessonTime-suggest').children().remove();
-            if(LessonValue.value=='')
-            {
-                alert('请先选择课程名称');
-                $('#LessonTime').attr("disabled",true);
-
-            }
-            else {
-                $('#LessonTimeStyle').css("display","block");
-                if ( lessonTime == '')
-                {
-                    AddLessonTime(LessonTime_X,LessonTime_Y,'01020304050607080910');
-                }
-                else{
-                    AddLessonTime(LessonTime_X,LessonTime_Y,lessonTime);
-                }
-            }
-        });
 
 
 //听课节次面板控制
@@ -906,139 +633,22 @@
         })();
     });
 
+    $('.dropdown-sin-1').dropdown({
+        input: '<input type="text" id="LessonName" maxLength="20" placeholder="搜索：输入课程名或教师名">',
+        choice: function() {
+
+        }
+    });
     //页面内容提交
     $('.submitTable').click(function(){
         var LessonState='已完成';
         GetContent(LessonState);
     });
-
     $('.saveTable').click(function(){
         var LessonState='待提交';
         GetContent(LessonState);
     });
 
 
-
-    var  contentFrontdata=[];
-    var  contentBackdata=[];
-
-
-    // 从Evaluation页面跳转过来的的信息填写表内容
-    $("#LessonName").val(lesson);
-    $("#Teacher").val(Teacname);
-    $("#LessonClass").val(Class);
-    $("#LessonRoom").val(room);
-    if(flag != 0 && flag != null)
-    {
-        $("#inputChapter").val(chapter);
-        $("#inputLessonAttr").val(Attr).css('color','black');
-        $("#ListenTime").val(Listendate);
-//        根据日期判断星期几
-        var b = new Date(Date.parse(Listendate.replace(/\-/g,"/")));
-        var date_arr = null;
-        if (LessonWeekday!=null)
-        {
-            date_arr = new Array(0,1,2,3,4,5,6);
-            date_arr.splice(b.getDay(),1);
-        }
-        chooseDate(date_arr);
-        $("#LessonTime").val(lessontime);
-
-        //向数据库请求填写信息
-        $.ajax({
-            type: "get",
-            async: false,
-            url: "/EvaluationContent",
-            data: {
-                year1: null,
-                year2: null,
-                semester: null,
-                Lesson_name: lesson,
-                Teacher: Teacname,
-                Spuervisor: SearchValueID.value,
-                Lesson_date: Listendate,
-                Lessontime: lessontime
-            },//传递学院名称
-            success: function (result) {
-//                console.log(result);
-
-                //正面 评价内容
-                contentFrontdata=result[1];
-
-                $('.grade3 h3').each(function () {
-//                    console.log( $(this).parent().next().children().children()[0].className)
-//                    console.log(contentFrontdata[0][$(this).text()]);
-                    for (j=0;j<$(this).parent().next().children().children().length;j++)
-                    {
-//                        console.log($(this).parent().next().children().children()[j])
-                        if($(this).parent().next().children().children()[j].innerText==contentFrontdata[0][$(this).text()])
-                        {
-                            $(this).parent().next().children().children()[j].className += (' current');
-//                            console.log(contentFrontdata[0][$(this).text()])
-                        }
-                    }
-                });
-//                console.log($('.grade2 h2')[0].innerText);
-
-//                 console.log(contentFrontdata[0][$(this).text()]);
-                for (j=0;j<$('.grade2').length;j++)
-                {
-                    if(contentFrontdata[0][$('.grade2 h2')[j].innerText] != null )
-                    {
-                        for (k=0;k< $('.grade2 h2').eq(j).next().children().eq(1).children().children().length;k++)
-                        {
-//                            console.log(contentFrontdata[0][$('.grade2 h2')[j].innerText]);
-                            if($('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].innerText == contentFrontdata[0][$('.grade2 h2')[j].innerText])
-                            {
-                                $('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].className +=(' current');
-                            }
-                        }
-                    }
-                }
-
-                $('.control-label').eq(0).next().children().val(contentFrontdata[0]['应到人数']);
-                $('.control-label').eq(1).next().children().val(contentFrontdata[0]['实到人数约']);
-                $('.control-label').eq(2).next().children().val(contentFrontdata[0]['迟到人数']);
-                $('.control-label').eq(3).next().children().val(contentFrontdata[0]['早退人数']);
-
-//                console.log($('h1:contains("其他")').next());
-                $('h1:contains("其他")').next().eq(0).val(contentFrontdata[0]['其他']);
-
-                //背面 评价内容
-                var  contentFrontdata=result[2];
-//                console.log(result[2]);
-                for (var key in result[2][0])
-                {
-                    if(result[2][0][key] != null )
-                    {
-                        for(k=0;k<$('.radio').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, ""));
-//                            console.log(key);
-//                            console.log($('.radio').eq(0).children().children().eq(0) );
-                            if($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.radio').eq(k).children().children().eq(0).attr('checked','checked');
-//                                console.log($('.radio').eq(k).children().children().eq(0));
-                            }
-                        }
-                        for(k=0;k<$('.checkbox').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText);
-//                            console.log( key );
-                            if($('.checkbox').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.checkbox').eq(k).children().children().eq(0).attr('checked','checked');
-                            }
-                        }
-                        $(' textarea').eq(1).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。4']);
-                        $(' textarea').eq(2).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。5']);
-                        $(' textarea').eq(3).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。6']);
-
-                    }
-                }
-            }
-        });
-    }
 </script>
 </html>
