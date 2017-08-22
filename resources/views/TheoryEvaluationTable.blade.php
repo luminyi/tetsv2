@@ -295,7 +295,7 @@
                             </form>
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>课程信息</th>
+                                    <th>课程名称</th>
                                     <th>任课教师</th>
                                     <th>听课时间</th>
                                     <th>听课节次</th>
@@ -368,7 +368,7 @@
                                                         }
                                                         break;
                                                     case 2:
-                                                        echo '<div style="margin-top: 20px;">';
+                                                        echo '<div style="margin-top: 20px;" class="radiograde">';
                                                         echo '<dd>';
                                                         for ($j=0;$j<count($front[2][$i]);$j++)
                                                         {
@@ -383,7 +383,7 @@
                                                         echo '</div>';
                                                         break;
                                                     case 3:
-                                                        echo '<div style="margin-top: 20px;">';
+                                                        echo '<div style="margin-top: 20px;" class="checkboxgrade">';
                                                         echo '<dd>';
                                                         for ($j=0;$j<count($front[2][$i]);$j++)
                                                         {
@@ -398,10 +398,10 @@
                                                         echo '</div>';
                                                         break;
                                                     case 4:
-                                                        echo '<ul class="grade4"> ';
+                                                        echo '<ul  style="display: inline-block;" class="textaregrade"> ';
                                                         for ($j=0;$j<count($front[2][$i]);$j++)
                                                         {
-                                                            echo '<li class="student"> ';
+                                                            echo '<li class="textarea"> ';
                                                             echo '<form class="form-horizontal"> ';
                                                             echo '<div class="form-group"> ';
                                                             echo '<label class="col-sm-3 control-label">';
@@ -451,7 +451,6 @@
                                                                 <span style="float:left; margin-top: 4px;"></span>
                                                                 <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
                                                         if(!array_key_exists($j,$back[3][$i]))continue;
-                                                        if(!count($back[3][$i]))continue;
                                                         for($k=0;$k<count($back[3][$i][$j]);$k++)
                                                         {
                                                             echo '
@@ -468,7 +467,7 @@
                                                     }
                                                     break;
                                                 case 2:
-                                                    echo '<div style="margin-top: 20px;">';
+                                                    echo '<div style="margin-top: 20px;" class="radiograde">';
                                                     echo '<dd>';
                                                     for ($j=0;$j<count($back[2][$i]);$j++)
                                                     {
@@ -483,7 +482,7 @@
                                                     echo '</div>';
                                                     break;
                                                 case 3:
-                                                    echo '<div style="margin-top: 20px;">';
+                                                    echo '<div style="margin-top: 20px;" class="checkboxgrade">';
                                                     echo '<dd>';
                                                     for ($j=0;$j<count($back[2][$i]);$j++)
                                                     {
@@ -498,10 +497,10 @@
                                                     echo '</div>';
                                                     break;
                                                 case 4:
-                                                    echo '<ul  style="display: inline-block;" class="grade4"> ';
+                                                    echo '<ul  style="display: inline-block;" class="textaregrade"> ';
                                                     for ($j=0;$j<count($back[2][$i]);$j++)
                                                     {
-                                                        echo '<li class="student"> ';
+                                                        echo '<li class="textarea"> ';
                                                         echo '<form class="form-horizontal"> ';
                                                         echo '<div class="form-group"> ';
                                                         echo '<label class="col-sm-3 control-label">';
@@ -528,7 +527,7 @@
                                 <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px;" >评价表背面</button>
                                 <button class="btn btn-success btn-raised tabFront" style="float: right; display: none;"  >评价表正面</button>
                             </div>
-                            <button class="btn btn-success btn-raised submitTable" style="float: right;margin-top: 46px;margin-left:8px;display: none" >提交表</button>
+                            <button class="btn btn-success btn-raised submitTable" style="float: right;margin-top: 46px;margin-left:8px;display: none" >提交评价表</button>
                             <button class="btn btn-warning btn-raised saveTable" style="float: right; margin-top: 46px;display: none" >保存</button>
 
                         </div>
@@ -598,6 +597,10 @@
 //        2017-01-15暂时取消必填项检查功能
 //        var flagC = 0 ;
         var Frontlist=[];//正面选择框的值
+        for(i=0;i<$($('#front').children()[0]).children().length;i++)
+        {
+            console.log($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).getAttribute("class"));
+        }
         for(i=0;i<$('.current').length;i++)
         {
             key=$('.current').eq(i).parent().parent().prev().children()[0].innerHTML;
@@ -962,9 +965,8 @@
     });
 
     $('.submitTable').click(function(){
-//        var LessonState='已完成';
-//        GetContent(LessonState);
-        alert("哭哭");
+        var LessonState='已完成';
+        GetContent(LessonState);
     });
 
     $('#saveTable').click(function(){
