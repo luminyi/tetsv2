@@ -235,6 +235,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/StaticGroupExport','ExcelController@StaticGroupExport');//督导听课统计情况导出（小组长）
     //export the activity
     Route::get('/activity/excel/ActivityExport','ExcelController@ActivityExport');
+    Route::get('/activity/excel/ActivityDetailExport','ExcelController@ActivityDetailExport');
 
     //import the information of teacher
     Route::post('/excel/ImportTeacher','ExcelController@ImportTeacher');
@@ -253,6 +254,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     //理论课评价统计函数
     Route::get('/TheoryStatisticsData','LessonDataStatisticController@TheoryStatisticsData');
+
+    //实践课评价统计函数
+    Route::get('/PracticeStatisticsData','LessonDataStatisticController@PracticeStatisticsData');
+
+    //体育课评价统计函数
+    Route::get('/PhysicalStatisticsData','LessonDataStatisticController@PhysicalStatisticsData');
 
     //本学年本学期已完成评价课程的所有课程名
     Route::get('/GetEvalutedLessonContent','StatisticController@GetEvalutedLessonContent');
