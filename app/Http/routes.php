@@ -235,6 +235,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/StaticGroupExport','ExcelController@StaticGroupExport');//督导听课统计情况导出（小组长）
     //export the activity
     Route::get('/activity/excel/ActivityExport','ExcelController@ActivityExport');
+
     //export the teachers of activity
     Route::get('/activity/excel/teacherExport','ExcelController@teacherExport');
 
@@ -248,17 +249,26 @@ Route::group(['middleware' => 'auth'], function () {
     //评价统计
     Route::get('/Statistics','StatisticController@StatisticsView');
     Route::get('/GetEvalutedLessonArr','StatisticController@GetEvalutedLessonArr');
+    //听课数据统计  返回view
+    Route::get('/TheoryStatistics','LessonDataStatisticController@TheoryStatisticsView');
+    Route::get('/PracticeStatistics','LessonDataStatisticController@PracticeStatisticsView');
+    Route::get('/PhysicalStatistics','LessonDataStatisticController@PhysicalStatisticsView');
+
+    //理论课评价统计函数
+    Route::get('/TheoryStatisticsData','LessonDataStatisticController@TheoryStatisticsData');
+
+    //实践课评价统计函数
+    Route::get('/PracticeStatisticsData','LessonDataStatisticController@PracticeStatisticsData');
+
+    //体育课评价统计函数
+    Route::get('/PhysicalStatisticsData','LessonDataStatisticController@PhysicalStatisticsData');
+
     //本学年本学期已完成评价课程的所有课程名
     Route::get('/GetEvalutedLessonContent','StatisticController@GetEvalutedLessonContent');
     //本学年本学期已完成评价课程的课程的评价内容
     Route::get('/GroupEvaluationInfo','StatisticController@GroupEvaluationInfo');
 
 
-
-    //评价体系修改
-    Route::get('/ChangeTheoryView', 'SystemTableChangeController@ChangeTheoryView');//理论评价表视图
-    Route::get('/ChangePracticeView', 'SystemTableChangeController@ChangePracticeView');//实践评价表视图
-    Route::get('/ChangePhysicalView', 'SystemTableChangeController@ChangePhysicalView');//体育评价表视图
 
 
     //    教师活动系统
