@@ -25,7 +25,9 @@ class ActivityController extends Controller
         'term' => '',
         'all_num' => '',
         'information' => '',
-        'state' => '',
+        'apply_start_time' => '',
+        'apply_end_time' => '',
+        'apply_state' => '',
     ];
     public function index()
     {
@@ -73,7 +75,6 @@ class ActivityController extends Controller
         $activity = Activities::where('term',$Term['YearSemester'])->with(['users'=>function($query) use($userId){
             return $query->select('users.id','users.user_id')->where('users.id','=',$userId);
         }])->get();
-
         return $activity;
 
     }
@@ -181,6 +182,7 @@ class ActivityController extends Controller
     public function change(Requests\ActivityChangeRequest $request)
     {
         $input = $request->all();
+
         $flag = DB::table('activities')->where('name',$input['nameChange'])
             ->update([
                 "teacher" => $input['teacherChange'],
@@ -190,9 +192,38 @@ class ActivityController extends Controller
                 "term" => $input['termChange'],
                 "all_num" => $input['all_numChange'],
                 "information" =>$input['informationChange'],
-                "state" => $input['stateChange']
+                //"state" => $input['stateChange'],
+                "apply_start_time" => $input['apply_start_timeChange'],
+                "apply_end_time" => $input['apply_end_timeChange'],
+                "apply_state" => $input['apply_stateChange']
             ]);
+        $flag = DB::update('update activities set remainder_num = all_num - attend_num');
         return redirect('/activity/modify')->withSuccess('修改成功！');
+    }
+
+    public function addteacher(Requests\TeacherAddRequest $request)
+    {
+        $input = $request->all();
+        $arr = explode(',',$input['add-teacherid']);
+        if(count($arr)>$input['remind_num'])
+            return redirect('/activity/modify')->withErrors('超出剩余名额！');
+        for($index=0;$index<count($arr);$index++) {
+            $results = DB::select('select id from users where user_id = '.$arr[$index]);
+            if(!$results)
+                return redirect('/activity/modify')->withErrors($arr[$index].' 不存在的教师ID！');
+            $sql1 = 'insert into activities_user select id,';
+            $sql2 = ' as activities_id,\'已报名\' as state from users where user_id = ';
+            $sql = $sql1 . $input['act-ID'] . $sql2 . $arr[$index];
+            $results = DB::select('select * from users a,activities_user b where a.user_id='.$arr[$index].' and a.id=b.user_id;');
+            if($results)
+                return redirect('/activity/modify')->withErrors($arr[$index].' 参与教师ID已存在！');
+            $flag = DB::insert($sql);
+
+            DB::update('update activities set attend_num = attend_num + 1,remainder_num = all_num - attend_num where id ='.$input['act-ID']);
+
+        }
+       // Log::info();
+        return redirect('/activity/modify')->withSuccess('添加成功！');
     }
 
     public function ShowActivities($timeflag){
@@ -216,18 +247,31 @@ class ActivityController extends Controller
         return $activity;
     }
 
-
-
-
-
     public function attendTeacher(Request $request){
         $activityId = $request->get('id');
         $attendPeople = DB::table('activities_user')
             ->select('users.unit','users.name')
             ->leftjoin('users','users.id', '=', 'activities_user.user_id')
             ->where('activities_id','=',$activityId)->get();
-
         return $attendPeople;
+    }
+
+    public function showTeachers(Request $request){
+        $activityId = $request->get('id');
+        $teachers = DB::table('activities_user')
+            ->select('users.id','users.user_id','users.unit','users.name','activities_user.fin_state')
+            ->leftjoin('users','users.id', '=', 'activities_user.user_id')
+            ->where('activities_id','=',$activityId)->get();
+        //log::info($teachers);
+        return $teachers;
+    }
+
+    public function showTeachersExcel($activityId){
+        $teachers = DB::table('activities_user')
+            ->select('users.id','users.user_id','users.unit','users.name','activities_user.fin_state')
+            ->leftjoin('users','users.id', '=', 'activities_user.user_id')
+            ->where('activities_id','=',$activityId)->get();
+        return $teachers;
     }
 
     public function deleteActivity(Request $request){
@@ -236,9 +280,12 @@ class ActivityController extends Controller
         return ('删除成功！');
     }
 
-    public function activate(Request $request){
+    public function TeachersStateChange(Request $request){
         $input = $request->all();
-        $falg=DB::table('activities')->whereIn('id',$input['dataArr'])->update(['state' => '正在进行']);
-        return ('激活成功！');
+        //log::info($input);
+        $flag=DB::table('activities_user')
+            ->whereIn('user_id',$input['dataArr'])
+            ->update(['fin_state' => $input['newState']]);
+        return ('修改成功！');
     }
 }

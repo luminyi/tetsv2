@@ -235,7 +235,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/StaticGroupExport','ExcelController@StaticGroupExport');//督导听课统计情况导出（小组长）
     //export the activity
     Route::get('/activity/excel/ActivityExport','ExcelController@ActivityExport');
-    Route::get('/activity/excel/ActivityDetailExport','ExcelController@ActivityDetailExport');
+
+    //export the teachers of activity
+    Route::get('/activity/excel/teacherExport','ExcelController@teacherExport');
 
     //import the information of teacher
     Route::post('/excel/ImportTeacher','ExcelController@ImportTeacher');
@@ -311,14 +313,20 @@ Route::group(['middleware' => 'auth'], function () {
         //submit the request of adding the activities
         Route::post('/activity/admin/change','ActivityController@change');
         Route::get('/activity/admin/change','ActivityController@modify');
-
+        //submit the request of adding the teacher
+        Route::post('/activity/admin/addteacher','ActivityController@addteacher');
+        Route::get('/activity/admin/addteacher','ActivityController@modify');
         //delete the request of adding the activities
         Route::post('/activity/admin/delete','ActivityController@deleteActivity');
         Route::get('/activity/admin/delete','ActivityController@modify');
         //activate the request of adding the activities
-        Route::get('/activity/admin/activate','ActivityController@activate');
+//        Route::get('/activity/admin/activate','ActivityController@activate');
         //get the teacher wants to attend the activities
         Route::get('/activity/admin/attendTeacher','ActivityController@attendTeacher');
+        //show the teachers who attend this activity
+        Route::get('/activity/admin/Teachers','ActivityController@showTeachers');
+        //submit the request of adding the teacher fin_state
+        Route::post('/activity/admin/TeachersState','ActivityController@TeachersStateChange');
 
 
     });
@@ -354,6 +362,9 @@ Route::group(['middleware' => 'auth'], function () {
         //the view of adjusting the consult content
         Route::get('/consult/adjust','AdjustController@index');
 
+        //finish the work of coordination
+        Route::post('/consult/coordinate','ConsultController@StoreCoordination');
+
 
         //the data of done/undo
         Route::get('/consult/adjust/{action}','AdjustController@ConsultResult');
@@ -369,6 +380,22 @@ Route::group(['middleware' => 'auth'], function () {
         //the data of teacher evaluation
         Route::get('/teachEvaluation/evaluationData','TeachEvaluationController@evaluationData');
     });
+
+    Route::group(['namespace'=>'wechat'],function(){
+        //评价内容管理 微信端链接
+        Route::get('/weixinTheoryEvaluationTableView', 'WechatHomeController@weixinTheoryEvaluationTableView');//理论评价表视图
+        Route::get('/weixinPracticeEvaluationTableView', 'WechatHomeController@weixinPracticeEvaluationTableView');//实践评价表视图
+        Route::get('/weixinPhysicalEvaluationTableView', 'WechatHomeController@weixinPhysicalEvaluationTableView');//体育评价表视图
+
+        //修改密码 微信端
+        Route::get('/weixinChangePass', 'WechatUserController@weixinChangePass');//咨询系统的修改密码页面
+        Route::post('/weixinChangePass', 'WechatUserController@SubmitTeacherPass1');//修改用户密码
+
+        //修改信息 微信端
+        Route::get('/weixinUserManage', 'WechatUserController@weixinUserManage');//咨询系统的使用者具体信息
+        Route::post('/weixinUserManage','WechatUserController@getTeacherUserInfo1');
+    });
+
 });
 
 

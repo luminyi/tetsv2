@@ -98,6 +98,22 @@ class HomeController extends Controller
         );
         return view('TheoryEvaluationTable',compact('front','back'));
     }
+// a weixin test
+    public function weixinTheoryEvaluationTableView()
+    {
+        $frontdata = $this->GetFrontValueTable();
+        $backdata = $this->GetBackValueTable();
+        $front =array(
+            '1'=>$frontdata[2][0],//一级菜单项
+            '2'=>$frontdata[3][0],//二级菜单项
+            '3'=>$frontdata[4][0]//三级菜单项
+        );
+        $back =array(
+            '1'=>$backdata[2][0],//背面1级
+            '2'=>$backdata[3][0]//背面2级
+        );
+        return view('weixin.TheoryEvaluationTable',compact('front','back'));
+    }
 //    实践评价表，需要数据理论评价表
     public function PracticeEvaluationTableView()
     {
@@ -113,6 +129,21 @@ class HomeController extends Controller
             '2'=>$backdata[3][1]
         );
         return view('PracticeEvaluationTable',compact('front','back'));
+    }
+    public function weixinPracticeEvaluationTableView()
+    {
+        $frontdata = $this->GetFrontValueTable();
+        $backdata = $this->GetBackValueTable();
+        $front =array(
+            '1'=>$frontdata[2][1],
+            '2'=>$frontdata[3][1],
+            '3'=>$frontdata[4][1]
+        );
+        $back =array(
+            '1'=>$backdata[2][1],
+            '2'=>$backdata[3][1]
+        );
+        return view('weixin.PracticeEvaluationTable',compact('front','back'));
     }
 //    体育评价表，需要数据同理论评价表
     public function PhysicalEvaluationTableView()
@@ -130,7 +161,21 @@ class HomeController extends Controller
         );
         return view('PhysicalEvaluationTable',compact('front','back'));
     }
-
+    public function weixinPhysicalEvaluationTableView()
+    {
+        $frontdata = $this->GetFrontValueTable();
+        $backdata = $this->GetBackValueTable();
+        $front =array(
+            '1'=>$frontdata[2][2],
+            '2'=>$frontdata[3][2],
+            '3'=>$frontdata[4][2]
+        );
+        $back =array(
+            '1'=>$backdata[2][2],
+            '2'=>$backdata[3][2]
+        );
+        return view('weixin.PhysicalEvaluationTable',compact('front','back'));
+    }
     //获取正面评价表内容
 
     public function UpdateEvaluation_Migration(Request $request)

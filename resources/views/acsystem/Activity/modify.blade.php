@@ -219,6 +219,9 @@
                                 <p><span style="font-weight: bold;">活动时间：&nbsp;&nbsp;</span>
                                     <span id="act-time" ></span>
                                 </p>
+                                <p><span style="font-weight: bold;">报名时间：&nbsp;&nbsp;</span>
+                                    <span id="apply_act-time" ></span>
+                                </p>
                                 <p><span style="font-weight: bold;">活动信息：&nbsp;&nbsp;</span>
                                     <span id="act-info" ></span>
                                 </p>
@@ -240,7 +243,48 @@
                                     </tr>
                                     </thead>
                                 </table>
+                                <button id="#add-joined-teacher" class="btn btn-primary btn" data-toggle="modal" data-target="#add-joined">
+                                    增加参与教师
+                                </button>
+                                <button id="teacher—list-btn" class="btn btn-primary btn" data-toggle="modal" data-target="#teacher—list">
+                                    教师名单审核与导出
+                                </button>
                             </div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+
+        <!-- 增加参与教师 模态框（Modal） -->
+        <div class="modal fade" id="add-joined" tabindex="-1" role="dialog" aria-hidden="true">
+            <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 10%">
+                <div class="modal-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">增加参与教师
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" method="POST" action="/activity/admin/addteacher">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @include('acsystem.partials.addActTeacher')
+                                <div class="form-group">
+                                    <div class="col-md-3 add-button-group">
+                                        <button type="submit" class="btn btn-primary btn-md" id="submit">
+                                            <i class="fa fa-plus-circle"></i>
+                                            确定
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                            关闭
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
 
                         </div>
                     </div>
@@ -248,8 +292,47 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal -->
         </div>
+        <!-- 教师名单的 模态框（Modal） -->
+        <div class="modal fade" id="teacher—list" tabindex="-1" role="dialog" aria-hidden="true">
+            <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 10%">
+                <div class="modal-content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">教师名单
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <p type="text" class="form-control" name="activityID" id="activityID" style="display: none" value="" autofocus>
+                            </p>
+                            <p type="text" class="form-control" name="activityName" id="activityName" style="display: none" value="" autofocus>
+                            </p>
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @include('acsystem.partials.teacherList')
+                                <div class="form-group" style="margin-top: 10px">
+                                    <div class="col-md-8 add-button-group">
+                                        <button id="review11" class="btn btn-primary btn" >
+                                            报名已参加
+                                        </button>
+                                        <button id="review10" class="btn btn-primary btn" >
+                                            报名未参加
+                                        </button>
+                                        <button id="review01" class="btn btn-primary btn" >
+                                            未报名参加
+                                        </button>
+                                        <button id="export-teacher" class="btn btn-warning btn">
+                                            导出名单
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
 
-
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
     </div>
 
 
@@ -282,17 +365,18 @@
                             <th data-field="name" data-halign="center" data-align="center">活动名称</th>
                             <th data-field="teacher" data-halign="center" data-align="center">主讲人</th>
                             <th data-field="place" data-halign="center" data-align="center">活动地点</th>
-                            <th data-field="start_time" data-halign="center" data-align="center">开始时间</th>
-                            <th data-field="end_time" data-halign="center" data-align="center">结束时间</th>
+                            <th data-field="start_time" data-halign="center" data-align="center">活动开始时间</th>
+                            <th data-field="end_time" data-halign="center" data-align="center">活动结束时间</th>
+                            <th data-field="apply_start_time" data-halign="center" data-align="center">报名开始时间</th>
+                            <th data-field="apply_end_time" data-halign="center" data-align="center">报名结束时间</th>
                             <th data-field="attend_num" data-halign="center" data-align="center">报名人数</th>
                             <th data-field="remainder_num" data-halign="center" data-align="center">剩余名额</th>
-                            <th data-field="state" data-halign="center" data-align="center">活动状态</th>
+                            <th data-field="action" data-halign="center" data-align="center"
+                                data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>
+                            <th data-field="apply_state" data-halign="center" data-align="center">报名状态</th>
                             @if($titleterm=='all')
                             <th data-field="term" data-halign="center" data-align="center">活动学期</th>
                             @endif
-                            <th data-field="action" data-halign="center" data-align="center"
-                                data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>
-
                             <th data-field="modify" data-halign="center" data-align="center"
                                 data-formatter="activityModify" data-events="actionEvents" >修改活动</th>
 
@@ -311,9 +395,6 @@
                         </button>
                         <button id="del-activity" class="btn btn-danger btn" >
                             删除活动
-                        </button>
-                        <button id="activate-activity" class="btn btn-success btn" >
-                            激活活动
                         </button>
                         <button id="export-activity" class="btn btn-warning btn" >
                             导出活动

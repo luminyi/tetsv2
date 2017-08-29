@@ -30,12 +30,13 @@ class AdjustController extends Controller
             return $undo;
         }
         elseif($action=='done'){
-            $undo =  DB::table('consult_user')
-                ->select('users.name as username','users.unit','consult_user.*','consults_type.name')
+            $done =  DB::table('consult_user')
+                ->select('users.name as username','users.unit','consult_user.*','consults_type.name','consults.*')
                 ->leftjoin('consults_type','consult_user.consults_type_id','=','consults_type.id')
                 ->leftjoin('users','users.id','=','consult_user.user_id')
+                ->leftjoin('consults','consults.consult_id','=','consult_user.consult_id')
                 ->where('consult_user.state','=','已协调')->get();
-            return $undo;
+            return $done;
         }
     }
 
