@@ -126,8 +126,6 @@
                                                     <hr>
                                                     <div class="tabbable">
                                                         <ul class="nav nav-tabs">
-                                                            <li class="active"><a href="#editor-tab" data-toggle="tab">Editor</a></li>
-                                                            <li><a href="#source-tab" data-toggle="tab">Source</a></li>
                                                         </ul>
 
                                                         <div class="tab-content">
@@ -160,7 +158,7 @@
                                                         <div class="component1 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">1级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：教师授课情况
+                                                                教师授课情况
                                                             </div>
                                                         </div>
 
@@ -171,7 +169,7 @@
                                                         <div class="component1 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">2级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：授课态度
+                                                                授课态度
                                                             </div>
                                                         </div>
 
@@ -227,7 +225,7 @@
                                                         <div class="component1 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">3级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：仪表庄重、大方
+                                                                仪表庄重、大方
                                                             </div>
                                                         </div>
 
@@ -266,8 +264,6 @@
                                                     <hr>
                                                     <div class="tabbable">
                                                         <ul class="nav nav-tabs">
-                                                            <li class="active"><a href="#editor-tab" data-toggle="tab">Editor</a></li>
-                                                            <li><a href="#source-tab" data-toggle="tab">Source</a></li>
                                                         </ul>
 
                                                         <div class="tab-content">
@@ -300,7 +296,7 @@
                                                         <div class="component2 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">1级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：教师授课情况
+                                                                教师授课情况
                                                             </div>
                                                         </div>
 
@@ -311,7 +307,7 @@
                                                         <div class="component2 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">2级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：授课态度
+                                                                授课态度
                                                             </div>
                                                         </div>
 
@@ -369,7 +365,7 @@
                                                         <div class="component2 form-group" data-type="static_text">
                                                             <label class="control-label col-sm-4">3级内容</label>
                                                             <div class="controls col-sm-8">
-                                                                例：仪表庄重、大方
+                                                                仪表庄重、大方
                                                             </div>
                                                         </div>
 
@@ -410,9 +406,9 @@
 
         for(var i=1;ok&&i<$('#content1').children().length;i++)
         {
+
             if($('#content1').children()[i].getAttribute('data-type')=="static_text")
             {
-
                 CSSstyle=1;
                 Level=parseInt($($('#content1').children()[i]).children()[1].innerText.charAt(0));
                 Text=$($('#content1').children()[i]).children()[2].innerText;
@@ -461,10 +457,7 @@
                         {
                             var j;
                             for(j=Frontlist.length-1;j>=0;j--)
-                                if(Frontlist[j].cssstyle==1)
-                                    if(Frontlist[j].level==1)break;
-                                    else {ok=false;break;}
-                                else {ok=false;break;}
+                                if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -519,10 +512,7 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1)
-                                if(Frontlist[j].level==1)break;
-                                else {ok=false;break;}
-                            else {ok=false;break;}
+                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -575,12 +565,7 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1)
-                            {
-                                if(Frontlist[j].level==1)break;
-                                else {ok=false;break;}
-                            }
-                            else {ok=false;break;}
+                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -627,11 +612,7 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1)
-                                if(Frontlist[j].level==1)break;
-                                else {ok=false;break;}
-                            else if(Frontlist[j].cssstyle==1)continue;
-                            else {ok=false;break;}
+                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -643,14 +624,7 @@
                     case 2:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1)
-                            {
-                                if(Frontlist[j].level==1)break;
-                                else
-                                    {ok=false;break;}
-                            }
-                            else if(Frontlist[j].cssstyle==4)continue;
-                            else {ok=false;break;}
+                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -688,7 +662,6 @@
         {
             if($('#content2').children()[i].getAttribute('data-type')=="static_text")
             {
-
                 CSSstyle=1;
                 Level=parseInt($($('#content2').children()[i]).children()[1].innerText.charAt(0));
                 Text=$($('#content2').children()[i]).children()[2].innerText;
@@ -720,10 +693,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1)
-                                    if(Backlist[j].level==1)break;
-                                    else {ok=false;break;}
-                                else {ok=false;break;}
+                                if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -740,12 +710,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1)
-                                {
-                                    if(Backlist[j].level==1)break;
-                                    else {ok=false;break;}
-                                }
-                                else {ok=false;break;}
+                                if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -758,12 +723,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1)
-                                {
-                                    if(Backlist[j].level==2)break;
-                                    else {ok=false;break;}
-                                }
-                                else {ok=false;break;}
+                                if(Backlist[j].cssstyle==1&&Backlist[j].level==2)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -805,12 +765,7 @@
                     case 1:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1)
-                            {
-                                if(Backlist[j].level==1)break;
-                                else {ok=false;break;}
-                            }
-                            else {ok=false;break;}
+                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -863,10 +818,7 @@
                     case 1:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1)
-                                if(Backlist[j].level==1)break;
-                                else {ok=false;break;}
-                            else {ok=false;break;}
+                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -917,13 +869,7 @@
                     case 2:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1)
-                            {
-                                if(Backlist[j].level==1)break;
-                                else {ok=false;break;}
-                            }
-                            else if(Backlist[j].cssstyle==4)continue;
-                            else {ok=false;break;}
+                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -955,6 +901,7 @@
             Prelevel=Level;
         }
         if(Frontlist.length!=0&&Backlist.length!=0)
+        {
             $.ajax({
                 type: "post",
                 async: false,
@@ -968,6 +915,21 @@
                     alert('修改理论评价表成功！');
                 }
             });
+            {{--$.ajax({--}}
+                {{--type: "post",--}}
+                {{--async: false,--}}
+                {{--url: "/CreateTheoryEvalutionFrontTable",--}}
+                {{--data: {--}}
+                    {{--'_token':'{{csrf_token()}}',--}}
+                    {{--frontdata:Frontlist,--}}
+                    {{--backdata:Backlist--}}
+                {{--},--}}
+                {{--success: function (result) {--}}
+                    {{--alert('创建正面理论评价记录表成功！');--}}
+                {{--}--}}
+            {{--});--}}
+        }
+
         else
         {
             if(Frontlist.length==0)alert("正面评价表为空");

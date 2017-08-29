@@ -503,19 +503,201 @@
                                                         <li><a href="#back" data-toggle="tab" >评价表背面</a></li>
                                                     </ul>
                                                     <div id="myTabContent" class="tab-content content-font">
-                                                        <div class="tab-pane fade in active" id="front" style="height:1300px;">
+                                                        <div class="tab-pane fade in active" id="front">
                                                             <div>
                                                                 {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
-
-
+                                                                <?php
+                                                                for ($i=0;$i<count($front[1]);$i++)
+                                                                {
+                                                                    echo '
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <h1>'.$front[1][$i]->text.'</h1>';
+                                                                    if(!array_key_exists($i,$front[2]))continue;
+                                                                    $cssstyle=$front[2][$i][0]->cssstyle;
+                                                                    switch($cssstyle)
+                                                                    {
+                                                                        case 1:
+                                                                            for($j=0;$j<count($front[2][$i]);$j++)
+                                                                            {
+                                                                                echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                                                if(!array_key_exists($j,$front[3][$i]))continue;
+                                                                                if(!count($front[3][$i]))continue;
+                                                                                for($k=0;$k<count($front[3][$i][$j]);$k++)
+                                                                                {
+                                                                                    echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 10px;">
+                                                                            <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
+                                                                                    echo '
+                                                                            </li>
+                                        `                               </ul>';
+                                                                                }
+                                                                                echo '
+                                                                </li>
+                                                            </ul>';
+                                                                            }
+                                                                            break;
+                                                                        case 2:
+                                                                            echo '<div style="margin-top: 20px;" class="radiograde">';
+                                                                            echo '<dd>';
+                                                                            for ($j=0;$j<count($front[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<div class="radio">';
+                                                                                echo '    <label>';
+                                                                                echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                                echo $front[2][$i][$j]->text;
+                                                                                echo '   </label>';
+                                                                                echo '</div>';
+                                                                            }
+                                                                            echo '</dd>';
+                                                                            echo '</div>';
+                                                                            break;
+                                                                        case 3:
+                                                                            echo '<div style="margin-top: 20px;" class="checkboxgrade">';
+                                                                            echo '<dd>';
+                                                                            for ($j=0;$j<count($front[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<div class="checkbox">';
+                                                                                echo '<label>';
+                                                                                echo '<input type="checkbox" name="checkbox" value="checkbox">';
+                                                                                echo $front[2][$i][$j]->text;
+                                                                                echo '</label>';
+                                                                                echo '</div>';
+                                                                            }
+                                                                            echo '</dd>';
+                                                                            echo '</div>';
+                                                                            break;
+                                                                        case 4:
+                                                                            echo '<ul  style="display: inline-block;" class="textareagrade"> ';
+                                                                            for ($j=0;$j<count($front[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<li class="textarea"> ';
+                                                                                echo '<form class="form-horizontal"> ';
+                                                                                echo '<div class="form-group"> ';
+                                                                                echo '<label class="col-sm-3 control-label">';
+                                                                                echo $front[2][$i][$j]->text;
+                                                                                echo '</label> ';
+                                                                                echo '<div class="col-sm-3"> ';
+                                                                                echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                                                echo '</form>';
+                                                                                echo '</li>';
+                                                                            }
+                                                                            echo '</ul>';
+//                                                        echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                    echo'
+                                                </li>
+                                            </ul>';
+                                                                }?>
                                                             </div>
-
                                                         </div>
                                                         <div class="tab-pane fade content-back" id="back">
-
-
+                                                            <div>
+                                                                {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
+                                                                {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
+                                                                <?php
+                                                                for ($i=0;$i<count($back[1]);$i++)
+                                                                {
+                                                                    echo '
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <h1>'.$back[1][$i]->text.'</h1>';
+                                                                    if(!array_key_exists($i,$back[2]))continue;
+                                                                    if(!count($back[2]))continue;
+                                                                    $cssstyle=$back[2][$i][0]->cssstyle;
+                                                                    switch($cssstyle)
+                                                                    {
+                                                                        case 1:
+                                                                            for($j=0;$j<count($back[2][$i]);$j++)
+                                                                            {
+                                                                                echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
+                                                                                if(!array_key_exists($j,$back[3][$i]))continue;
+                                                                                for($k=0;$k<count($back[3][$i][$j]);$k++)
+                                                                                {
+                                                                                    echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 10px;">
+                                                                            <h3>'.$back[3][$i][$j][$k]->text.'</h3>';
+                                                                                    echo '
+                                                                            </li>
+                                        `                               </ul>';
+                                                                                }
+                                                                                echo '
+                                                                </li>
+                                                            </ul>';
+                                                                            }
+                                                                            break;
+                                                                        case 2:
+                                                                            echo '<div style="margin-top: 20px;" class="radiograde">';
+                                                                            echo '<dd>';
+                                                                            for ($j=0;$j<count($back[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<div class="radio">';
+                                                                                echo '    <label>';
+                                                                                echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                                echo $back[2][$i][$j]->text;
+                                                                                echo '   </label>';
+                                                                                echo '</div>';
+                                                                            }
+                                                                            echo '</dd>';
+                                                                            echo '</div>';
+                                                                            break;
+                                                                        case 3:
+                                                                            echo '<div style="margin-top: 20px;" class="checkboxgrade">';
+                                                                            echo '<dd>';
+                                                                            for ($j=0;$j<count($back[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<div class="checkbox">';
+                                                                                echo '<label>';
+                                                                                echo '<input type="checkbox" value="">';
+                                                                                echo $back[2][$i][$j]->text;
+                                                                                echo '</label>';
+                                                                                echo '</div>';
+                                                                            }
+                                                                            echo '</dd>';
+                                                                            echo '</div>';
+                                                                            break;
+                                                                        case 4:
+                                                                            echo '<ul  style="display: inline-block;" class="textareagrade"> ';
+                                                                            for ($j=0;$j<count($back[2][$i]);$j++)
+                                                                            {
+                                                                                echo '<li class="textarea"> ';
+                                                                                echo '<form class="form-horizontal"> ';
+                                                                                echo '<div class="form-group"> ';
+                                                                                echo '<label class="col-sm-3 control-label">';
+                                                                                echo $back[2][$i][$j]->text;
+                                                                                echo '</label> ';
+                                                                                echo '<div class="col-sm-3"> ';
+                                                                                echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                                                echo '</form>';
+                                                                                echo '</li>';
+                                                                            }
+                                                                            echo '</ul>';
+//                                                    echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
+                                                                            break;
+                                                                        default:
+                                                                            break;
+                                                                    }
+                                                                    echo'
+                                                </li>
+                                            </ul>';
+                                                                }?>
+                                                            </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -707,8 +889,8 @@
     window.actionEvents = {
         'click .like': function (e, value, row, index) {//预览
             $("#detail").click();
-            $('#front').empty();
-            $('#back').empty();
+//            $('#front').empty();
+//            $('#back').empty();
 //            console.log(row);
             var valurID = row.valueID;
             var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
@@ -758,131 +940,9 @@
                     else{
                         $('#LessonSupervisor').val(ListenSupervisorIDVal+" "+ListenSupervisorVal);
                     }
-                    var FrontOne =[];
-                    var FrontTwo =[];
-                    var FrontThree =[];
 
-                    for (i=headnum;i<result[3].length;i++)
-                    {
-                        a='COLUMN_NAME';
-                        $('#front').append('<div class="line-1">'+'<div class="lineName">'+'<span class="icon-folder-open-alt">'+'</span>'+result[3][i][a]+'</div>'+
-                                '<div class="lineData">'+
-                                '<ul>'+
-                                '<li class="current">'+
-                                result[1][0][result[3][i][a]]+
-                                '</li>'+
-                                '</ul>'+
-                                '</div>'+'</div>');
-                        if ( result[1][0][result[3][i][a]]==null )
-                        {
-                            if(result[1][0][result[3][i+1][a]] == null )
-                                FrontOne.push(result[3][i][a]);
-                            else
-                                FrontTwo.push(result[3][i][a]);
-                        }
-                        else{
-                            FrontThree.push(result[3][i][a]);
-                        }
-                    }
 
-                    $('.line-1').each(function () {
-                        for(var i=0;i<FrontOne.length;i++)
-                        {
-                            if ($(this).text().indexOf(FrontOne[i])>=0)
-                            {
-                                $(this).addClass('front1');
-                                $(this).find('.lineData').css('display','none');
-                            }
-                        }
-                        $('.front1').css('font-size','200px');
-                        for(var i=0;i<FrontTwo.length;i++)
-                        {
-                            if ($(this).text().indexOf(FrontTwo[i])>=0)
-                            {
-                                $(this).addClass('front2');
-                                $(this).find('.lineData').css('display','none');
-                                $(this).find('.icon-folder-open-alt').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<FrontThree.length-1;i++)
-                        {
-                            if ($(this).text().indexOf(FrontThree[i])>=0)
-                            {
-                                $(this).addClass('front3');
-                                $(this).find('.lineData').css('display','inline-block');
-                                $(this).find('.lineName').css('display','inline-block');
-                                $(this).find('.icon-folder-open-alt').css('display','none');
-                                $(this).find('.current').css('width','100px');
-                            }
-                        }
-                    });
-                    // console.log(FrontOne);
-                    //console.log(FrontTwo);
-                    //console.log(FrontThree);
-
-                    var BackOne =[];
-                    var BackTwo =[];
-                    var BackThree =[];
-                    for (i=headnum;i<result[4].length;i++)
-                    {
-                        a='COLUMN_NAME';
-                        $('#back').append('<div class="question">'+'<div class="icon-check">'+'</div>'+'<span>'+result[4][i][a]+'</span>'+
-                                '<div class="questionData">'+result[2][0][result[4][i][a]]+'</div>'+'</div>');
-                        //$('#back').append(result[4][i][a]+'<br>');
-                        if ( result[4][i][a].match(/\？/) != null )
-                        {
-                            BackOne.push(result[4][i][a]);
-                        }
-                        else if(result[4][i][a].match(/\。/) != null){
-                            BackTwo.push(result[4][i][a]);
-                        }
-                        else{
-                            BackThree.push(result[4][i][a]);
-                        }
-
-                    }
-                    $('.question').each(function () {
-                        for(var i=0;i<BackOne.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackOne[i])>=0)
-                            {
-                                $(this).addClass('back1');
-                                $(this).append( '<i class="icon-chevron-right" style="float: left;margin-right: 6px;color: #CCCCCC;">'+
-                                        '</i>');
-                                $(this).find('.questionData').css('display','none');
-                                $(this).find('.icon-check').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<BackTwo.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackTwo[i])>=0)
-                            {
-                                $(this).addClass('back2');
-                                $(this).find('.icon-check').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<BackThree.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackThree[i])>=0)
-                            {
-                                $(this).find('.questionData').css('display','inline-block');
-                                if( $(this).find('.questionData').text()=='null'){
-                                    $(this).find('.questionData').css('display','none');
-                                    $(this).find('.icon-check').css('display','none');
-                                    $(this).append( '<i class="icon-check-empty" style="float: left;margin-right: 6px;color: #CCCCCC;">'+
-                                            '</i>');
-                                }
-                                else {
-                                    $(this).find('.questionData').css('display','none');
-                                    $(this).find('.icon-check').css('margin-right','6px');
-                                }
-                            }
-                        }
-
-                    });
-                    //console.log(BackOne);
-                    //console.log(BackTwo);
-                    // console.log(BackThree);
+//
 
                     if ($('#getid').val() == LessonSupervisor)
                     {
@@ -924,8 +984,7 @@
         },
         'click .edit': function (e, value, row, index) {//评价详情
             $("#detail").click();
-            $('#front').empty();
-            $('#back').empty();
+
             var LessonName=row.课程名称.replace(/(^\s+)|(\s+$)/g,"");
             var LessonTeacher=row.任课教师.replace(/(^\s+)|(\s+$)/g,"");
             var LessonSupervisor=row.督导id.replace(/(^\s+)|(\s+$)/g,"");
@@ -972,134 +1031,6 @@
                     }
 
 
-
-                    var FrontOne =[];
-                    var FrontTwo =[];
-                    var FrontThree =[];
-//i : 头部的个数
-                    for (i=headnum;i<result[3].length;i++)
-                    {
-                        a='COLUMN_NAME';
-                        $('#front').append('<div class="line-1">'+'<div class="lineName">'+'<span class="icon-folder-open-alt">'+'</span>'+result[3][i][a]+'</div>'+
-                                '<div class="lineData">'+
-                                '<ul>'+
-                                '<li class="current">'+
-                                result[1][0][result[3][i][a]]+
-                                '</li>'+
-                                '</ul>'+
-                                '</div>'+'</div>');
-                        if ( result[1][0][result[3][i][a]]==null )
-                        {
-                            if(result[1][0][result[3][i+1][a]] == null )
-                                FrontOne.push(result[3][i][a]);
-                            else
-                                FrontTwo.push(result[3][i][a]);
-                        }
-                        else{
-                            FrontThree.push(result[3][i][a]);
-                        }
-                    }
-
-                    ('.line-1').each(function () {
-                        for(var i=0;i<FrontOne.length;i++)
-                        {
-                            if ($(this).text().indexOf(FrontOne[i])>=0)
-                            {
-                                $(this).addClass('front1');
-                                $(this).find('.lineData').css('display','none');
-                            }
-                        }
-                        $('.front1').css('font-size','200px');
-                        for(var i=0;i<FrontTwo.length;i++)
-                        {
-                            if ($(this).text().indexOf(FrontTwo[i])>=0)
-                            {
-                                $(this).addClass('front2');
-                                $(this).find('.lineData').css('display','none');
-                                $(this).find('.icon-folder-open-alt').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<FrontThree.length-1;i++)
-                        {
-                            if ($(this).text().indexOf(FrontThree[i])>=0)
-                            {
-                                $(this).addClass('front3');
-                                $(this).find('.lineData').css('display','inline-block');
-                                $(this).find('.lineName').css('display','inline-block');
-                                $(this).find('.icon-folder-open-alt').css('display','none');
-                                $(this).find('.current').css('width','100px');
-                            }
-                        }
-                    });
-
-
-
-
-                    // console.log(FrontOne);
-                    // console.log(FrontTwo);
-                    // console.log(FrontThree);
-//                    console.log(FrontThree[FrontThree.length-1]);
-
-                    var BackOne =[];
-                    var BackTwo =[];
-                    var BackThree =[];
-                    for (i=headnum;i<result[4].length;i++)
-                    {
-                        a='COLUMN_NAME';
-                        $('#back').append('<div class="question">'+'<div class="icon-check">'+'</div>'+'<span>'+result[4][i][a]+'</span>'+
-                                '<div class="questionData">'+result[2][0][result[4][i][a]]+'</div>'+'</div>');
-                        //$('#back').append(result[4][i][a]+'<br>');
-                        if ( result[4][i][a].match(/\？/) != null )
-                        {
-                            BackOne.push(result[4][i][a]);
-                        }
-                        else if(result[4][i][a].match(/\。/) != null){
-                            BackTwo.push(result[4][i][a]);
-                        }
-                        else{
-                            BackThree.push(result[4][i][a]);
-                        }
-
-                    }
-                    $('.question').each(function () {
-                        for(var i=0;i<BackOne.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackOne[i])>=0)
-                            {
-                                $(this).addClass('back1');
-                                $(this).append( '<i class="icon-chevron-right" style="float: left;margin-right: 6px;color: #CCCCCC;">'+
-                                        '</i>');
-                                $(this).find('.questionData').css('display','none');
-                                $(this).find('.icon-check').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<BackTwo.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackTwo[i])>=0)
-                            {
-                                $(this).addClass('back2');
-                                $(this).find('.icon-check').css('display','none');
-                            }
-                        }
-                        for(var i=0;i<BackThree.length;i++)
-                        {
-                            if ($(this).text().indexOf(BackThree[i])>=0)
-                            {
-                                $(this).find('.questionData').css('display','inline-block');
-                                if( $(this).find('.questionData').text()=='null'){
-                                    $(this).find('.questionData').css('display','none');
-                                    $(this).find('.icon-check').css('display','none');
-                                    $(this).append( '<i class="icon-check-empty" style="float: left;margin-right: 6px;color: #CCCCCC;">'+
-                                            '</i>');
-                                }
-                                else {
-                                    $(this).find('.questionData').css('display','none');
-                                    $(this).find('.icon-check').css('margin-right','6px');
-                                }
-                            }
-                        }
-
-                    });
                 }
             });
             $('span:contains("评价状态")').css('display','none');

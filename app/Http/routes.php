@@ -204,6 +204,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/CreateEvalFrontTable', 'Auth\HomeController@CreateEvalFrontTable');//动态创建评价表:正面
     Route::get('/CreateEvalBackTable', 'Auth\HomeController@CreateEvalBackTable');//动态创建评价表：背面
 
+    Route::any('/CreateTheoryEvalutionFrontTable', 'EvaluationController@CreateTheoryEvalutionFrontTable');//动态创建评价表:正面
+    Route::any('/CreateTheoryEvalutionBackTable', 'EvaluationController@CreateTheoryEvalutionBackTable');//动态创建评价表：背面
+
     Route::get('/EvaluationContent', 'Auth\HomeController@EvaluationContent');//获取正面、背面评价详情
 
     Route::get('/UpdateEvaluation_Migration', 'Auth\HomeController@UpdateEvaluation_Migration');//获取更新信息

@@ -389,7 +389,7 @@
                                                         {
                                                             echo '<div class="checkbox">';
                                                             echo '<label>';
-                                                            echo '<input type="checkbox" value="">';
+                                                            echo '<input type="checkbox" name="checkbox" value="checkbox">';
                                                             echo $front[2][$i][$j]->text;
                                                             echo '</label>';
                                                             echo '</div>';
@@ -398,7 +398,7 @@
                                                         echo '</div>';
                                                         break;
                                                     case 4:
-                                                        echo '<ul  style="display: inline-block;" class="textaregrade"> ';
+                                                        echo '<ul  style="display: inline-block;" class="textareagrade"> ';
                                                         for ($j=0;$j<count($front[2][$i]);$j++)
                                                         {
                                                             echo '<li class="textarea"> ';
@@ -424,7 +424,7 @@
                                         }?>
                                     </div>
                                 </div>
-
+                                <div>哼</div>
                                 <div class="tab-pane fade content-back" id="back">
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
@@ -497,7 +497,7 @@
                                                     echo '</div>';
                                                     break;
                                                 case 4:
-                                                    echo '<ul  style="display: inline-block;" class="textaregrade"> ';
+                                                    echo '<ul  style="display: inline-block;" class="textareagrade"> ';
                                                     for ($j=0;$j<count($back[2][$i]);$j++)
                                                     {
                                                         echo '<li class="textarea"> ';
@@ -595,50 +595,92 @@
     {
 //        var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
 //        2017-01-15暂时取消必填项检查功能
-//        var flagC = 0 ;
+        var flagC = 0 ;
         var Frontlist=[];//正面选择框的值
         for(i=0;i<$($('#front').children()[0]).children().length;i++)
         {
-            console.log($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).getAttribute("class"));
-        }
-        for(i=0;i<$('.current').length;i++)
-        {
-            key=$('.current').eq(i).parent().parent().prev().children()[0].innerHTML;
-            if(key=='')
-                key=$('.current').eq(i).parent().parent().parent().prev()[0].innerHTML;
-            value=$('.current').eq(i)[0].innerHTML;
-            obj=
+            var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).attr("class");
+            var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+            if(cssstyle=="grade2")
             {
-                key:key,
-                value:value
-            };
-            Frontlist.push(obj);
-        }
-        for(k=0;k<$('label:contains("人数")').length;k++)
-        {
-            key=$('label:contains("人数")').eq(k)[0].innerHTML;
-            value=$('label:contains("人数")').eq(k).next().children().val();
-            if(value=='')value='-';
-            obj=
+                for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                {
+                    var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
+                    for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                    {
+                        var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                        var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        textlevel3=$.trim(textlevel3);
+                        choose=$.trim(choose);
+                        obj=
+                        {
+                            key:textlevel3,
+                            value:choose
+                        };
+                        Frontlist.push(obj);
+                    }
+                }
+            }
+            if(cssstyle=="radiograde")
             {
-                key:key,
-                value:value
-            };
-            Frontlist.push(obj);
+                for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children().length;j++)
+                {
+                    var checked=$($($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
+                    var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                    checked=$.trim(checked);
+                    choosecontent=$.trim(choosecontent);
+                    if(checked=="checked")
+                    {
+                        obj=
+                        {
+                            key:choosecontent,
+                            value:1
+                        };
+                        Frontlist.push(obj);
+                    }
+                }
+            }
+            if(cssstyle=="checkboxgrade")
+            {
+                for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children().length;j++)
+                {
+                    var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children()[j]).children()[0].innerText;
+                    var checked=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                    checked=$.trim(checked);
+                    choosecontent=$.trim(choosecontent);
+                    if(checked=="true")
+                    {
+                        obj=
+                        {
+                            key:choosecontent,
+                            value:1
+                        };
+                        Frontlist.push(obj);
+                    }
+                }
+            }
+            if(cssstyle=="textareagrade")
+            {
+                var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children().children().children().children()[0].innerText;
+                var val=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children().children().children().children()[1]).children().val();
+                text=$.trim(text);
+                val=$.trim(val);
+                obj=
+                {
+                    key:text,
+                    value:val
+                };
+                Frontlist.push(obj);
+            }
         }
-        obj=
-        {
-            key:'其他',
-            value:$('h1:contains("其他")').next().eq(0).val()
-        };
-        Frontlist.push(obj);
+
         //如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
-//        if(LessonState=='待提交')
-//            if (flagC==1)//必填项未完成
-//            {
-//                LessonState+=flagC;
-//                flagC = 0;
-//            }
+        if(LessonState=='待提交')
+            if (flagC==1)//必填项未完成
+            {
+                LessonState+=flagC;
+                flagC = 0;
+            }
         //后台传数据
         if(flagC==0)
         {
@@ -689,10 +731,12 @@
             ];
             var Backlist1 =GetBackList1();
             var Backlist2 =GetBackList2();
+            for(var i=0;i<Frontlist.length;i++)
+                console.log(Frontlist[i]);
             $.ajax({
                 type: "post",
                 async: false,
-                url: "/DBPracticeFrontEvaluationTable",
+                url: "/DBTheoryFrontEvaluationTable",
                 data:{
                     '_token':'{{csrf_token()}}',
                     headdata: Headlist,
@@ -702,13 +746,14 @@
                     backdata2:Backlist2,
                     valueID:flag
                 },
-                success: function (result)
+                success:function(result)
                 {
-                    if (result!='')
+                    alert("填写评价表成功！");
+                    if(result!='')
                         frontflag = result;
                 }
             });
-            if (frontflag !='')
+            if(frontflag!='')
             {
                 alert(frontflag);
                 window.location.href="/EverEvaluated";

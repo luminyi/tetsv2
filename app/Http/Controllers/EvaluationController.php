@@ -253,7 +253,6 @@ class EvaluationController extends Controller
         for ($k=0;$k<count($LessonList);$k++)
         {
             $table = $mytime->GetCurrentTableName1($LessonList[$k][1],$LessonList[$k][2],$TableFlag);
-//            dd($table);
 
             //确定属于那张表
             //table[0]表的正面  table[1]表的背面
@@ -730,44 +729,34 @@ class EvaluationController extends Controller
      * 理论表拥有课程时间（上课周次，课程节次，上课地点）
      * 实践表无课程时间和上课地址
      */
-    public function CheckFrontIsReady()
+    public function CreateTheoryEvalutionFrontTable(Request $request)
     {
         $Version=new HelpController;
         $Current='2017-2018-1';
         $TableName=$Version->GetCurrentTableName($Current);
+
         $con = mysqli_connect("localhost","root","","tets");
         mysqli_query($con,'set names utf8');
-        $cnt=0;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_contents$TableName"."'"))==1)
-            if(count(DB::table("front_theory_contents$TableName")->get())>1)
-                $cnt++;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_contents$TableName"."'"))==1)
-            if(count(DB::table("front_practice_contents$TableName")->get())>1)
-                $cnt++;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_contents$TableName"."'"))==1)
-            if(count(DB::table("front_physical_contents$TableName")->get())>1)
-                $cnt++;
-        return ($cnt==3);
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_evalution$TableName"."'"))==1)
+            mysqli_query($con,"drop table front_theory_evalution$TableName;");
+        $str='valueID int primary key not null auto_increment,
+        任课教师 varchar(255)';
+//        $str=$str.'任课教师 varchar(255),';
+//        $str=$str.'上课班级 varchar(255),';
+//        $str=$str.'上课地点 varchar(255),';
+//        $str=$str.'上课班级 varchar(255),';
+//        $str=$str.'填表时间 varchar(255),';
+//        $str=$str.'听课节次 varchar(255),';
+//        $str=$str.'课程名称 varchar(255),';
+//        $str=$str.'督导姓名 varchar(255),';
+//        $str=$str.'督导id varchar(255),';
+//        $str=$str.'课程属性 varchar(255),';
+//        $str=$str.'评价状态 varchar(255)';
+        $result=DB::table("front_theory_contents$TableName")->where('text','=','理论课评价表')->get();
+        mysqli_query($con,"create table front_theory_evalution".$TableName." ($str);");
     }
-    public function CheckBackIsReady()
-    {
-        $Version=new HelpController;
-        $Current='2017-2018-1';
-        $TableName=$Version->GetCurrentTableName($Current);
-        $con = mysqli_connect("localhost","root","","tets");
-        mysqli_query($con,'set names utf8');
-        $cnt=0;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_contents$TableName"."'"))==1)
-            if(count(DB::table("back_theory_contents$TableName")->get())>1)
-                $cnt++;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_practice_contents$TableName"."'"))==1)
-            if(count(DB::table("back_practice_contents$TableName")->get())>1)
-                $cnt++;
-        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_physical_contents$TableName"."'"))==1)
-            if(count(DB::table("back_physical_contents$TableName")->get())>1)
-                $cnt++;
-        return ($cnt==3);
-    }
+
+
     public function TheoryEvaluationTableToDB(Request $request)
     {
         $Version=new HelpController;
@@ -784,6 +773,7 @@ class EvaluationController extends Controller
         }
         $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
         mysqli_query($con,"create table front_theory_contents".$TableName." ($str);");
+
         DB::table("front_theory_contents$TableName")->insert(
             ['fid' => 0, 'text' => '理论课评价表', 'cssstyle' => 1, 'level' => 0]
         );
@@ -921,11 +911,7 @@ class EvaluationController extends Controller
                 $tail++;
             }
         }
-
-        return $Data=[
-            '1'=>$this->CheckFrontIsReady(),
-            '2'=>$this->CheckBackIsReady()
-        ];
+        return;
     }
     public function PracticeEvaluationTableToDB(Request $request)
     {
@@ -1097,12 +1083,10 @@ class EvaluationController extends Controller
 
         $con = mysqli_connect("localhost","root","","tets");
         mysqli_query($con,'set names utf8');
-//        $TableName='_2017_09';
+        //$TableName='_2017_09';
         //理论表正面
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_contents$TableName"."'"))==1)
-        {
             mysqli_query($con, "drop table front_physical_contents$TableName;");
-        }
         $str='id int primary key not null auto_increment,fid int,level int,text varchar(255),cssstyle int';
         mysqli_query($con,"create table front_physical_contents".$TableName." ($str);");
         DB::table("front_physical_contents$TableName")->insert(
@@ -1265,18 +1249,19 @@ class EvaluationController extends Controller
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
          * */
-        $version = $YearSemester->GetYearSemester($headdata[5]['value']);
-        $TableNamePostfix = DB::table('evaluation_migration')
+        $version=$YearSemester->GetYearSemester($headdata[5]['value']);
+        $TableNamePostfix=DB::table('evaluation_migration')
             ->select('Table_Name')
             ->where('Create_Year','=',$version['YearSemester'])
             ->get();
-
+        for($i=0;$i<count($frontdata);$i++)
+            Log::info($frontdata[$i]);
         $TableName1 = 'front_theory_evaluation'.$TableNamePostfix[0]->Table_Name;
         $TableName2 = 'back_theory_evaluation'.$TableNamePostfix[0]->Table_Name;
 
         $TableName3 = "front_practice_evaluation".$TableNamePostfix[0]->Table_Name;
         $TableName4 = "front_physical_evaluation".$TableNamePostfix[0]->Table_Name;
-
+//
 //        设置lessons 表中的课程状态字段
         if ($lesson_state=='待提交'|| $lesson_state=='待提交1')
         {

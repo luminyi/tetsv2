@@ -291,9 +291,26 @@ class HomeController extends Controller
         }
     }
 
+    public function DeepFirstSearchTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('front_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchTable($str,$newresult);
+        }
+    }
+
     public function CreateEvalFrontTable(Request $request)
     {
-        //1、更新表evaluation_migration
+        //更新表evaluation_migration
         $year = $request->year;
         $semester = $request->semester;
         $current = $year.'-'.$semester;
@@ -313,37 +330,49 @@ class HomeController extends Controller
 
         $result = DB::table('front_contents'.$TableName)->get();
 
-        $tree = $this->getTree($result);
-        $table_head = table_head::all()->toArray();
-        foreach ($table_head as $item)
-            $head .= $item['head_content'].' varchar(255),';
-        $head = $idstr.$head;
-        $str = $head;
-        for($i = 0; $i < count($tree); $i++)
-        {
-            if($tree[$i]->level == 1)
-            {
-                if($i != 0) {
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('front_contents'.$TableName)->where('text','=',"理论课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('front_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchTable($str,$result);
+        $str=trim($str,',');
+        mysqli_query($con,"create table front_theory_evaluation$TableName ($str);");
+        Log::info("create table front_theory_evaluation$TableName ($str);");
 
-                    $str = trim($str,',');
-                    mysqli_query($con,"create table $table_name ($str);");
-                    $str = $head;
-                }
-                if($tree[$i]->text == '理论课评价表')
-                    $table_name = 'Front_theory_evaluation'.$TableName;
-                elseif($tree[$i]->text  == '实践课评价表')
-                    $table_name = 'Front_practice_evaluation'.$TableName;
-                else
-                    $table_name = 'Front_physical_evaluation'.$TableName;
-            }
-            else
-                if ($tree[$i]->text  != '')
-                {
-                    $str .= $tree[$i]->text .' varchar(255),';
-                }
-        }
-        $str = trim($str,',');
-        mysqli_query($con,"create table $table_name ($str);");
+//        for($i=0;$i<count($tree);$i++)
+//        {
+//            if($tree[$i]->level == 1)
+//            {
+//                if($i!=0)
+//                {
+//                    $str=trim($str,',');
+//
+//                    $str=$head;
+//                    Log::info($head);
+//                }
+//                if($tree[$i]->text == '理论课评价表')
+//                {
+//                    $table_name = 'Front_theory_evaluation'.$TableName;
+//                    Log::info("yes");
+//
+//                }
+//                elseif($tree[$i]->text  == '实践课评价表')
+//                    $table_name = 'Front_practice_evaluation'.$TableName;
+//                else
+//                    $table_name = 'Front_physical_evaluation'.$TableName;
+//            }
+//            else if ($tree[$i]->text!='')
+//            {
+//                $str .= $tree[$i]->text .' varchar(255),';
+//            }
+//        }
+//        $str = trim($str,',');
+//        mysqli_query($con,"create table $table_name ($str);");
     }
 
     public function CreateEvalBackTable(Request $request)
@@ -516,7 +545,7 @@ class HomeController extends Controller
         //把该表的字段返回
 
         $tableF = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[0].'" and table_schema = \'tets\';');
-        $tableB = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[1].'" and table_schema = \'tets\';');
+//        $tableB = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[1].'" and table_schema = \'tets\';');
 
 
         //查表返回表的评价内容
@@ -526,18 +555,18 @@ class HomeController extends Controller
             ->where('任课教师','=',$teacher)
             ->where('听课时间','=',$lesson_date)
             ->where('督导id','=',$supervisor)->get();
-        $backContent = DB::table($LessonList[1])
-            ->where('课程名称','=',$lesson_name)
-            ->where('听课节次','=',$lesson_time)
-            ->where('任课教师','=',$teacher)
-            ->where('听课时间','=',$lesson_date)
-            ->where('督导id','=',$supervisor)->get();
+//        $backContent = DB::table($LessonList[1])
+//            ->where('课程名称','=',$lesson_name)
+//            ->where('听课节次','=',$lesson_time)
+//            ->where('任课教师','=',$teacher)
+//            ->where('听课时间','=',$lesson_date)
+//            ->where('督导id','=',$supervisor)->get();
         return $data=
         [
             '1'=>$frontContent,
-            '2'=>$backContent,
+//            '2'=>$backContent,
             '3'=>$tableF,
-            '4'=>$tableB
+//            '4'=>$tableB
         ];
     }
     public function getTree($result, $parent_id = 0, $level = 0)
