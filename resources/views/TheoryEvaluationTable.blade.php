@@ -424,7 +424,6 @@
                                         }?>
                                     </div>
                                 </div>
-                                <div>哼</div>
                                 <div class="tab-pane fade content-back" id="back">
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}

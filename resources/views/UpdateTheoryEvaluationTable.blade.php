@@ -656,7 +656,6 @@
             Prelevel=Level;
         }
 
-
         Prelevel=0;
         for(var i=1;ok&&i<$('#content2').children().length;i++)
         {
