@@ -165,10 +165,10 @@
                                     </p>
                                 </div>
                             </div>
-                            <p align="center">回复内容</p>
+                            <p align="center" style="text-align: center">回复内容</p>
                             <input type="hidden" value="" name="consult_id" id="consult_id">
                             <input type="hidden" value="" name="comment_user_id" id="comment_user_id">
-                            <textarea class="form-control" id="reply" name="reply" rows="20"></textarea>
+                            <textarea class="form-control" id="reply" name="reply" rows="20"  style="width: 80%"></textarea>
                             <div style="text-align:center">
                                 <button type="submit" class="btn btn-primary btn-md">
                                     <i class="fa fa-plus-circle"></i>
