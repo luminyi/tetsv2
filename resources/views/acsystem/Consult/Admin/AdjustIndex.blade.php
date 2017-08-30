@@ -140,7 +140,7 @@
         </button>
         <!-- 查看详情的 模态框（Modal） -->
         <div class="modal fade" id="Coordinate" tabindex="-1" role="dialog" aria-hidden="true">
-            <div id="#add-activity-modal" class="modal-dialog" style="width:50%; margin-top: 0%">
+            <div id="#add-activity-modal" class="modal-dialog" style="width:40%; margin-top: 0%">
                 <div class="modal-content">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -165,10 +165,12 @@
                                     </p>
                                 </div>
                             </div>
-                            <p align="center">回复内容</p>
+                            <p align="center"><span style="font-weight: bold;font-size:16px">回复内容</span></p>
                             <input type="hidden" value="" name="consult_id" id="consult_id">
                             <input type="hidden" value="" name="comment_user_id" id="comment_user_id">
-                            <textarea class="form-control" id="reply" name="reply" rows="20"></textarea>
+                            <div align="center">
+                                <textarea class="form-control" id="reply" name="reply" rows="20" style="width:95%"></textarea>
+                            </div>
                             <div style="text-align:center">
                                 <button type="submit" class="btn btn-primary btn-md">
                                     <i class="fa fa-plus-circle"></i>
