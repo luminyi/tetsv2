@@ -68,7 +68,7 @@ class LessonDataStatisticController extends Controller
         //学年学期 得到 该学年学期所属的时间段
 
         $YearSemesterTime = $mytime->GetTimeByYearSemester($TableFlag);
-
+//Log::info($YearSemesterTime);
         $TableName = $mytime->GetCurrentTableName($TableFlag);
 
         $table1 = "front_theory_evaluation".$TableName;
@@ -82,11 +82,15 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql= 'SELECT `授课总体评价` as \'level\',COUNT(授课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table1.' WHERE 评价状态 = \'已完成\')*100,2) as \'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table1.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2) as \'num\'
                 FROM '.$table1.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `授课总体评价`';
+//            Log::info($sql);
         }
+
         elseif($unit!=null && $group==null)
         {
             $sql= 'SELECT T.`授课总体评价` as \'level\',COUNT(T.`授课总体评价`) ,
@@ -95,12 +99,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table1.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -112,12 +118,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table1.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -146,9 +154,11 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql = 'SELECT `听课总体评价`  as \'level\',COUNT(听课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table1.' WHERE 评价状态 = \'已完成\')*100,2)AS\'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table1.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2)AS\'num\'
                 FROM '.$table1.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `听课总体评价`';
         }
         elseif($unit!=null && $group==null)
@@ -159,12 +169,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table1.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -176,12 +188,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table1.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -223,6 +237,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$j]->LEVEL4.' AS  level ,COUNT('.$DataArr[$j]->LEVEL4.') AS num
                     FROM '.$table1.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -233,6 +249,7 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -244,6 +261,7 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -317,18 +335,24 @@ class LessonDataStatisticController extends Controller
                 {
                     $sql1 = $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as d
                     FROM '.$table1.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
                 else
                 {
                     $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as b
                     FROM '.$table1.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
                     {
 
                         $sql = $sql.'SELECT '.$DataArr[$i][$j]->LEVEL4.' ,COUNT('.$DataArr[$i][$j]->LEVEL4.')
                     FROM '.$table1.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
                         {
@@ -350,6 +374,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -361,6 +386,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -372,6 +398,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -394,6 +421,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -405,6 +433,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -416,6 +445,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -463,7 +493,10 @@ class LessonDataStatisticController extends Controller
                 $sumDataArr4 += $weight;
                 $CountDataArr4 += $sum;
             }
-            $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
+            if($CountDataArr4==0)
+                $sumDataArr4 = 0;
+            else
+                $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
             $DataArrMajorTerm[] = $sumDataArr4;
         }
 
@@ -484,6 +517,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$i]->LEVEL4.' AS  level ,COUNT('.$DataArr[$i]->LEVEL4.') AS num
                     FROM '.$table1.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -494,6 +529,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
@@ -505,6 +541,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
@@ -544,7 +581,10 @@ class LessonDataStatisticController extends Controller
                 $sumDataArr5 += $weight;
                 $CountDataArr5 += $sum;
             }
-            $sumDataArr5 = round($sumDataArr5/$CountDataArr5 , 2);
+            if($CountDataArr5==0)
+                $sumDataArr5 = 0;
+            else
+                $sumDataArr5 = round($sumDataArr5/$CountDataArr5 , 2);
             $DataArrMinorByAVG[] = $sumDataArr5;
 
         }
@@ -600,9 +640,11 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql= 'SELECT `授课总体评价`as \'level\',COUNT(授课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table2.' WHERE 评价状态 = \'已完成\')*100,2) as \'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table2.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2) as \'num\'
                 FROM '.$table2.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `授课总体评价`';
         }
         elseif($unit!=null && $group==null)
@@ -612,13 +654,15 @@ class LessonDataStatisticController extends Controller
               FROM '.$table2.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
-              WHERE `评价状态` = \'已完成\' AND lesson_unit = \'工学院\'
+              WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table2.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -630,12 +674,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table2.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -662,9 +708,11 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql = 'SELECT `听课总体评价`as \'level\',COUNT(听课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table2.' WHERE 评价状态 = \'已完成\')*100,2)AS\'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table2.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2)AS\'num\'
                 FROM '.$table2.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `听课总体评价`';
         }
         elseif($unit!=null && $group==null)
@@ -675,12 +723,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table2.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -692,12 +742,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table2.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -737,6 +789,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$j]->LEVEL4.' AS  level ,COUNT('.$DataArr[$j]->LEVEL4.') AS num
                     FROM '.$table2.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -747,6 +801,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -758,6 +813,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -829,18 +885,24 @@ class LessonDataStatisticController extends Controller
                 {
                     $sql1 = $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as d
                     FROM '.$table2.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
                 else
                 {
                     $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as b
                     FROM '.$table2.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
                     {
 
                         $sql = $sql.'SELECT '.$DataArr[$i][$j]->LEVEL4.' ,COUNT('.$DataArr[$i][$j]->LEVEL4.')
                     FROM '.$table2.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
                         {
@@ -862,6 +924,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -873,6 +936,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -884,6 +948,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -906,6 +971,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -917,6 +983,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -928,6 +995,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -976,7 +1044,10 @@ class LessonDataStatisticController extends Controller
                 $sumDataArr4 += $weight;
                 $CountDataArr4 += $sum;
             }
-            $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
+            if($CountDataArr4 == 0)
+                $sumDataArr4 = 0;
+            else
+                $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
             $DataArrMajorTerm[] = $sumDataArr4;
         }
 
@@ -998,6 +1069,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$i]->LEVEL4.' AS  level ,COUNT('.$DataArr[$i]->LEVEL4.') AS num
                     FROM '.$table2.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -1008,6 +1081,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
@@ -1019,6 +1093,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
@@ -1119,9 +1194,11 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql= 'SELECT `授课总体评价` as \'level\',COUNT(授课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table3.' WHERE 评价状态 = \'已完成\')*100,2) as \'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table3.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2) as \'num\'
                 FROM '.$table3.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `授课总体评价`';
         }
         elseif($unit!=null && $group==null)
@@ -1132,12 +1209,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table3.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -1149,12 +1228,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,授课总体评价
               FROM '.$table3.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`授课总体评价`';
         }
@@ -1183,9 +1264,11 @@ class LessonDataStatisticController extends Controller
         if($unit == null && $group == null)
         {
             $sql = 'SELECT `听课总体评价`as \'level\',COUNT(听课总体评价),
-                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table3.' WHERE 评价状态 = \'已完成\')*100,2)AS\'num\'
+                ROUND(COUNT(*)/(SELECT COUNT(*) FROM '.$table3.' WHERE 评价状态 = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'")*100,2)AS\'num\'
                 FROM '.$table3.'
                 WHERE `评价状态` = \'已完成\'
+                AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                 GROUP BY `听课总体评价`';
         }
         elseif($unit!=null && $group==null)
@@ -1196,12 +1279,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table3.' AS a
               LEFT JOIN lessons
               ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
               WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -1213,12 +1298,14 @@ class LessonDataStatisticController extends Controller
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T)*100,2) as \'num\'
               FROM (SELECT DISTINCT valueID ,听课总体评价
               FROM '.$table3.' AS a
               LEFT JOIN users
               ON a.`督导id` = users.user_id
               WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+              AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
               )AS T
               GROUP BY T.`听课总体评价`';
         }
@@ -1261,6 +1348,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$j]->LEVEL4.' AS  level ,COUNT('.$DataArr[$j]->LEVEL4.') AS num
                     FROM '.$table3.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -1271,6 +1360,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -1282,6 +1372,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$j]->LEVEL4.' ';
             }
@@ -1354,18 +1445,24 @@ class LessonDataStatisticController extends Controller
                 {
                     $sql1 = $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as d
                     FROM '.$table3.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
                 else
                 {
                     $sql = 'SELECT '.$DataArr[$i][0]->LEVEL4.' as a ,COUNT('.$DataArr[$i][0]->LEVEL4.') as b
                     FROM '.$table3.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
                     {
 
                         $sql = $sql.'SELECT '.$DataArr[$i][$j]->LEVEL4.' ,COUNT('.$DataArr[$i][$j]->LEVEL4.')
                     FROM '.$table3.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
                         {
@@ -1387,6 +1484,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -1398,6 +1496,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -1409,6 +1508,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON X.`任课教师` = lesson_teacher_name AND X.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -1431,6 +1531,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.'';
                 }
@@ -1442,6 +1543,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][0]->LEVEL4.' UNION ALL ';
                     for($j=1;$j<count($DataArr[$i]);$j++)
@@ -1453,6 +1555,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i][$j]->LEVEL4.'';
                         if($j<count($DataArr[$i])-1)
@@ -1501,7 +1604,10 @@ class LessonDataStatisticController extends Controller
                 $sumDataArr4 += $weight;
                 $CountDataArr4 += $sum;
             }
-            $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
+            if($CountDataArr4 == 0)
+                $sumDataArr4 = 0;
+            else
+                $sumDataArr4 = round($sumDataArr4/$CountDataArr4 ,2);
             $DataArrMajorTerm[] = $sumDataArr4;
         }
 
@@ -1523,6 +1629,8 @@ class LessonDataStatisticController extends Controller
             {
                 $sql ='SELECT '.$DataArr[$i]->LEVEL4.' AS  level ,COUNT('.$DataArr[$i]->LEVEL4.') AS num
                     FROM '.$table3.'
+                    WHERE `评价状态` = \'已完成\'
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
             elseif($unit!=null && $group==null)
@@ -1533,6 +1641,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN lessons
                     ON a.`任课教师` = lesson_teacher_name AND a.`课程名称`= lesson_name
                     WHERE `评价状态` = \'已完成\' AND lesson_unit = "'.$unit.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }
@@ -1544,6 +1653,7 @@ class LessonDataStatisticController extends Controller
                     LEFT JOIN users
                     ON  a.`督导id` = users.user_id
                     WHERE `评价状态` = \'已完成\' AND `group` = "'.$group.'"
+                    AND `听课时间` BETWEEN "'.$YearSemesterTime['time1'].'" AND "'.$YearSemesterTime['time2'].'"
                     )AS T
                     GROUP BY '.$DataArr[$i]->LEVEL4.' ';
             }

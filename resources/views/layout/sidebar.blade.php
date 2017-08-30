@@ -302,7 +302,37 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                                 各小组听课情况
                             </a>
                         </li>
+
                     </ul>
+                </li>
+
+                <li class="Upper_menu indentManage indents">
+                    <a href="#indents" class="nav-header collapse" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-minus" ></i>
+                        听课数据统计
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="indents" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/TheoryStatistics">
+                                <i class="glyphicon" ></i>
+                                理论课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PracticeStatistics">
+                                <i class="glyphicon" ></i>
+                                实践课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PhysicalStatistics">
+                                <i class="glyphicon"></i>
+                                体育课部分
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
                 <li class="indents"   style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/NecessaryTask">
@@ -328,33 +358,33 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         学院用户列表
                     </a>
                 </li>
-                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
-                        <i class="icon-user"></i>
-                        培训活动与教学咨询
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    <ul id="UserManage" class="nav nav-list collapse in">
-                        <li class="indents">
-                            <a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus" ></i>
-                                报名培训活动
-                            </a>
-                        </li>
-                        <li class="indents">
-                            <a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus" ></i>
-                                报名教学咨询
-                            </a>
-                        </li>
-                        <li class="indents">
-                            <a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus"></i>
-                                对我的教学评价
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                {{--<li class="user-menu" style="border-left:3px solid #4AA3DE;">--}}
+                    {{--<a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">--}}
+                        {{--<i class="icon-user"></i>--}}
+                        {{--培训活动与教学咨询--}}
+                        {{--<b class="arrow icon-angle-down"></b>--}}
+                    {{--</a>--}}
+                    {{--<ul id="UserManage" class="nav nav-list collapse in">--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus" ></i>--}}
+                                {{--报名培训活动--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus" ></i>--}}
+                                {{--报名教学咨询--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus"></i>--}}
+                                {{--对我的教学评价--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
             @endif
 
         @if(session('role')=='小组长')
@@ -397,6 +427,34 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         学期关注课程
                     </a>
                 </li>
+                <li class="Upper_menu indentManage indents">
+                    <a href="#indents" class="nav-header collapse" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-minus" ></i>
+                        听课数据统计
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="indents" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/TheoryStatistics">
+                                <i class="glyphicon" ></i>
+                                理论课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PracticeStatistics">
+                                <i class="glyphicon" ></i>
+                                实践课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PhysicalStatistics">
+                                <i class="glyphicon"></i>
+                                体育课部分
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
                 <li class="class-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/LessonTable" style="font-size: 15px;">
                         <i class="icon-list-alt" ></i>
@@ -416,33 +474,33 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         学院用户列表
                     </a>
                 </li>
-                <li class="user-menu" style="border-left:3px solid #4AA3DE;">
-                    <a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">
-                        <i class="icon-user"></i>
-                        培训活动与教学咨询
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    <ul id="UserManage" class="nav nav-list collapse in">
-                        <li class="indents">
-                            <a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus" ></i>
-                                报名培训活动
-                            </a>
-                        </li>
-                        <li class="indents">
-                            <a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus" ></i>
-                                报名教学咨询
-                            </a>
-                        </li>
-                        <li class="indents">
-                            <a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus"></i>
-                                对我的教学评价
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                {{--<li class="user-menu" style="border-left:3px solid #4AA3DE;">--}}
+                    {{--<a href="#UserManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">--}}
+                        {{--<i class="icon-user"></i>--}}
+                        {{--培训活动与教学咨询--}}
+                        {{--<b class="arrow icon-angle-down"></b>--}}
+                    {{--</a>--}}
+                    {{--<ul id="UserManage" class="nav nav-list collapse in">--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/activity/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus" ></i>--}}
+                                {{--报名培训活动--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/consult/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus" ></i>--}}
+                                {{--报名教学咨询--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="indents">--}}
+                            {{--<a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus"></i>--}}
+                                {{--对我的教学评价--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
         @endif
 
         @if(session('role')=='院级')
@@ -454,35 +512,42 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </a>
                 </li>
 
-                {{--<li class="evaluated-menu">--}}
-                    {{--<a href="#planManage" class="nav-header" data-toggle="collapse" style="font-size: 15px;">--}}
-                        {{--<i class="icon-desktop"></i>--}}
-                        {{--评价管理--}}
-                        {{--<b class="arrow icon-angle-down"></b>--}}
-                    {{--</a>--}}
-                    {{--<ul id="planManage" class="nav nav-list collapse in">--}}
-                        <li class="indentManage" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
-                            <a href="/EverEvaluated">
-                                <i class="glyphicon icon-bookmark"></i>
-                                评价结果
+
+                <li class="indentManage" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
+                    <a href="/EverEvaluated">
+                        <i class="glyphicon icon-bookmark"></i>
+                        评价结果
+                    </a>
+                </li>
+
+                <li class="Upper_menu indentManage indents">
+                    <a href="#indents" class="nav-header collapse" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-minus" ></i>
+                        听课数据统计
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="indents" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/TheoryStatistics">
+                                <i class="glyphicon" ></i>
+                                理论课部分
                             </a>
                         </li>
-                        {{--<li class="indentManage">--}}
-                            {{--<a href="/Evaluation">--}}
-                                {{--<i class="glyphicon icon-flag"></i>--}}
-                                {{--关注课程完成情况--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
+                        <li class="indents">
+                            <a href="/PracticeStatistics">
+                                <i class="glyphicon" ></i>
+                                实践课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PhysicalStatistics">
+                                <i class="glyphicon"></i>
+                                体育课部分
+                            </a>
+                        </li>
+                    </ul>
 
-                        {{--<li class="indentManage" style="border-left:3px solid #4AA3DE;">--}}
-                            {{--<a href="/DataStatistics">--}}
-                                {{--<i class="icon-file-alt"></i>--}}
-                                {{--评价统计--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                    {{--</ul>--}}
-                {{--</li>--}}
-
+                </li>
 
                 <li class="college-users" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/SupervisorInfo" style="font-size: 15px;">

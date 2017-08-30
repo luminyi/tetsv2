@@ -993,7 +993,7 @@
                         if($(this).parent().next().children().children()[j].innerText==contentFrontdata[0][$(this).text()])
                         {
                             $(this).parent().next().children().children()[j].className += (' current');
-//                            console.log(contentFrontdata[0][$(this).text()])
+                            console.log($(this).parent().next().children().children())
                         }
                     }
                 });

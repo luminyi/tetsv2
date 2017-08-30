@@ -346,110 +346,110 @@
                     </div>
                 </div>
 
-                <div id="minisize" class="col-xs-6 col-sm-6">
-                    <div class="widget-box-red">
-                        <div class="widget-header header-color-red">
-                            @if(session('role')=='校级'||session('role')=='大组长')
-                                <h5 class="bigger lighter">学生课堂表现（按评价个数排）</h5>
-                            @elseif(session('role')=='院级')
-                                <h5 class="bigger lighter">{{Auth::User()->unit}}学生课堂表现（按评价个数排）</h5>
-                            @elseif(session('role')=='小组长')
-                                <h5 class="bigger lighter">{{Auth::User()->group}}学生课堂表现（按评价个数排）</h5>
-                            @endif
-                        </div>
+                {{--<div id="minisize" class="col-xs-6 col-sm-6">--}}
+                    {{--<div class="widget-box-red">--}}
+                        {{--<div class="widget-header header-color-red">--}}
+                            {{--@if(session('role')=='校级'||session('role')=='大组长')--}}
+                                {{--<h5 class="bigger lighter">学生课堂表现（按评价个数排）</h5>--}}
+                            {{--@elseif(session('role')=='院级')--}}
+                                {{--<h5 class="bigger lighter">{{Auth::User()->unit}}学生课堂表现（按评价个数排）</h5>--}}
+                            {{--@elseif(session('role')=='小组长')--}}
+                                {{--<h5 class="bigger lighter">{{Auth::User()->group}}学生课堂表现（按评价个数排）</h5>--}}
+                            {{--@endif--}}
+                        {{--</div>--}}
 
-                        <div class="widget-body widget-body-red">
+                        {{--<div class="widget-body widget-body-red">--}}
 
-                            <div id="TChartFour" style="width: 720px;height:350px;"></div>
-                            <script type="text/javascript">
-                                // 基于准备好的dom，初始化echarts实例
-                                var myChart = echarts.init(document.getElementById('TChartFour'));
-                                // 指定图表的配置项和数据
-                                var option = {
+                            {{--<div id="TChartFour" style="width: 720px;height:350px;"></div>--}}
+                            {{--<script type="text/javascript">--}}
+                                {{--// 基于准备好的dom，初始化echarts实例--}}
+                                {{--var myChart = echarts.init(document.getElementById('TChartFour'));--}}
+                                {{--// 指定图表的配置项和数据--}}
+                                {{--var option = {--}}
 
-                                    tooltip : {},
-                                    legend: {
-                                        data: ["非常满意", "满意", "正常", "存在不足", "存在明显不足"]
-                                    },
+                                    {{--tooltip : {},--}}
+                                    {{--legend: {--}}
+                                        {{--data: ["非常满意", "满意", "正常", "存在不足", "存在明显不足"]--}}
+                                    {{--},--}}
 
-                                    xAxis : [
-                                        {
-                                            type : 'category',
-                                            data : ['遵守课堂纪律，听课认真','能积极思，参与互动环节并回答问题']
-                                        }
-                                    ],
-                                    yAxis : [
-                                        {
-                                            type : 'value'
-                                        }
-                                    ],
-                                    series : [
-                                        {
-                                            name:'非常满意',
-                                            type:'bar',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'top'
-                                                }
-                                            },
-                                            data:[12, 24]
+                                    {{--xAxis : [--}}
+                                        {{--{--}}
+                                            {{--type : 'category',--}}
+                                            {{--data : ['遵守课堂纪律，听课认真','能积极思，参与互动环节并回答问题']--}}
+                                        {{--}--}}
+                                    {{--],--}}
+                                    {{--yAxis : [--}}
+                                        {{--{--}}
+                                            {{--type : 'value'--}}
+                                        {{--}--}}
+                                    {{--],--}}
+                                    {{--series : [--}}
+                                        {{--{--}}
+                                            {{--name:'非常满意',--}}
+                                            {{--type:'bar',--}}
+                                            {{--label: {--}}
+                                                {{--normal: {--}}
+                                                    {{--show: true,--}}
+                                                    {{--position: 'top'--}}
+                                                {{--}--}}
+                                            {{--},--}}
+                                            {{--data:[12, 24]--}}
 
-                                        },
-                                        {
-                                            name:'满意',
-                                            type:'bar',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'top'
-                                                }
-                                            },
-                                            data:[125, 92]
+                                        {{--},--}}
+                                        {{--{--}}
+                                            {{--name:'满意',--}}
+                                            {{--type:'bar',--}}
+                                            {{--label: {--}}
+                                                {{--normal: {--}}
+                                                    {{--show: true,--}}
+                                                    {{--position: 'top'--}}
+                                                {{--}--}}
+                                            {{--},--}}
+                                            {{--data:[125, 92]--}}
 
-                                        },
-                                        {
-                                            name:'正常',
-                                            type:'bar',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'top'
-                                                }
-                                            },
-                                            data:[73, 99]
+                                        {{--},--}}
+                                        {{--{--}}
+                                            {{--name:'正常',--}}
+                                            {{--type:'bar',--}}
+                                            {{--label: {--}}
+                                                {{--normal: {--}}
+                                                    {{--show: true,--}}
+                                                    {{--position: 'top'--}}
+                                                {{--}--}}
+                                            {{--},--}}
+                                            {{--data:[73, 99]--}}
 
-                                        },{
-                                            name:'存在不足',
-                                            type:'bar',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'top'
-                                                }
-                                            },
-                                            data:[21, 28]
+                                        {{--},{--}}
+                                            {{--name:'存在不足',--}}
+                                            {{--type:'bar',--}}
+                                            {{--label: {--}}
+                                                {{--normal: {--}}
+                                                    {{--show: true,--}}
+                                                    {{--position: 'top'--}}
+                                                {{--}--}}
+                                            {{--},--}}
+                                            {{--data:[21, 28]--}}
 
-                                        },{
-                                            name:'存在明显不足',
-                                            type:'bar',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'top'
-                                                }
-                                            },
-                                            data:[11, 14]
+                                        {{--},{--}}
+                                            {{--name:'存在明显不足',--}}
+                                            {{--type:'bar',--}}
+                                            {{--label: {--}}
+                                                {{--normal: {--}}
+                                                    {{--show: true,--}}
+                                                    {{--position: 'top'--}}
+                                                {{--}--}}
+                                            {{--},--}}
+                                            {{--data:[11, 14]--}}
 
-                                        },
-                                    ]
-                                };
+                                        {{--},--}}
+                                    {{--]--}}
+                                {{--};--}}
 
-                                myChart.setOption(option);
-                            </script>
-                        </div>
-                    </div>
-                </div>
+                                {{--myChart.setOption(option);--}}
+                            {{--</script>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
 
             <div id="ThirdPage">
@@ -491,154 +491,7 @@
 
                 </div>
             </div>
-{{--            <div id="FifthPage" >
-                <div id="minisize" class="col-xs-6 col-sm-12">
-                    <div class="widget-box-green">
-                        <div class="widget-header header-color-green">
-                            <h5 class="bigger lighter">督导评教数据与学生评教数据对照</h5>
-                        </div>
-                        <div class="widget-body-blue">
-                            <table  data-toggle="table">
-                                <thead>
-                                    <tr>
-                                        <th>督导评价样本数</th>
-                                        <th>督导评价级别</th>
-                                        <th>学生评价90-94</th>
-                                        <th>学生评价88-90</th>
-                                        <th>学生评价85-88</th>
-                                        <th>学生评价80-85</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>35</td>
-                                        <td>A</td>
-                                        <td>74.3%</td>
-                                        <td>20.0%</td>
-                                        <td>5.7%</td>
-                                        <td>0.0%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>112</td>
-                                        <td>B</td>
-                                        <td>43.8%</td>
-                                        <td>44.6%</td>
-                                        <td>10.7%</td>
-                                        <td>0.9%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>51</td>
-                                        <td>C</td>
-                                        <td>35.3%</td>
-                                        <td>29.4%</td>
-                                        <td>35.3%</td>
-                                        <td>0.0%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>D</td>
-                                        <td>20.0%</td>
-                                        <td>40.0%</td>
-                                        <td>40.0%</td>
-                                        <td>0.0%</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>E</td>
-                                        <td>20.0%</td>
-                                        <td>40.0%</td>
-                                        <td>40.0%</td>
-                                        <td>0.0%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div id="TChartSeven" style="width: 1500px;height:350px;"></div>
-                            <script type="text/javascript">
-                                // 基于准备好的dom，初始化echarts实例
-                                var myChart = echarts.init(document.getElementById('TChartSeven'));
-                                // 指定图表的配置项和数据
-                                var option = {
-                                    tooltip : {
-                                        trigger: 'axis',
-                                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                                        }
-                                    },
-                                    legend: {
-                                        data: ['学生评价90-94', '学生评价88-90','学生评价85-88','学生评价85-88']
-                                    },
-                                    grid: {
-                                        left: '3%',
-                                        right: '4%',
-                                        bottom: '3%',
-                                        containLabel: true
-                                    },
-                                    xAxis:  {
-                                        type: 'value'
-                                    },
-                                    yAxis: {
-                                        type: 'category',
-                                        data: ['A','B','C','D','E']
-                                    },
-                                    series: [
-                                        {
-                                            name: '学生评价90-94',
-                                            type: 'bar',
-                                            stack: '总量',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'insideRight'
-                                                }
-                                            },
-                                            data: [74.3, 43.8, 35.3, 20.0, 20.0]
-                                        },
-                                        {
-                                            name: '学生评价88-90',
-                                            type: 'bar',
-                                            stack: '总量',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'insideRight'
-                                                }
-                                            },
-                                            data: [20.0, 44.6, 29.4, 40.0, 40.0]
-                                        },
-                                        {
-                                            name: '学生评价85-88',
-                                            type: 'bar',
-                                            stack: '总量',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'insideRight'
-                                                }
-                                            },
-                                            data: [5.7, 10.7, 35.3, 40.0, 40.0]
-                                        },
-                                        {
-                                            name: '学生评价85-88',
-                                            type: 'bar',
-                                            stack: '总量',
-                                            label: {
-                                                normal: {
-                                                    show: true,
-                                                    position: 'insideRight'
-                                                }
-                                            },
-                                            data: [0.0, 0.9, 0.0, 0.0, 0.0]
-                                        }
 
-                                    ]
-                                };
-
-                                myChart.setOption(option);
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>--}}
             </div>
         </div>
 

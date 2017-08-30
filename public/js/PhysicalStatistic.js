@@ -536,6 +536,12 @@ function BarChartTeachingOverallEvaluation (){
             name: '得分情况',
             type: 'bar',
             barWidth: 60,
+            label: {
+                normal: {
+                    show: true,
+                    position:'top'
+                }
+            },
             data: index_value_teaching
         }]
     };
@@ -578,6 +584,12 @@ function BarChartLearningOverallEvaluation (){
             name: '得分情况',
             type: 'bar',
             barWidth: 60,
+            label: {
+                normal: {
+                    show: true,
+                    position:'top'
+                }
+            },
             data: index_value_learning
         }]
     };
@@ -611,6 +623,12 @@ function BarChartMajorTermEvaluation(){
             name: '得分情况',
             type: 'bar',
             barWidth: 60,
+            label: {
+                normal: {
+                    show: true,
+                    position:'top'
+                }
+            },
             data: index_value_MajorTerm
         }]
     };
@@ -650,6 +668,12 @@ function BarChartMinorTermEvaluationByAVG(){
             name: '得分情况',
             type: 'bar',
             barWidth: 60,
+            label: {
+                normal: {
+                    show: true,
+                    position:'top'
+                }
+            },
             data: index_name_MinorByAVG
         }]
     };
@@ -666,6 +690,11 @@ function BarCharMinorTermEvaluationByCount(){
     var option = {
 
         tooltip : {},
+        grid: {
+
+            bottom: '35%'
+
+        },
         legend: {
             data: ["非常满意", "满意", "正常", "存在不足", "存在明显不足"]
         },
