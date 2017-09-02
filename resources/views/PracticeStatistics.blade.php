@@ -341,104 +341,104 @@
                             </div>
                         </div>
                     </div>
-                    <div id="minisize" class="col-xs-6 col-sm-6">
-                        <div class="widget-box-red">
-                            <div class="widget-header header-color-red">
-                                <h5 class="bigger lighter">学生课堂表现（按评价个数排）</h5>
-                            </div>
+                    {{--<div id="minisize" class="col-xs-6 col-sm-6">--}}
+                        {{--<div class="widget-box-red">--}}
+                            {{--<div class="widget-header header-color-red">--}}
+                                {{--<h5 class="bigger lighter">学生课堂表现（按评价个数排）</h5>--}}
+                            {{--</div>--}}
 
-                            <div class="widget-body widget-body-red">
+                            {{--<div class="widget-body widget-body-red">--}}
 
-                                <div id="TChartFour" style="width: 720px;height:350px;"></div>
-                                <script type="text/javascript">
-                                    // 基于准备好的dom，初始化echarts实例
-                                    var myChart = echarts.init(document.getElementById('TChartFour'));
-                                    // 指定图表的配置项和数据
-                                    var option = {
+                                {{--<div id="TChartFour" style="width: 720px;height:350px;"></div>--}}
+                                {{--<script type="text/javascript">--}}
+                                    {{--// 基于准备好的dom，初始化echarts实例--}}
+                                    {{--var myChart = echarts.init(document.getElementById('TChartFour'));--}}
+                                    {{--// 指定图表的配置项和数据--}}
+                                    {{--var option = {--}}
 
-                                        tooltip : {},
-                                        legend: {
-                                            data: ["非常满意", "满意", "正常", "存在不足", "存在明显不足"]
-                                        },
+                                        {{--tooltip : {},--}}
+                                        {{--legend: {--}}
+                                            {{--data: ["非常满意", "满意", "正常", "存在不足", "存在明显不足"]--}}
+                                        {{--},--}}
 
-                                        xAxis : [
-                                            {
-                                                type : 'category',
-                                                data : ['遵守课堂纪律，听课认真','能积极思，参与互动环节并回答问题']
-                                            }
-                                        ],
-                                        yAxis : [
-                                            {
-                                                type : 'value'
-                                            }
-                                        ],
-                                        series : [
-                                            {
-                                                name:'非常满意',
-                                                type:'bar',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        position: 'top'
-                                                    }
-                                                },
-                                                data:[12, 24]
+                                        {{--xAxis : [--}}
+                                            {{--{--}}
+                                                {{--type : 'category',--}}
+                                                {{--data : ['遵守课堂纪律，听课认真','能积极思，参与互动环节并回答问题']--}}
+                                            {{--}--}}
+                                        {{--],--}}
+                                        {{--yAxis : [--}}
+                                            {{--{--}}
+                                                {{--type : 'value'--}}
+                                            {{--}--}}
+                                        {{--],--}}
+                                        {{--series : [--}}
+                                            {{--{--}}
+                                                {{--name:'非常满意',--}}
+                                                {{--type:'bar',--}}
+                                                {{--label: {--}}
+                                                    {{--normal: {--}}
+                                                        {{--show: true,--}}
+                                                        {{--position: 'top'--}}
+                                                    {{--}--}}
+                                                {{--},--}}
+                                                {{--data:[12, 24]--}}
 
-                                            },
-                                            {
-                                                name:'满意',
-                                                type:'bar',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        position: 'top'
-                                                    }
-                                                },
-                                                data:[125, 92]
+                                            {{--},--}}
+                                            {{--{--}}
+                                                {{--name:'满意',--}}
+                                                {{--type:'bar',--}}
+                                                {{--label: {--}}
+                                                    {{--normal: {--}}
+                                                        {{--show: true,--}}
+                                                        {{--position: 'top'--}}
+                                                    {{--}--}}
+                                                {{--},--}}
+                                                {{--data:[125, 92]--}}
 
-                                            },
-                                            {
-                                                name:'正常',
-                                                type:'bar',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        position: 'top'
-                                                    }
-                                                },
-                                                data:[73, 99]
+                                            {{--},--}}
+                                            {{--{--}}
+                                                {{--name:'正常',--}}
+                                                {{--type:'bar',--}}
+                                                {{--label: {--}}
+                                                    {{--normal: {--}}
+                                                        {{--show: true,--}}
+                                                        {{--position: 'top'--}}
+                                                    {{--}--}}
+                                                {{--},--}}
+                                                {{--data:[73, 99]--}}
 
-                                            },{
-                                                name:'存在不足',
-                                                type:'bar',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        position: 'top'
-                                                    }
-                                                },
-                                                data:[21, 28]
+                                            {{--},{--}}
+                                                {{--name:'存在不足',--}}
+                                                {{--type:'bar',--}}
+                                                {{--label: {--}}
+                                                    {{--normal: {--}}
+                                                        {{--show: true,--}}
+                                                        {{--position: 'top'--}}
+                                                    {{--}--}}
+                                                {{--},--}}
+                                                {{--data:[21, 28]--}}
 
-                                            },{
-                                                name:'存在明显不足',
-                                                type:'bar',
-                                                label: {
-                                                    normal: {
-                                                        show: true,
-                                                        position: 'top'
-                                                    }
-                                                },
-                                                data:[11, 14]
+                                            {{--},{--}}
+                                                {{--name:'存在明显不足',--}}
+                                                {{--type:'bar',--}}
+                                                {{--label: {--}}
+                                                    {{--normal: {--}}
+                                                        {{--show: true,--}}
+                                                        {{--position: 'top'--}}
+                                                    {{--}--}}
+                                                {{--},--}}
+                                                {{--data:[11, 14]--}}
 
-                                            },
-                                        ]
-                                    };
+                                            {{--},--}}
+                                        {{--]--}}
+                                    {{--};--}}
 
-                                    myChart.setOption(option);
-                                </script>
-                            </div>
-                        </div>
-                    </div>
+                                    {{--myChart.setOption(option);--}}
+                                {{--</script>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
 
                 <div id="ThirdPage">

@@ -1,3 +1,6 @@
+//活动的id：管理员审核参与教师时使用
+var activity_ID = null;
+
 
 function actionFormatterNumber(value, row, index) {
     return index+1;
@@ -16,6 +19,7 @@ function activityModify(value, row, index) {
 }
 window.actionEvents = {
     'click .info': function (e, value, row, index) {
+        activity_ID = row.id;
         $("#check-activity").click();
         $("#act-name").html(row.name);
         $("#act-place").html(row.place);
@@ -32,6 +36,7 @@ window.actionEvents = {
                 id:row.id
             },//传递学院名称
             success: function (result) {
+console.log(row);
                 $('#attendTable').bootstrapTable('load', result);
             }
         });
@@ -205,6 +210,7 @@ $(document).ready(function() {
             alert('无选择人员！');
         }
         else {
+            //console.log(activity_ID);
             $.ajax({
                 type: "post",
                 async: false,
@@ -212,6 +218,7 @@ $(document).ready(function() {
                 data: {
                     '_token': csrf_token,
                     dataArr: ids,
+                    activity_id:activity_ID,
                     newState: ChangeState
                 },//传递学院名称
                 success: function (result) {
@@ -242,6 +249,7 @@ $(document).ready(function() {
                 data: {
                     '_token': csrf_token,
                     dataArr: ids,
+                    activity_id:activity_ID,
                     newState: ChangeState
                 },//传递学院名称
                 success: function (result) {
@@ -272,6 +280,7 @@ $(document).ready(function() {
                 data: {
                     '_token': csrf_token,
                     dataArr: ids,
+                    activity_id:activity_ID,
                     newState: ChangeState
                 },//传递学院名称
                 success: function (result) {

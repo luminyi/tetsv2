@@ -634,12 +634,12 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                                 报名教学咨询
                             </a>
                         </li>
-                        <li class="indents">
-                            <a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">
-                                <i class="icon-minus"></i>
-                                对我的教学评价
-                            </a>
-                        </li>
+                        {{--<li class="indents">--}}
+                            {{--<a href="/teachEvaluation/index-suv" class="nav-header" style="font-size: 15px;">--}}
+                                {{--<i class="icon-minus"></i>--}}
+                                {{--对我的教学评价--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </li>
         @endif
