@@ -74,7 +74,9 @@ class ConsultController extends Controller
     public function consultHistory($userId)
     {
         $historyData= DB::table('consult_user')
+            ->select('consult_user.*','consults.*','consults_type.*')
             ->leftjoin('consults_type','consult_user.consults_type_id','=','consults_type.id')
+            ->leftjoin('consults','consults.consult_id','=','consult_user.consult_id')
             ->where('user_id',$userId)
             ->orderBy('state','desc')->get();
         return $historyData;

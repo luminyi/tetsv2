@@ -557,6 +557,7 @@
                     Lessontime: lessontime
                 },//传递学院名称
                 success: function (result) {
+                    console.log(result);
                     var chapterVal=result[1][0].章节目录;
                     var LessonNameVal=result[1][0].课程名称;
                     var TeacherVal=result[1][0].任课教师;

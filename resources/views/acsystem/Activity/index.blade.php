@@ -37,7 +37,7 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">我参加过的活动</h3>
+                        <h3 class="panel-title">我的活动</h3>
                     </div>
                     <div class="panel-body">
                         <table data-toggle="table" id="history-table"
@@ -50,7 +50,7 @@
                                 <th data-field="name" data-halign="center" data-align="center">活动名称</th>
                                 <th data-field="teacher" data-halign="center" data-align="center">主讲人</th>
                                 <th data-field="place" data-halign="center" data-align="center">活动地点</th>
-                                <th data-field="state" data-halign="center" data-align="center">活动状态</th>
+                                <th data-field="fin_state" data-halign="center" data-align="center">活动参与状态</th>
                                 <th data-field="term" data-halign="center" data-align="center">活动学期</th>
                                 <th data-field="action" data-halign="center" data-align="center"
                                     data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>

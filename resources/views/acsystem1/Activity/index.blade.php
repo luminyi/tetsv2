@@ -116,7 +116,7 @@
                             <th data-field="name" data-halign="center" data-align="center">活动名称</th>
                             <th data-field="teacher" data-halign="center" data-align="center">主讲人</th>
                             <th data-field="place" data-halign="center" data-align="center">活动地点</th>
-                            <th data-field="state" data-halign="center" data-align="center">活动状态</th>
+                            <th data-field="apply_state" data-halign="center" data-align="center">报名状态</th>
                             <th data-field="term" data-halign="center" data-align="center">活动学期</th>
                             <th data-field="action" data-halign="center" data-align="center"
                                 data-formatter="activityInfo" data-events="actionEvents" >活动详情</th>

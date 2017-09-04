@@ -17,5 +17,6 @@ window.actionEvents = {
         $("#check-consult").click();
         $("#act-name").html(row.name);
         $("#act-info").html(row.meta_description);
+        $("#act-content").html(row.content);
     }
 };

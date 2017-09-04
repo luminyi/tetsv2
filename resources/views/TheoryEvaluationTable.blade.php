@@ -1150,6 +1150,7 @@
                 Lessontime: lessontime
             },//传递学院名称
             success: function (result) {
+
             }
         });
     }
