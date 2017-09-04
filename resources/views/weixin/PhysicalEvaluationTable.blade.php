@@ -470,7 +470,6 @@
         var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
 //        2017-01-15暂时取消必填项检查功能
 //        var flagC = 0 ;
-
         var Frontlist = [];//正面选择框的值
 
         for (i=0;i<$('.current').length;i++)

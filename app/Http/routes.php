@@ -195,18 +195,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/PhysicalEvaluationTableView', 'Auth\HomeController@PhysicalEvaluationTableView');//体育评价表视图
 
     //通过web端填写评价表写入数据库
-    Route::any('/DBTheoryFrontEvaluationTable', 'EvaluationController@DBTheoryFrontEvaluationTable');//填写理论评价表的正面内容
-
-    Route::any('/DBPracticeFrontEvaluationTable', 'EvaluationController@DBPracticeFrontEvaluationTable');//管理员填写实践评价表
-
-    Route::any('/DBPhysicalFrontEvaluationTable', 'EvaluationController@DBPhysicalFrontEvaluationTable');//管理员填写体育评价表
+    Route::any('/DBTheoryEvaluationTable', 'EvaluationController@DBTheoryEvaluationTable');//填写理论评价表的内容
+    Route::any('/DBPracticeEvaluationTable', 'EvaluationController@DBPracticeEvaluationTable');//管理员填写实践评价表
+    Route::any('/DBPhysicalEvaluationTable', 'EvaluationController@DBPhysicalEvaluationTable');//管理员填写体育评价表
 
 
 
+    Route::any('/CreateFrontTheoryEvalTable', 'Auth\HomeController@CreateFrontTheoryEvalTable');//动态创建评价表:正面
+    Route::any('/CreateBackTheoryEvalTable', 'Auth\HomeController@CreateBackTheoryEvalTable');//动态创建评价表:正面
+    Route::any('/CreateFrontPracticeEvalTable', 'Auth\HomeController@CreateFrontPracticeEvalTable');//动态创建评价表:正面
+    Route::any('/CreateBackPracticeEvalTable', 'Auth\HomeController@CreateBackPracticeEvalTable');//动态创建评价表:正面
+    Route::any('/CreateFrontPhysicalEvalTable', 'Auth\HomeController@CreateFrontPhysicalEvalTable');//动态创建评价表:正面
+    Route::any('/CreateBackPhysicalEvalTable', 'Auth\HomeController@CreateBackPhysicalEvalTable');//动态创建评价表:正面
 
+    Route::any('/CreateEvalBackTable', 'Auth\HomeController@CreateEvalBackTable');//动态创建评价表：背面
 
-    Route::get('/CreateEvalFrontTable', 'Auth\HomeController@CreateEvalFrontTable');//动态创建评价表:正面
-    Route::get('/CreateEvalBackTable', 'Auth\HomeController@CreateEvalBackTable');//动态创建评价表：背面
 
     Route::get('/EvaluationContent', 'Auth\HomeController@EvaluationContent');//获取正面、背面评价详情
 
@@ -269,6 +272,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/GroupEvaluationInfo','StatisticController@GroupEvaluationInfo');
 
 
+
+
+    //评价体系修改
+    Route::get('/UpdateTheoryView', 'UpdateEvalutionController@UpdateTheoryView');//理论评价表视图
+    Route::get('/UpdatePracticeView', 'UpdateEvalutionController@UpdatePracticeView');//实践评价表视图
+    Route::get('/UpdatePhysicalView', 'UpdateEvalutionController@UpdatePhysicalView');//体育评价表视图
+    //通过web端填写评价表写入数据库
+    Route::any('/DBFrontTheoryEvaluationTable', 'EvaluationController@TheoryFrontEvaluationTableToDB');//填写理论评价表的正面内容
+    Route::any('/DBBackTheoryEvaluationTable', 'EvaluationController@TheoryBackEvaluationTableToDB');//填写理论评价表的背面内容
+    Route::any('/DBFrontPracticeEvaluationTable', 'EvaluationController@PracticeFrontEvaluationTableToDB');//填写理论评价表的正面内容
+    Route::any('/DBBackPracticeEvaluationTable', 'EvaluationController@PracticeBackEvaluationTableToDB');//填写理论评价表的正面内容
+    Route::any('/DBFrontPhysicalEvaluationTable', 'EvaluationController@PhysicalFrontEvaluationTableToDB');//填写理论评价表的正面内容
+    Route::any('/DBBackPhysicalEvaluationTable', 'EvaluationController@PhysicalBackEvaluationTableToDB');//填写理论评价表的正面内容
 
 
     //    教师活动系统

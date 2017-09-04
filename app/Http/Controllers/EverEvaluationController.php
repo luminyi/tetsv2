@@ -22,7 +22,100 @@ class EverEvaluationController extends Controller
      */
     public function EverEvaluated()
     {
-        return view('EverEvaluated');
+        $frontdata=$this->GetFrontValueTable();
+        for($i=0;$i<count($frontdata[1]);$i++)
+            if($frontdata[1][$i]->text=='理论课评价表')break;
+        $front =array(
+            '1'=>array_key_exists($i,$frontdata[2])?$frontdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$frontdata[3])?$frontdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$frontdata[4])?$frontdata[4][$i]:array()//三级菜单项
+        );
+        $backdata=$this->GetBackValueTable();
+        for($i=0;$i<count($backdata[1]);$i++)
+            if($backdata[1][$i]->text=='理论课评价表')break;
+        $back =array(
+            '1'=>array_key_exists($i,$backdata[2])?$backdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$backdata[3])?$backdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$backdata[4])?$backdata[4][$i]:array()//三级菜单项
+        );
+        return view('EverEvaluated',compact('front','back'));
+    }
+    public function GetFrontValueTable()
+    {
+        $mytime=new HelpController;
+        $Time=$mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
+        //通过GetCurrentTableName函数将2016-2017-1格式得到当前使用评价体系使用版本的后缀名
+        $TableName=$mytime->GetCurrentTableName($Time['YearSemester']);
+
+        $DataTable=array();
+        $DataFirst=array();
+        $DataSecond=array();
+        $DataThird=array();
+
+        $TableType=DB::table('front_contents'.$TableName)->where('fid','=',0)->get();
+
+        for($iType=0;$iType<count($TableType);$iType++)
+        {
+            $DataTable[$iType]=$TableType[$iType];
+            $IndexFirst=DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+            for($iF=0;$iF<count($IndexFirst);$iF++)
+            {
+                $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $IndexSecond=DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+                for($iS=0;$iS<count($IndexSecond);$iS++)
+                {
+                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $IndexThird=DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
+                    for($iT=0;$iT<count($IndexThird);$iT++)
+                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
+                }
+            }
+        }
+        $data = Array(
+            '1'=>$DataTable,
+            '2'=>$DataFirst,
+            '3'=>$DataSecond,
+            '4'=>$DataThird,
+        );
+        return $data;
+    }
+    public function GetBackValueTable()
+    {
+        $mytime=new HelpController;
+        $Time=$mytime->GetYearSemester(date('Y-m'));//将2016-8变为2016-2017-1的学年学期格式
+        //通过GetCurrentTableName函数将2016-2017-1格式  得到  当前使用评价体系使用版本的后缀名
+        $TableName=$mytime->GetCurrentTableName($Time['YearSemester']);
+
+        $DataTable=array();
+        $DataFirst=array();
+        $DataSecond=array();
+        $DataThird=array();
+
+        $TableType=DB::table('back_contents'.$TableName)->where('fid','=',0)->get();
+        for($iType=0;$iType<count($TableType);$iType++)
+        {
+            $DataTable[$iType]=$TableType[$iType];
+            $IndexFirst=DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
+            for($iF=0;$iF<count($IndexFirst);$iF++)
+            {
+                $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $IndexSecond=DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
+                for($iS=0;$iS<count($IndexSecond);$iS++)
+                {
+                    $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $IndexThird=DB::table('back_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
+                    for($iT=0;$iT<count($IndexThird);$iT++)
+                        $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
+                }
+            }
+        }
+        $data = Array(
+            '1'=>$DataTable,
+            '2'=>$DataFirst,
+            '3'=>$DataSecond,
+            '4'=>$DataThird
+        );
+        return $data;
     }
 
     //校级督导查询，返回所有督导完成听课情况 简介
@@ -132,8 +225,6 @@ class EverEvaluationController extends Controller
     //院级督导完成听课情况 简介
     public function GetUnitEveryEvaluated(Request $request)
     {
-
-
         $mytime = new HelpController;
 
         $year1 = $request->year1;

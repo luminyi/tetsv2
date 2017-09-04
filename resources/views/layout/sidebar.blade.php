@@ -184,21 +184,21 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         </a>
                         <ul id="contentChange" class="nav nav-list collapse collapsed">
                             <li class="indents">
-                                <a href="#">
+                                <a href="/UpdateTheoryView">
                                     <i class="glyphicon glyphicon-minus" ></i>
-                                    理论课评价用表
+                                    理论课用表修改
                                 </a>
                             </li>
                             <li class="indents">
-                                <a href="#">
+                                <a href="/UpdatePracticeView">
                                     <i class="glyphicon glyphicon-minus" ></i>
-                                    实践课评价用表
+                                    实践课用表修改
                                 </a>
                             </li>
                             <li class="indents">
-                                <a href="#">
+                                <a href="/UpdatePhysicalView">
                                     <i class="glyphicon glyphicon-minus"></i>
-                                    体育课评价用表
+                                    体育课用表修改
                                 </a>
                             </li>
                         </ul>
@@ -334,6 +334,12 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </ul>
 
                 </li>
+                {{--<li class="indentManage" style="border-left:3px solid #4AA3DE;">--}}
+                    {{--<a href="/DataStatistics">--}}
+                        {{--<i class="icon-file-alt"></i>--}}
+                        {{--评价统计--}}
+                    {{--</a>--}}
+                {{--</li>--}}
                 <li class="indents"   style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/NecessaryTask">
                         <i class="glyphicon icon-random"></i>

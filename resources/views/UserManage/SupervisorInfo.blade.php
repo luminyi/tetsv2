@@ -544,11 +544,11 @@
                                             <span class="h4">用户角色</span>
                                                     <div>
                                                         <input type="checkbox" class="ace" name="xiaoji" value="1"/>
-                                                        <span class="lbl"> 校级</span>
+                                                        <span class="lbl">校级</span>
                                                     </div>
                                                     <div>
                                                         <input type="checkbox" class="ace" name="dazuzhang"  value="1"/>
-                                                        <span class="lbl"> 大组长</span>
+                                                        <span class="lbl">大组长</span>
                                                     </div>
                                         </div>
                                     </div>
@@ -786,14 +786,14 @@
                                             </div>
                                             <div class="form-group">
                                                 <span class="h4">组&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
-                                                    <input class="form-control input-small" name="group"  id="group" value="" readonly="readonly">
+                                                    {{--<input class="form-control input-small" name="group"  id="group" value="">--}}
 
-                                                    {{--<select class="form-control" name="group" id="group" style="display: inline-block!important;" readonly="readonly">--}}
-                                                        {{--<option>第一组</option>--}}
-                                                        {{--<option>第二组</option>--}}
-                                                        {{--<option>第三组</option>--}}
-                                                        {{--<option>第四组</option>--}}
-                                                    {{--</select>--}}
+                                                    <select class="form-control" name="group" id="group" style="display: inline-block!important;">
+                                                        <option>第一组</option>
+                                                        <option>第二组</option>
+                                                        <option>第三组</option>
+                                                        <option>第四组</option>
+                                                    </select>
                                                 </span>
                                             </div>
                                             <div class="form-group">
