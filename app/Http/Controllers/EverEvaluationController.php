@@ -38,8 +38,6 @@ class EverEvaluationController extends Controller
             '2'=>array_key_exists($i,$backdata[3])?$backdata[3][$i]:array(),//二级菜单项
             '3'=>array_key_exists($i,$backdata[4])?$backdata[4][$i]:array()//三级菜单项
         );
-        LogL:info($front);
-        Log::info($back);
         return view('EverEvaluated',compact('front','back'));
     }
     public function GetFrontValueTable()
@@ -227,8 +225,6 @@ class EverEvaluationController extends Controller
     //院级督导完成听课情况 简介
     public function GetUnitEveryEvaluated(Request $request)
     {
-
-
         $mytime = new HelpController;
 
         $year1 = $request->year1;

@@ -2,10 +2,9 @@
 <meta name="render" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=11">
 <html lang="en">
+<link rel="stylesheet" href="css/Theory.css" />
 
 <head>
-    <link rel="stylesheet" href="css/Physical.css" />
-
     <meta charset="utf-8" />
     <title>北林教学评价系统</title>
     <meta name="keywords" content="北林教学评价系统" />
@@ -27,79 +26,6 @@
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
 </head>
-
-{{--日历相关--}}
-<link rel="stylesheet" href="calendar1/css/bootstrap-datetimepicker.css" />
-
-<!--[if lt IE 9]>
-<link rel="stylesheet" type="text/css" href="calendar/DateTimePicker-ltie9.css" />
-<script type="text/javascript" src="calendar/DateTimePicker-ltie9.js"></script>
-<![endif]-->
-
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/reset.css" />--}}
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/style.css" />--}}
-{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/zzsc.css" />--}}
-
-<script src="assets/js/jquery-2.0.3.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script>
-    var url=location.href;
-    var flag = null;
-    var LessonWeekday=null;//听课星期的值
-    var lessonTime = null;
-    var tmp1=url.split("?")[1];
-    if (tmp1!=null)
-    {
-        tmp1=decodeURI(tmp1);
-        flag=tmp1.split("&")[0].split("=")[1];
-        if(flag ==0)
-        {
-
-            var unit=tmp1.split("&")[1].split("=")[1];
-            var year=tmp1.split("&")[2].split("=")[1];
-            var semester=tmp1.split("&")[3].split("=")[1];
-            var Teacname=tmp1.split("&")[4].split("=")[1];
-            var lesson=tmp1.split("&")[5].split("=")[1];
-            var room=tmp1.split("&")[6].split("=")[1];
-            var Class=tmp1.split("&")[7].split("=")[1];
-            LessonWeekday=tmp1.split("&")[8].split("=")[1];
-            lessonTime=tmp1.split("&")[9].split("=")[1];
-        }
-        if(flag !=0)
-        {
-            var chapter=tmp1.split("&")[1].split("=")[1];
-            var lesson=tmp1.split("&")[2].split("=")[1];
-            var Teacname=tmp1.split("&")[3].split("=")[1];
-            var Class=tmp1.split("&")[4].split("=")[1];
-            var room=tmp1.split("&")[5].split("=")[1];
-            var Listendate=tmp1.split("&")[6].split("=")[1];
-            var lessontime=tmp1.split("&")[7].split("=")[1];
-            var Attr=tmp1.split("&")[8].split("=")[1];
-            var Super=tmp1.split("&")[9].split("=")[1];
-            LessonWeekday=new Date(Listendate).getDay();
-//获取课程节次和周数
-            $.ajax({
-                type: "get",
-                async: false,
-                url: "/GetLessonTimeBylistendate",
-                data: {
-                    Lesson_name: lesson,
-                    Teacher: Teacname,
-                    Class: Class,
-                    Room:room,
-                    LessonWeekday:LessonWeekday
-                },//传递学院名称
-                success: function (result) {
-                    if (result != '')
-                        lessonTime=result[0]['lesson_time'];
-                    else
-                        lessonTime = '';
-                }
-            });
-        }
-    }
-
-</script>
 <style>
     .col-lg-1{
         width: 6.7%;
@@ -112,30 +38,8 @@
         width: 10.33333%;
     }
     #newmain{
+    }
 
-    }
-    #mianban{
-        /*padding-left: 45px;*/
-    }
-   /* .KIKO{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        text-align: center;
-    }
-    .KIKO1{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        text-align: center;
-        width: 20%;
-    }
-    .KIKO2{
-        float: left;
-        margin-left:15px;
-        margin-bottom: 3px;
-        width: 16%;
-    }*/
     #search-suggest{
         left: 95%;
         top: 200px;
@@ -153,23 +57,13 @@
             padding-right: 3px;
         }
     }
-    @media screen and (max-width: 1666px){
-        #mianban{
-            padding-left: 3%;
-        }
-    }
-    @media screen and (max-width: 1214px){
-        .form-content{
-            padding-right: 3px;
-        }
-    }
     @media screen and (max-width: 768px){
         #mianban{
             padding-left: 0px;
         }
         #newmain{
             overflow: auto;float: left;
-            margin-left:40%;width: 1660px;
+            margin-left:44%;width: 1660px;
         }
         #KIKO{
             float: left;
@@ -196,7 +90,7 @@
     @media screen and (max-width: 415px){
         #newmain{
             overflow: auto;float: left;
-            margin-left:69%;width: 1660px;
+            margin-left:70%;width: 1660px;
         }
         #KIKO{
             float: none;
@@ -211,16 +105,93 @@
             margin-bottom: 3px;
             width: 80%;
         }
-        #search-suggest{
+        #search-suggest {
             left: -11px;
             top: 400px;
         }
         #Lesson-suggest{
-            top: 462px;
+            top: 464px;
         }
     }
 </style>
-<body>
+
+{{--日历相关--}}
+<link rel="stylesheet" href="calendar1/css/bootstrap-datetimepicker.css" />
+
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="calendar/DateTimePicker-ltie9.css" />
+<script type="text/javascript" src="calendar/DateTimePicker-ltie9.js"></script>
+<![endif]-->
+
+{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/reset.css" />--}}
+{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/style.css" />--}}
+{{--<link rel="stylesheet" type="text/css" href="css/EvaluationTableCss/zzsc.css" />--}}
+<script src="assets/js/jquery-2.0.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script>
+    var url=location.href;
+    var flag = null;
+    var LessonWeekday=null;//听课星期的值
+    var lessonTime = null;
+    url = url.replace(/</g,"&lt;").replace(/>/g,"&gt");
+    var tmp1=url.split("?")[1];
+    if (tmp1!=null)
+    {
+        tmp1=decodeURI(tmp1);
+        flag=tmp1.split("&")[0].split("=")[1];
+        if(flag ==0)//课程表跳转
+        {
+            var unit=tmp1.split("&")[1].split("=")[1];
+            var year=tmp1.split("&")[2].split("=")[1];
+            var semester=tmp1.split("&")[3].split("=")[1];
+            var Teacname=tmp1.split("&")[4].split("=")[1];
+            var lesson=tmp1.split("&")[5].split("=")[1];
+            var room=tmp1.split("&")[6].split("=")[1];
+            var Class=tmp1.split("&")[7].split("=")[1];
+            LessonWeekday=tmp1.split("&")[8].split("=")[1];
+            lessonTime=tmp1.split("&")[9].split("=")[1];
+        }
+        if(flag !=0)//评价详情跳转
+        {
+            var chapter=tmp1.split("&")[1].split("=")[1];
+            var lesson=tmp1.split("&")[2].split("=")[1];
+            var Teacname=tmp1.split("&")[3].split("=")[1];
+            var Class=tmp1.split("&")[4].split("=")[1];
+            var room=tmp1.split("&")[5].split("=")[1];
+            var Listendate=tmp1.split("&")[6].split("=")[1];
+            var lessontime=tmp1.split("&")[7].split("=")[1];
+            var Attr=tmp1.split("&")[8].split("=")[1];
+            var Super=tmp1.split("&")[9].split("=")[1];
+            LessonWeekday=new Date(Listendate).getDay();
+            //获取课程节次和周数
+            $.ajax({
+                type: "get",
+                async: false,
+                url: "/GetLessonTimeBylistendate",
+                data: {
+                    Lesson_name: lesson,
+                    Teacher: Teacname,
+                    Class: Class,
+                    Room:room,
+                    LessonWeekday:LessonWeekday
+                },//传递学院名称
+                success: function (result) {
+                    if (result != '')
+                        lessonTime=result[0]['lesson_time'];
+                    else
+                        lessonTime = '';
+                }
+            });
+
+        }
+    }
+
+
+
+
+
+</script>
+<body onLoad="isReady=true">
 
 @include('layout.header')
 
@@ -229,11 +200,8 @@
         @include('layout.sidebar')
                 <!-- 面板开始 -->
         <div id="mianban" class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2"  style="margin-top: 20px">
-
-            <!-- .breadcrumb -->
-            <!-- .page-content 开始 -->
             <div class="page-content form-content">
-                <div class="page-box" >
+                <div class="page-box">
                     <div class="panel panel-success">
                         <div class="panel-heading">
                             <p style="font-size:20px; " class="panel-title">北京林业大学本科教学督导听课评价表(体育课评价用表)</p>
@@ -245,13 +213,13 @@
                             <form class="form-horizontal">
                                 <div class="form-group">
 
-                                    <span for="inputChapter" id="KIKO" class="col-lg-1" style="padding-top: 8px;">章节目录</span>
+                                    <span id="KIKO" for="inputChapter" class="col-lg-1" style="padding-top: 8px;">章节目录</span>
                                     <div id="KIKO1" class="col-sm-4">
                                         <input type="text" class="form-control" id="inputChapter">
                                     </div>
 
                                     <span id="KIKO" for="inputLessonAttr" class="col-lg-1" style="padding-top: 8px;">课程属性</span>
-                                    <div id="KIKO1" class="col-sm-2">
+                                    <div id="KIKO1"  class="col-sm-2">
                                         <select class="form-control" name="inputLessonAttr" id="inputLessonAttr"
                                                 style="display: inline-block!important; color: lightgrey"
                                                 onchange="inputLessonAttrAddCss()">
@@ -263,13 +231,14 @@
                                     </div>
 
                                     @if(session('role')=='校级')
-                                        <span id="KIKO" for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
+                                        <span id="KIKO"  for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
                                         {{--原来的搜索框--}}
                                         <div id="KIKO1" class="col-sm-1">
                                             <div class="search" >
                                                 <form target="_blank" id="search-formID">
-                                                    <input id="SearchBarID" class="form-control icon-remove" type="text" value="" autocomplete="off" readonly="readonly"
-                                                           style="width: 85%;">
+                                                    <input id="SearchBarID" class="form-control icon-remove"
+                                                           type="text" value="" autocomplete="off" readonly="readonly"
+                                                           style="width: 90%;">
                                                 </form>
                                             </div>
                                         </div>
@@ -278,31 +247,28 @@
                                         <div id="KIKO1" class="col-sm-1">
                                             <div class="search" >
                                                 <form target="_blank" id="search-form">
-                                                    <input id="SearchBar"class="form-control icon-remove" type="text"
-                                                           value="" autocomplete="off" placeholder="督导姓名"
-                                                           style="width: 90%;"
+                                                    <input id="SearchBar" class="form-control icon-remove"
+                                                           type="text" value="" autocomplete="off" placeholder="督导姓名"
+                                                           style="width: 100%;" unselectable="on"
                                                             {{--onkeydown="$('#SearchBar').val('');$('#SearchBarID').val('');"--}}
                                                     >
-                                                    {{--<i class="icon-remove" id="remo"></i>--}}
                                                 </form>
                                             </div>
                                         </div>
                                     @endif
-                                    @if(session('role')=='督导' ||session('role')=='小组长')
+
+                                    @if(session('role')=='督导'||session('role')=='小组长')
                                         <span id="KIKO" for="inputChapterID" class="col-lg-1" style="padding-top: 8px;">督导ID</span>
                                         <div id="KIKO1" class="col-sm-1">
                                             <input type="text" class="form-control" id="SearchBarID" value="{{Auth::User()->user_id}}" readonly="readonly">
                                         </div>
                                         <span id="KIKO" for="inputChapter" class="col-lg-1" style="padding-top: 8px;">督导姓名</span>
-                                        {{--原来的搜索框--}}
                                         <div id="KIKO1" class="col-sm-1">
                                             <input type="text" class="form-control" id="SearchBar" value="{{Auth::User()->name}}" readonly="readonly">
                                         </div>
                                     @endif
 
                                     @if(session('role')=='校级')
-
-                                        {{--搜索框下拉列表--}}
                                         <div class="suggest" id="search-suggest" style="z-index: 9999">
                                             <ul id="search_result">
 
@@ -329,7 +295,7 @@
                             </form>
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>课程信息</th>
+                                    <th>课程名称</th>
                                     <th>任课教师</th>
                                     <th>听课时间</th>
                                     <th>听课节次</th>
@@ -340,9 +306,10 @@
                                     <td><input type="text" class="form-control" id="LessonName" placeholder="课程名   教师名进行搜索"></td>
                                     <td><input type="text" class="form-control" id="Teacher" readonly="readonly"></td>
                                     <td><input type="text" class="form-control" id="ListenTime" placeholder="选择日期"></td>
-                                    <td><input type="text" class="form-control" id="LessonTime" placeholder="请选择听课时长" disabled="disabled"></td>
+                                    <td><input type="text" class="form-control" id="LessonTime" placeholder="请选择听课时长"></td>
                                     <td><input type="text" class="form-control" id="LessonClass" readonly="readonly"></td>
-                                    <td><input type="text" class="form-control" id="LessonRoom" readonly="readonly" ></td>
+                                    <td><input type="text" class="form-control" id="LessonRoom"  readonly="readonly" ></td>
+
                                 </tr>
                             </table>
                             <div class="alert alert-danger" style="font-size: 19px; text-align: center;">
@@ -352,111 +319,233 @@
                                 （3）评价表正面除“章节目录、课程属性、学生到课情况、其他”外均为必填项，背面为选填项。<br>
                                 （4）此评价表为体育课评价表。
                             </div>
-                            {{-- <div class="alert" style="background-color: #00cc00;color: white;font-size: 18px;text-align: center">
-                                 <strong>注：</strong>5个评价等级为：非常满意、满意、正常、存在不足、存在明显不足。评价内容为评价表正面和评价表背面两部分均需要填写完全。
-                             </div>--}}
+
+
+
                             <ul id="myTab" class="nav nav-tabs">
                                 <li class="active"><a href="#front" data-toggle="tab">评价表正面</a></li>
                                 <li><a href="#back" data-toggle="tab" >评价表背面</a></li>
                             </ul>
                             <div id="myTabContent" class="tab-content content-font" style="padding-bottom: 70px">
                                 <div class="tab-pane fade in active" id="front">
-
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
-
-                                        for ($i=0;$i<count($front[1]);$i++)
+                                        for($i=0;$i<count($front[1]);$i++)
                                         {
                                             echo '
-         <ul class="grade1">
-            <li>
-            <span class="icon-folder-open-alt" style="float:left;margin-top: 4px;"></span>
-            <h1>'.$front[1][$i].'</h1>';
-                                            for($j=0;$j<count($front[2][$i]);$j++)
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="display:none"></span>
+                                                <h1>'.$front[1][$i]->text.'</h1>';
+                                            if(!array_key_exists($i,$front[2]))continue;
+                                            $first=0;$last=-1;
+                                            while(1)
                                             {
-                                                echo'
-               <ul class="grade2">
-                    <li>
-                    <span  style="float:left; margin-top: 4px;"></span><h2 style="width: 600px;">'.$front[2][$i][$j].'</h2>';
-                                                for ($k=0;$k<count($front[3][$i][$j]);$k++)
-                                                {
-                                                    echo '
-                              <ul style="display: inline-block;" class="grade3">
-                                  <li style="margin-top: 10px;">
-                                  <h3>'.$front[3][$i][$j][$k].'</h3>';
-                                                    echo '
-                                  </li>
-                              </ul>';
-                                                }
+                                                $first=$last+1;
+                                                while($last+1<count($front[2][$i])&&$front[2][$i][$last+1]->cssstyle==$front[2][$i][$first]->cssstyle)$last++;
+                                                $cssstyle=$front[2][$i][$first]->cssstyle;
 
-                                                echo '
-                    </li>
-               </ul>';
+                                                switch($cssstyle)
+                                                {
+                                                    case 1:
+                                                        for($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                            if(!array_key_exists($j,$front[3][$i]))continue;
+                                                            if(!count($front[3][$i]))continue;
+                                                            for($k=0;$k<count($front[3][$i][$j]);$k++)
+                                                            {
+                                                                echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 20px;">
+                                                                            <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
+                                                                echo '
+                                                                            </li>
+                                                                      </ul>';
+                                                            }
+                                                            echo '
+                                                                </li>
+                                                            </ul>';
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                        echo '<dd >';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="radio" >';
+                                                            echo '    <label >';
+                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '   </label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 3:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                        echo '<dd>';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="checkbox">';
+                                                            echo '<label>';
+                                                            echo '<input type="checkbox" name="checkbox" value="checkbox">';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '</label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 4:
+                                                        echo '<ul  style="ul{text-align:center;list-style-type:none;}" class="textareagrade"> ';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<li class="textarea" style=""> ';
+                                                            echo '<form class="form-horizontal" > ';
+                                                            echo '<div  class="form-group"> ';
+                                                            echo '<label style="width: auto" class="col-sm-3 control-label" >';
+                                                            echo $front[2][$i][$j]->text;
+                                                            echo '</label> ';
+                                                            echo '<div class="col-sm-3" style="width: auto"> ';
+                                                            echo '<input type="text" class="form-control"> ';
+                                                            echo '</form>';
+                                                            echo '</li>';
+                                                        }
+                                                        echo '</ul>';
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                if($last+1==count($front[2][$i]))break;
                                             }
+
                                             echo'
-            </li>
-         </ul>';
+                                                </li>
+                                            </ul>';
                                         }?>
                                     </div>
                                 </div>
-
                                 <div class="tab-pane fade content-back" id="back">
-
-                                    <dl>
+                                    <div>
+                                        {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
-                                        echo '<dt>'.$back[1][0].'</dt>';
-                                        echo '<dd>';
-                                        for ($j=0;$j<count($back[2][0])-1;$j++)
+                                        for($i=0;$i<count($back[1]);$i++)
                                         {
-                                            echo '<div class="radio">';
-                                            echo '    <label>';
-                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
-                                            echo        $back[2][0][$j];
-                                            echo '   </label>';
-                                            echo '</div>';
-                                        }
-                                        echo '</dd>';
-
-                                        for($i=1;$i<count($back[1]);$i++)
-                                        {
-                                            echo '<dt>'.$back[1][$i];
-                                            echo '<dd>';
-                                            for ($j=0;$j<count($back[2][$i]);$j++)
+                                            echo '
+                                            <ul class="grade1">
+                                                <li>
+                                                <span class="icon-folder-open-alt" style="display:none"></span>
+                                                <h1>'.$back[1][$i]->text.'</h1>';
+                                            if(!array_key_exists($i,$back[2]))continue;
+                                            $first=0;$last=-1;
+                                            while(1)
                                             {
-                                                echo '<div class="checkbox">';
-                                                echo '<label>';
-                                                echo '<input type="checkbox" value="">';
-                                                echo $back[2][$i][$j];
-                                                echo '</label>';
-                                                echo '</div>';
+                                                $first=$last+1;
+                                                while($last+1<count($back[2][$i])&&$back[2][$i][$last+1]->cssstyle==$back[2][$i][$first]->cssstyle)$last++;
+                                                $cssstyle=$back[2][$i][$first]->cssstyle;
+
+                                                switch($cssstyle)
+                                                {
+                                                    case 1:
+                                                        for($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo'
+                                                            <ul class="grade2">
+                                                                <li>
+                                                                <span style="float:left; margin-top: 4px;"></span>
+                                                                <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
+                                                            if(!array_key_exists($j,$back[3][$i]))continue;
+                                                            if(!count($back[3][$i]))continue;
+                                                            for($k=0;$k<count($back[3][$i][$j]);$k++)
+                                                            {
+                                                                echo '
+                                                                        <ul style="display: inline-block;" class="grade3">
+                                                                            <li style="margin-top: 20px;">
+                                                                            <h3>'.$back[3][$i][$j][$k]->text.'</h3>';
+                                                                echo '
+                                                                            </li>
+                                                                      </ul>';
+                                                            }
+                                                            echo '
+                                                                </li>
+                                                            </ul>';
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                        echo '<dd >';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="radio" >';
+                                                            echo '    <label >';
+                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '   </label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 3:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                        echo '<dd>';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="checkbox">';
+                                                            echo '<label>';
+                                                            echo '<input type="checkbox" name="checkbox" value="checkbox">';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '</label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
+                                                        echo '</div>';
+                                                        break;
+                                                    case 4:
+                                                        echo '<ul  style="ul{text-align:center;list-style-type:none;}" class="textareagrade"> ';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<li class="textarea" style=""> ';
+                                                            echo '<form class="form-horizontal" > ';
+                                                            echo '<div  class="form-group"> ';
+                                                            echo '<label style="width: auto" class="col-sm-3 control-label" >';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '</label> ';
+                                                            echo '<div class="col-sm-3" style="width: auto"> ';
+                                                            echo '<input type="text" class="form-control"> ';
+                                                            echo '</form>';
+                                                            echo '</li>';
+                                                        }
+                                                        echo '</ul>';
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                if($last+1==count($back[2][$i]))break;
                                             }
 
-                                            echo '</dd>';
-
-                                            echo '</dt>';
-                                        }
-                                        ?>
-
-                                    </dl>
-
-                                    {{--<a href="javascript:doSaveAs()" style="color: #000;">保存本页</a>--}}
-                                    {{--<a onclick="window.print()" style="color:#000;">打印本页页</a>　--}}
+                                            echo'
+                                                </li>
+                                            </ul>';
+                                        }?>
+                                    </div>
                                 </div>
-                                <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px" >评价表背面</button>
-                                <button class="btn btn-success btn-raised tabFront" style="float: right; display: none"  >评价表正面</button>
+                                <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px;" >评价表背面</button>
+                                <button class="btn btn-success btn-raised tabFront" style="float: right; display: none;"  >评价表正面</button>
                             </div>
-                            <button class="btn btn-success btn-raised" style="float: right;margin-top: 46px; margin-left: 8px;display: none" id="submitTable">提交评价表</button>
-                            <button class="btn btn-warning btn-raised" style="float: right;  margin-top: 46px;display: none" id="saveTable">保存</button>
-
+                            <button class="btn btn-success btn-raised submitTable" style="float: right;margin-top: 46px;margin-left:8px;display: none" >提交评价表</button>
+                            <button class="btn btn-warning btn-raised saveTable" style="float: right; margin-top: 46px;display: none" >保存</button>
 
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
             <!-- .page-content 结束 -->
         </div>
@@ -469,36 +558,25 @@
     /*------------点击正反页按钮-----------------*/
     $("#myTab li").eq(1).click(function () {
         $('.tabBack').css("display",'none');
-        $('.tabFront,#submitTable,#saveTable').css("display",'block');
+        $('.tabFront,.submitTable,.saveTable').css("display",'block');
 
     });
     $("#myTab li").eq(0).click(function () {
         $('.tabBack').css("display",'block');
-        $('.tabFront,#submitTable,#saveTable').css("display",'none');
+        $('.tabFront,.submitTable,.saveTable').css("display",'none');
 
-    })
+    });
     $('.tabBack').click(function () {
         $('#myTab li:eq(1) a').tab('show');
         $('.tabBack').css("display",'none');
-        $('.tabFront,#submitTable,#saveTable').css("display",'block');
-        //alert("a");
-    })
+        $('.tabFront,.submitTable,.saveTable').css("display",'block');
+    });
     $('.tabFront').click(function () {
         $('#myTab li:eq(0) a').tab('show');
         $('.tabBack').css("display",'block');
-        $('.tabFront,#submitTable,#saveTable').css("display",'none');
-    })
-    /*---------------------结束-----------------*/
-
-
-    $(document).ready(function() {
-        $('.evaluated-menu').addClass('active');
-        $('.supervise-menu').addClass('active');
-        $('.work-menu').addClass('active');
+        $('.tabFront,.submitTable,.saveTable').css("display",'none');
     });
-
-
-
+    /*---------------------结束-----------------*/
     $(".grade3").append(' ' +
             '<div class="box demo2" style="display: inline-block;width:600px;"> ' +
             '<ul class="tab_menu" style="display: inline-block;"> ' +
@@ -509,196 +587,290 @@
             '<li class="bar5">明显不足</li> ' +
             '</ul> ' +
             '</div>');
-
-
-    $('h2:contains("授课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
-    $('h2:contains("听课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
-
-    //    var oh2 = document.getElementsByTagName('h2');
-    $('h2:contains("到课情况")').parent().children('ul').remove();
-    $('h2:contains("到课情况")').parent().append('<ul  style="display: inline-block;" class="grade3"> ' +
-            '<li class="student"> ' +
-            '<form class="form-horizontal"> ' +
-            '<div class="form-group"> ' +
-            '<label class="col-sm-3 control-label">应到人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：80"> ' +
-            '</div> ' +
-            '<label class="col-sm-3 control-label">实到人数约</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：80"> ' +
-            '</div> ' +
-            '</div> ' +
-            '<div class="form-group"> ' +
-            '<label class="col-sm-3 control-label">迟到人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control"  onblur="checkNum(this)" placeholder="例：1"> </div> ' +
-            '<label class="col-sm-3 control-label">早退人数</label> ' +
-            '<div class="col-sm-3"> ' +
-            '<input type="text" class="form-control" onblur="checkNum(this)" placeholder="例：0"> ' +
-            '</div> ' +
-            '</div> ' +
-            '</form>' +
-            '</li>' +
-            '</ul>');
-    //    $('h3:contains("应到人数")').parent().siblings('div').remove();
-    //    $('h3:contains("实到人数约")').parent().siblings('div').remove();
-    //    $('h3:contains("迟到人数")').parent().siblings('div').remove();
-    $('h1:contains("其他")').parent().children('ul').remove();
-    $('h1:contains("其他")').parent().append('<textarea class="form-control" rows="3" style="width: 95%;"></textarea>');
-    //移除自动生成的评述
-    $('label:contains("如果以上各方面不能准确表达您的意见")').parent().remove();
-    //背面附加内容说明
-    $('dd').append('<p>如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。</br>评述：</p>' +
-            '            <textarea class="form-control" rows="3"></textarea>');
-
-    $('label:contains("青年教师，且")').parent().addClass('radio');
-    $('label:contains("青年教师，且")').children().attr('type','radio').attr('name','qingnianjiaoshi');
-//
-//    $('label:contains("板书存在问题")').parent().addClass('radio');
-//    $('label:contains("板书存在问题")').children().attr('type','radio').attr('name','banshu');
-//
-//    $('label:contains("多媒体使用或搭配存在一些问题")').parent().addClass('radio');
-//    $('label:contains("多媒体使用或搭配存在一些问题")').children().attr('type','radio').attr('name','duomeiti');
-    //功能部分
-    //单选框取消问题：即radio问题
-    /*
-     * 1、确定是哪个单选框被选了
-     * */
     $(function(){
         $(":radio").click(function(){
             //检查当前单选框是否为选中状态
-
-            if($(this).attr('checked')){
+            if($(this).attr('checked'))
                 $(this).attr('checked',false);
-            }else{
+            else
                 $(this).attr('checked',true);
-            }
-
         });
     });
-
 </script>
 <script src="js/jquery.tabs.js"></script>
 <script src="calendar1/js/bootstrap-datetimepicker1.min.js"></script>
 <script src="calendar1/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-
 <script src="js/HelpFunction.js"></script>
-
 <script>
     var split_flag='___';//课程信息的分隔符
-    //听课格式检测
-
     function GetContent(LessonState)
     {
-        //督导姓名提示框
-        var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
+//        var flagC =checkNeceHead_Input(LessonState);//0:成功通过验证，1：提交必填项失败 2：保存必填项失败
 //        2017-01-15暂时取消必填项检查功能
-//        var flagC = 0 ;
-
-        var Frontlist = [];//正面选择框的值
-
-        for (i=0;i<$('.current').length;i++)
+        var flagC = 0 ;
+        var Frontlist=[];//正面选择框的值
+        for(i=0;i<$($('#front').children()[0]).children().length;i++)
         {
-            key = $('.current').eq(i).parent().parent().prev().children()[0].innerHTML;
-            if (key=='')
+            var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+            for(newi=2;newi<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;newi++)
             {
-                key=$('.current').eq(i).parent().parent().parent().prev()[0].innerHTML;
+                var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                if(cssstyle=="grade2")
+                {
+                    for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                    {
+                        var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
+                        for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                        {
+                            var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                            var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                            textlevel3=$.trim(textlevel3);
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                            Frontlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="radiograde")
+                {
+                    for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                    {
+                        var checked=$($($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
+                        var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="checked")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Frontlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="checkboxgrade")
+                {
+                    for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                    {
+                        var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                        var checked=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="true")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Frontlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="textareagrade")
+                {
+                    var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
+                    var val=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
+                    text=$.trim(text);
+                    val=$.trim(val);
+                    obj=
+                    {
+                        key:text,
+                        value:val
+                    };
+                    Frontlist.push(obj);
+                }
             }
-            value = $('.current').eq(i)[0].innerHTML;
-            obj = {
-                key : key,
-                value : value
-            };
-            Frontlist.push(obj);
         }
-        for (k=0;k<$('label:contains("人数")').length;k++)
+
+        var Backlist=[];//背面选择框的值
+        for(i=0;i<$($('#back').children()[0]).children().length;i++)
         {
-            key = $('label:contains("人数")').eq(k)[0].innerHTML;
-            value = $('label:contains("人数")').eq(k).next().children().val();
-            if (value == '')
-                value = '-';
-            obj = {
-                key : key,
-                value : value
-            };
-            Frontlist.push(obj);
+            var textlevel1=$($($($('#back').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+            for(newi=2;newi<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;newi++)
+            {
+                var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                if(cssstyle=="grade2")
+                {
+                    for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
+                    {
+                        var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
+                        for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                        {
+                            var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                            var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                            textlevel3=$.trim(textlevel3);
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="radiograde")
+                {
+                    for(var j=0;j<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                    {
+                        var checked=$($($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
+                        var choosecontent=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="checked")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="checkboxgrade")
+                {
+                    for(var j=0;j<$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                    {
+                        var choosecontent=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                        var checked=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="true")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="textareagrade")
+                {
+                    var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
+                    var val=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
+                    text=$.trim(text);
+                    val=$.trim(val);
+                    obj=
+                    {
+                        key:text,
+                        value:val
+                    };
+                    Backlist.push(obj);
+                }
+            }
         }
-
-        obj = {
-            key : '其他',
-            value : $('h1:contains("其他")').next().eq(0).val()
-        };
-        Frontlist.push(obj);
-
-
-
-
-//如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
+        //如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
         if(LessonState=='待提交')
-        {
-            if (flagC == 1)//必填项未完成
+            if (flagC==1)//必填项未完成
             {
                 LessonState+=flagC;
                 flagC = 0;
             }
-        }
         //后台传数据
-        if (flagC == 0)
+        if(flagC==0)
         {
             var frontflag=null;
-            var Headlist=TableHeadData();
-//背面的值
-            var Backlist1 =GetBackList1();
-            var Backlist2 =GetBackList2();
+//            var Headlist=TableHeadData();
+            var Headlist = [
+                obj0={
+                    key:"章节目录",
+                    value:""
+                },
+                obj1={
+                    key:"课程名称",
+                    value:"C++程序设计"
+                },
+                obj2={
+                    key:"任课教师",
+                    value:"张海燕"
+                },
+                obj3={
+                    key:"上课班级",
+                    value:"计算机类16-3-4"
+                },
+                obj4={
+                    key:"上课地点",
+                    value:"计算中心-6"
+                },
+                obj5={
+                    key:"听课时间",
+                    value:"2017-07-13"
+                },
+                obj6={
+                    key:"督导姓名",
+                    value:"殷宁"
+                },
+                obj7={
+                    key:"课程属性",
+                    value:null
+                },
+                obj8={
+                    key:"督导id",
+                    value:"19400703"
+                },
+                obj9={
+                    key:"听课节次",
+                    value:"1",
+                    value1:"1"
+                },
+//                obj10={
+//                    key:"任课教师id",
+//                    value:"19290504"
+//                },
+            ];
+
             $.ajax({
                 type: "post",
                 async: false,
-                url: "/DBPhysicalFrontEvaluationTable",
+                url: "/DBPhysicalEvaluationTable",
                 data:{
                     '_token':'{{csrf_token()}}',
                     headdata: Headlist,
                     LessonState:LessonState,
                     frontdata:Frontlist,
-                    backdata1:Backlist1,
-                    backdata2:Backlist2,
+                    backdata:Backlist,
                     valueID:flag
                 },
-                success: function (result) {
-                    if (result!='')
-                    {
+                success:function(result)
+                {
+                    alert("填写评价表成功！");
+                    if(result!='')
                         frontflag = result;
-                    }
                 }
             });
-            if (frontflag !='')
+            if(frontflag!='')
             {
                 alert(frontflag);
-                window.location.href="/EverEvaluated";
+//                window.location.href="/EverEvaluated";
             }
         }
     }
-
-
     //督导姓名提示框
-    var SearchValue=document.getElementById('SearchBar');
-    var SearchValueID=document.getElementById('SearchBarID');
+    var SearchValue=document.getElementById('SearchBar');//督导姓名
+    var SearchValueID=document.getElementById('SearchBarID');//督导ID
     //课程提示框
-    var LessonValue=document.getElementById('LessonName');
-    var TeacherValue=document.getElementById('Teacher');
-    var LessonClassValue=document.getElementById('LessonClass');
-    var LessonRoomValue=document.getElementById('LessonRoom');
-
+    var LessonValue=document.getElementById('LessonName');//课程信息
+    var TeacherValue=document.getElementById('Teacher');//任课教师
+    var LessonClassValue=document.getElementById('LessonClass');//上课班级
+    var LessonRoomValue=document.getElementById('LessonRoom');//上课地点
     var lessondata=[];
     $(document).ready(function() {
-
+        $('.evaluated-menu').addClass('active');
+        $('.supervise-menu').addClass('active');
+        $('.work-menu').addClass('active');
         //督导姓名输入框的操作事宜
         chooseSupervisor();
-
         var timeoutObj;//用于计时，课程信息请求次数限制
-
         //课程名称输入框的操作事宜
         $('#LessonName').bind('input propertychange',function(){
             var LessonText = $('#LessonName').val();
@@ -708,9 +880,7 @@
                 LessonClassValue.value='';
                 LessonRoomValue.value='';
                 $('#ListenTime').val('');
-
             }
-
             if(timeoutObj)
             {
                 clearTimeout(timeoutObj);
@@ -720,10 +890,9 @@
                 $.ajax({
                     type: "get",
                     async: false,
-                    url: "/GetLessonArrPhy",
+                    url: "/GetLessonArrPra",
                     data:{dataIn:LessonText},
                     success: function (result) {
-                        console.log(result);
                         lessondata = result;
                         var html='';
                         for (var i=0;i<result.length;i++)
@@ -734,7 +903,7 @@
                                     +result[i]['lesson_teacher_name']+split_flag
                                     +result[i]['lesson_week']+'周'+split_flag+'星期'
                                     +result[i]['lesson_weekday']+split_flag
-                                    + result[i]['lesson_time'] +split_flag
+                                    +result[i]['lesson_time'] +split_flag
                                     +result[i]['lesson_class']+split_flag
                                     +result[i]['lesson_room']+'</li>';
                         }
@@ -751,7 +920,6 @@
                     $('#Lesson-suggest').hide();
                 });
                 $('#Lesson_result').delegate('li','click',function(){
-
                     LessonValue.value=$(this).text().split(split_flag)[0];
                     TeacherValue.value=$(this).text().split(split_flag)[1];
                     LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
@@ -760,7 +928,7 @@
                     lessonTime =$(this).text().split(split_flag)[4];
                     $('#LessonTime').attr("disabled",false).val('');
                     $('#ListenTime').attr("disabled",false).val('');
-                    //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
+                    //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
                     if(LessonClassValue.value=='')
                     {
                         $('#LessonClass').attr("readonly",false);
@@ -771,6 +939,7 @@
                         $('#LessonRoom').attr("disabled",false);
                         $('#LessonRoom').attr("readonly",false);
                     }
+                    /************************************************日历相关函数***************************************************/
                     var date_arr = null;
                     if (LessonWeekday!=null)
                     {
@@ -778,17 +947,13 @@
                         date_arr.splice(LessonWeekday,1);
                     }
                     chooseDate(date_arr);
-
                 });
             },400);
-
-
         }).bind('click',function(ev){
             var oEvent=ev||event;
             oEvent.stopPropagation();
-
             var LessonText = $('#LessonName').val();
-            if( LessonValue.value=='')
+            if(LessonValue.value=='')
             {
                 TeacherValue.value='';
                 LessonClassValue.value='';
@@ -798,12 +963,12 @@
             $.ajax({
                 type: "get",
                 async: false,
-                url: "/GetLessonArrPhy",
+                url: "/GetLessonArrPra",
                 data:{dataIn:LessonText},
                 success: function (result) {
-                    lessondata = result;
+                    lessondata=result;
                     var html='';
-                    for (var i=0;i<result.length;i++)
+                    for(var i=0;i<result.length;i++)
                     {
                         html+='<li class="list-group-item" style="font-size: 14px; ' +
                                 'border-bottom: lightgrey solid 2px">'
@@ -811,16 +976,14 @@
                                 +result[i]['lesson_teacher_name']+split_flag
                                 +result[i]['lesson_week']+'周'+split_flag+'星期'
                                 +result[i]['lesson_weekday']+split_flag
-                                + result[i]['lesson_time'] +split_flag
+                                +result[i]['lesson_time'] +split_flag
                                 +result[i]['lesson_class']+split_flag
                                 +result[i]['lesson_room']+'</li>';
                     }
                     $('#Lesson_result').html(html);
-
                     $('#Lesson-suggest').show().css({
                         position:'absolute',
                         height:'220'
-
                     });
                     $('.suggestClass').css('border','1px solid #CCC');
                 }
@@ -837,8 +1000,7 @@
                 lessonTime =$(this).text().split(split_flag)[4];
                 $('#LessonTime').attr("disabled",false).val('');
                 $('#ListenTime').attr("disabled",false).val('');
-                //                如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
-
+                //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
                 if(LessonClassValue.value=='')
                 {
                     $('#LessonClass').attr("readonly",false);
@@ -857,10 +1019,10 @@
                     date_arr.splice(LessonWeekday,1);
                 }
                 chooseDate(date_arr);
-
             });
         });
-
+        //如果是从课程表中跳转过来的话，日历函数的操作为
+        //课程节次
         //课程节次的坐标
         var LessonTime_X = $('#LessonTime').position().left;
         var LessonTime_Y = $('#LessonTime').position().top;
@@ -868,19 +1030,26 @@
             LessonTime_X = $('#LessonTime').position().left;
             LessonTime_Y = $('#LessonTime').position().top;
         });
-        //若一开始课程选择框为空时，则将课程节次选择框置为空
+        if($('#LessonName').val()=='')
+            $('#LessonTime').attr("disabled",true);
+        else
+            $('#LessonTime').attr("disabled",false);
 
-        //        如果是从课程表中跳转过来的话，日历函数的操作为
-        if (flag == 0)
+        if($('#LessonName').val()=='')//课程节次
+            $('#ListenTime').attr("disabled",true);
+        else
+            $('#ListenTime').attr("disabled",false);
+        //如果是从课程表中跳转过来的话，日历函数的操作为
+        if(flag==0)
         {
-            var date_arr = null;
-            if (LessonWeekday!=null)
+            var date_arr=null;
+            if(LessonWeekday!=null)
             {
-                date_arr = new Array(0,1,2,3,4,5,6);
+                date_arr=new Array(0,1,2,3,4,5,6);
                 date_arr.splice(LessonWeekday,1);
             }
             chooseDate(date_arr);
-//        如果是从课程表中跳转过来的话，若课程没有提供上课地点，则为
+            //如果是从课程表中跳转过来的话，若课程没有提供上课地点，则为
             if(LessonClassValue.value=='')
             {
                 $('#LessonClass').attr("readonly",false);
@@ -892,52 +1061,35 @@
                 $('#LessonRoom').attr("readonly",false);
             }
         }
-
-        if($('#LessonName').val()=='')
-            $('#LessonTime').attr("disabled",true);
-        else
-            $('#LessonTime').attr("disabled",false);
-
-        if($('#LessonName').val()=='')//课程节次
-            $('#ListenTime').attr("disabled",true);
-        else
-            $('#ListenTime').attr("disabled",false);
-
         $("#LessonTime").focus(function (){
             $('#LessonTime-suggest').children().remove();
-
             if(LessonValue.value=='')
             {
                 alert('请先选择课程名称');
                 $('#LessonTime').attr("disabled",true);
-
             }
-            else {
+            else
+            {
                 $('#LessonTimeStyle').css("display","block");
-                if ( lessonTime == '')
-                {
+                if(lessonTime == '')
                     AddLessonTime(LessonTime_X,LessonTime_Y,'01020304050607080910');
-                }
-                else{
+                else
                     AddLessonTime(LessonTime_X,LessonTime_Y,lessonTime);
-                }
             }
         });
 
-        $(function ()
-        {
+        $(function () {
             $("#LessonTime").click(function (event)
             {
-                // $(".box_classify").show();
                 $(document).one("click", function ()
-                {//对document绑定一个影藏Div方法
+                {
                     $("#LessonTimeStyle").hide();
                 });
-                event.stopPropagation();//阻止事件向上冒泡
+                event.stopPropagation();
             });
             $("#LessonTimeStyle").click(function (event)
             {
-                event.stopPropagation();//阻止事件向上冒泡
+                event.stopPropagation();
             });
         });
         $(function(){
@@ -945,20 +1097,14 @@
                 event:'click'
             });
         });
-
         (function(){
             $('dl').on('click', 'dt', function() {
                 $(this).next().slideToggle(200);
             });
-
         })();
     });
 
-
-
-    //页面内容提交
-
-    $('#submitTable').click(function(){
+    $('.submitTable').click(function(){
         var LessonState='已完成';
         GetContent(LessonState);
     });
@@ -967,10 +1113,8 @@
         var LessonState='待提交';
         GetContent(LessonState);
     });
-
-
-    var  contentFrontdata=[];
-    var  contentBackdata=[];
+    var contentFrontdata=[];
+    var contentBackdata=[];
     $("#LessonName").val(lesson);
     $("#Teacher").val(Teacname);
     $("#LessonClass").val(Class);
@@ -980,10 +1124,10 @@
         $("#inputChapter").val(chapter);
         $("#inputLessonAttr").val(Attr).css('color','black');
         $("#ListenTime").val(Listendate);
-        //        根据日期判断星期几
-        var b = new Date(Date.parse(Listendate.replace(/\-/g,"/")));
-        var date_arr = null;
-        if (LessonWeekday!=null)
+        //根据日期判断星期几
+        var b=new Date(Date.parse(Listendate.replace(/\-/g,"/")));
+        var date_arr=null;
+        if(LessonWeekday!=null)
         {
             date_arr = new Array(0,1,2,3,4,5,6);
             date_arr.splice(b.getDay(),1);
@@ -1006,82 +1150,6 @@
                 Lessontime: lessontime
             },//传递学院名称
             success: function (result) {
-//                console.log(result);
-
-                //正面 评价内容
-                contentFrontdata=result[1];
-
-                $('.grade3 h3').each(function () {
-//                    console.log( $(this).parent().next().children().children()[0].className)
-//                    console.log(contentFrontdata[0][$(this).text()]);
-                    for (j=0;j<$(this).parent().next().children().children().length;j++)
-                    {
-//                        console.log($(this).parent().next().children().children()[j])
-                        if($(this).parent().next().children().children()[j].innerText==contentFrontdata[0][$(this).text()])
-                        {
-                            $(this).parent().next().children().children()[j].className += (' current');
-//                            console.log(contentFrontdata[0][$(this).text()])
-                        }
-                    }
-                });
-//                console.log($('.grade2 h2')[0].innerText);
-
-//                 console.log(contentFrontdata[0][$(this).text()]);
-                for (j=0;j<$('.grade2').length;j++)
-                {
-                    if(contentFrontdata[0][$('.grade2 h2')[j].innerText] != null )
-                    {
-                        for (k=0;k< $('.grade2 h2').eq(j).next().children().eq(1).children().children().length;k++)
-                        {
-//                            console.log(contentFrontdata[0][$('.grade2 h2')[j].innerText]);
-                            if($('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].innerText == contentFrontdata[0][$('.grade2 h2')[j].innerText])
-                            {
-                                $('.grade2 h2').eq(j).next().children().eq(1).children().children()[k].className +=(' current');
-                            }
-                        }
-                    }
-                }
-
-                $('.control-label').eq(0).next().children().val(contentFrontdata[0]['应到人数']);
-                $('.control-label').eq(1).next().children().val(contentFrontdata[0]['实到人数约']);
-                $('.control-label').eq(2).next().children().val(contentFrontdata[0]['迟到人数']);
-                $('.control-label').eq(3).next().children().val(contentFrontdata[0]['早退人数']);
-
-//                console.log($('h1:contains("其他")').next());
-                $('h1:contains("其他")').next().eq(0).val(contentFrontdata[0]['其他']);
-
-                //背面 评价内容
-                var  contentFrontdata=result[2];
-                console.log(result[2]);
-                for (var key in result[2][0])
-                {
-//                    console.log(key+":"+result[2][0][key]);
-                    if(result[2][0][key] != null )
-                    {
-                        for(k=0;k<$('.radio').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText);
-//                            console.log( key );
-                            if($('.radio').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.radio').eq(k).children().children().eq(0).attr('checked','checked');
-                                console.log($('.radio').eq(k).children().children().eq(0));
-                            }
-                        }
-                        for(k=0;k<$('.checkbox').length;k++)
-                        {
-//                            console.log($('.radio').eq(k).children()[0].innerText);
-//                            console.log( key );
-                            if($('.checkbox').eq(k).children()[0].innerText.replace(/(^\s*)|(\s*$)/g, "") == key )
-                            {
-                                $('.checkbox').eq(k).children().children().eq(0).attr('checked','checked');
-                            }
-                        }
-                        $(' textarea').eq(1).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。10']);
-                        $(' textarea').eq(2).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。11']);
-                        $(' textarea').eq(3).val(contentFrontdata[0]['如果以上各方面不能准确表达您的意见，您可以自己评述或提出具体意见和建议。12']);
-                    }
-                }
             }
         });
     }

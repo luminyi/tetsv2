@@ -21,57 +21,17 @@ class UpdateEvalutionController extends Controller
     //理论表视图，需要数据，正面评价体系，背面评价体系
     public function UpdateTheoryView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
-
-        $front =array(
-            '1'=>$frontdata[2][0],//一级菜单项
-            '2'=>$frontdata[3][0],//二级菜单项
-            '3'=>$frontdata[4][0],//三级菜单项
-            '4'=>$frontdata[5][0]//一级菜单样式
-        );
-        $back =array(
-            '1'=>$backdata[2][0],//背面1级
-            '2'=>$backdata[3][0],//背面2级
-            '3'=>$backdata[4][0]//背面1级样式
-        );
-        return view('UpdateTheoryEvaluationTable',compact('front','back'));
+        return view('UpdateTheoryEvaluationTable');
     }
     //实践评价表，需要数据理论评价表
     public function UpdatePracticeView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
-        $front =array(
-            '1'=>$frontdata[2][1],
-            '2'=>$frontdata[3][1],
-            '3'=>$frontdata[4][1],
-            '4'=>$frontdata[5][1]
-        );
-        $back =array(
-            '1'=>$backdata[2][1],
-            '2'=>$backdata[3][1],
-            '3'=>$backdata[4][1]
-        );
-        return view('UpdatePracticeEvaluationTable',compact('front','back'));
+        return view('UpdatePracticeEvaluationTable');
     }
     //体育评价表，需要数据同理论评价表
     public function UpdatePhysicalView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
-        $front =array(
-            '1'=>$frontdata[2][2],
-            '2'=>$frontdata[3][2],
-            '3'=>$frontdata[4][2],
-            '4'=>$frontdata[5][2]
-        );
-        $back =array(
-            '1'=>$backdata[2][2],
-            '2'=>$backdata[3][2],
-            '3'=>$backdata[4][2]
-        );
-        return view('UpdatePhysicalEvaluationTable',compact('front','back'));
+        return view('UpdatePhysicalEvaluationTable');
     }
 
     //获取正面评价表内容

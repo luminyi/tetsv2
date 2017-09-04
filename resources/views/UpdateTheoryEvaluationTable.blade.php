@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
     <link rel="stylesheet" href="assets/css/dashboard.css" />
     <link rel="stylesheet" href="assets/css/evaluation-table.css" />
-    <link rel="stylesheet" href="assets/css/bootstrap-material-btndesign.css" />
+
     <!--[if IE 7]>
     <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
     <![endif]-->
@@ -57,7 +57,6 @@
 
 {{--日历相关--}}
 <link rel="stylesheet" href="calendar1/css/bootstrap-datetimepicker.css" />
-
 <!--[if lt IE 9]>
 <link rel="stylesheet" type="text/css" href="calendar/DateTimePicker-ltie9.css" />
 <script type="text/javascript" src="calendar/DateTimePicker-ltie9.js"></script>
@@ -90,8 +89,7 @@
                                 <strong>  &nbsp;&nbsp;&nbsp;&nbsp; 规则：<br></strong>
                                 （1）二级元素放置前必须至少放置一个一级元素<br>
                                 （2）三级元素放置前必须至少放置一个二级元素<br>
-                                （3）一级元素中的“其他”不能有任何子二级元素，三级元素<br>
-                                （4）二级元素中，除了“二级标题”外，其他二级元素不能有任何子三级元素<br>
+                                （3）二级元素中，除了“二级标题”外，其他二级元素不能有任何子三级元素<br>
                             </div>
 
 
@@ -176,7 +174,6 @@
                                                         <div class="component1 form-group" data-type="radio">
                                                             <label class="control-label col-sm-4">单选</label>
                                                             <div class="controls col-sm-8">
-                                                                <input type="text" name="" id="radio_text_input" placeholder="placeholder" class="form-control">
                                                                 <div class="radio"><label class="" for="radio_1">
                                                                         <input type="radio" name="radio" id="radio_1">
                                                                         表现相当好
@@ -195,7 +192,6 @@
                                                         <div class="component1 form-group" data-type="checkbox">
                                                             <label class="control-label col-sm-4">多选</label>
                                                             <div class="controls col-sm-8">
-                                                                <input type="text" name="" id="checkbox_text_input" placeholder="placeholder" class="form-control">
                                                                 <div class="checkbox"><label class="" for="checkbox_1">
                                                                         <input type="checkbox" name="checkbox" id="checkbox_1">
                                                                         教师很投入
@@ -214,7 +210,7 @@
                                                         <div class="component1 form-group" data-type="textarea">
                                                             <label class="control-label col-sm-4" for="textarea">评述</label>
                                                             <div class="controls col-sm-8">
-                                                                <textarea name="" class="form-control" id="textarea" placeholder="placeholder"></textarea>
+                                                                <textarea name="" class="form-control" id="textarea1" placeholder="placeholder"></textarea>
                                                             </div>
                                                         </div>
 
@@ -230,6 +226,7 @@
                                                         </div>
 
                                                         <div>
+                                                            <button type="submit" class="btn btn-primary submitTable1">提交评价表</button>
                                                             <button type="button" class="btn btn-default" onclick="javascript:window.history.back();">退出修改</button>
                                                         </div>
 
@@ -314,7 +311,6 @@
                                                         <div class="component2 form-group" data-type="radio">
                                                             <label class="control-label col-sm-4">单选</label>
                                                             <div class="controls col-sm-8">
-                                                                <input type="text" name="" id="radio_text_input" placeholder="placeholder" class="form-control">
                                                                 <div class="radio"><label class="" for="radio_1">
                                                                         <input type="radio" name="radio" id="radio_1">
                                                                         表现相当好
@@ -333,7 +329,6 @@
                                                         <div class="component2 form-group" data-type="checkbox">
                                                             <label class="control-label col-sm-4">多选</label>
                                                             <div class="controls col-sm-8">
-                                                                <input type="text" name="" id="checkbox_text_input" placeholder="placeholder" class="form-control">
                                                                 <div class="checkbox"><label class="" for="checkbox_1">
                                                                         <input type="checkbox" name="checkbox" id="checkbox_1">
                                                                         教师很投入
@@ -349,12 +344,10 @@
                                                             </div>
                                                         </div>
 
-
-
                                                         <div class="component2 form-group" data-type="textarea">
                                                             <label class="control-label col-sm-4" for="textarea">评述</label>
                                                             <div class="controls col-sm-8">
-                                                                <textarea name="" class="form-control" id="textarea" placeholder="placeholder"></textarea>
+                                                                <textarea name="" class="form-control" id="textarea2" placeholder="placeholder"></textarea>
                                                             </div>
                                                         </div>
 
@@ -370,7 +363,7 @@
                                                         </div>
 
                                                         <div>
-                                                            <button type="submit" class="btn btn-primary submitTable">提交评价表</button>
+                                                            <button type="submit" class="btn btn-primary submitTable2">提交评价表</button>
                                                             <button type="button" class="btn btn-default" onclick="javascript:window.history.back();">退出修改</button>
                                                         </div>
 
@@ -393,15 +386,18 @@
 @include('layout.footer')
 </body>
 <script>
-    $('.submitTable').click(function(){
-        GetContent();
+    $('.submitTable1').click(function(){
+        GetContent1();
     });
-    function GetContent(LessonState) {
+    $('.submitTable2').click(function(){
+        console.log("yes");
+        GetContent2();
+    });
+    function GetContent1(LessonState) {
         var Prelevel=0;
         var ok=true;
         var CSSstyle, Text, Level, ok, fid;
         var Frontlist=[];
-        var Backlist=[];
         var object;
 
         for(var i=1;ok&&i<$('#content1').children().length;i++)
@@ -502,7 +498,7 @@
                 Level=2;
                 var j;
                 Textlist=[];
-                for(j=1;j<$($($('#content1').children()[i]).children()[2]).children().length;j++)
+                for(j=0;j<$($($('#content1').children()[i]).children()[2]).children().length;j++)
                 {
                     var Text=$($($($('#content1').children()[i]).children()[2]).children()[j]).children()[0].innerText;
                     Textlist.push(Text);
@@ -512,7 +508,7 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                            if(Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -522,8 +518,16 @@
                         fid=j+1;
                         break;
                     case 2:
-                        ok=false;
-                        alert('单选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                        var j;
+                        for(j=Frontlist.length-1;j>=0;j--)
+                            if(Frontlist[j].level==1)break;
+                        if(j<0)
+                        {
+                            ok=false;
+                            alert('单选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                            break;
+                        }
+                        fid=j+1;
                         break;
                     case 3:
                         ok=false;
@@ -555,7 +559,7 @@
                 Level=2;
                 var j;
                 Textlist=[];
-                for(j=1;j<$($($('#content1').children()[i]).children()[2]).children().length;j++)
+                for(j=0;j<$($($('#content1').children()[i]).children()[2]).children().length;j++)
                 {
                     var Text=$($($($('#content1').children()[i]).children()[2]).children()[j]).children()[0].innerText;
                     Textlist.push(Text);
@@ -565,18 +569,26 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                            if(Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
-                            alert('多选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                            alert('多选前请放置一个一级标题');
                             break;
                         }
                         fid=j+1;
                         break;
                     case 2:
-                        ok=false;
-                        alert('多选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                        var j;
+                        for(j=Frontlist.length-1;j>=0;j--)
+                            if(Frontlist[j].level==1)break;
+                        if(j<0)
+                        {
+                            ok=false;
+                            alert('多选前请放置一个一级标题');
+                            break;
+                        }
+                        fid=j+1;
                         break;
                     case 3:
                         ok=false;
@@ -612,7 +624,7 @@
                     case 1:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                            if(Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -624,7 +636,7 @@
                     case 2:
                         var j;
                         for(j=Frontlist.length-1;j>=0;j--)
-                            if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                            if(Frontlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -655,10 +667,50 @@
             }
             Prelevel=Level;
         }
+        console.log(Frontlist);
+        if(Frontlist.length!=0)
+        {
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/DBFrontTheoryEvaluationTable",
+                data: {
+                    '_token':'{{csrf_token()}}',
+                    frontdata:Frontlist
+                },
+                success: function (result) {
+                    alert('修改理论评价表成功！');
+                }
+            });
 
-        Prelevel=0;
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/CreateFrontTheoryEvalTable",
+                data: {
+                    '_token':'{{csrf_token()}}',
+                    frontdata:Frontlist
+                },
+                success: function (result) {
+                    alert('创建正面理论评价记录表成功！');
+                }
+            });
+        }
+        else
+        {
+            if(Frontlist.length==0)alert("正面评价表为空");
+        }
+    }
+    function GetContent2(LessonState) {
+        var Prelevel=0;
+        var ok=true;
+        var CSSstyle, Text, Level, ok, fid;
+        var Backlist=[];
+        var object;
+
         for(var i=1;ok&&i<$('#content2').children().length;i++)
         {
+
             if($('#content2').children()[i].getAttribute('data-type')=="static_text")
             {
                 CSSstyle=1;
@@ -754,7 +806,7 @@
                 Level=2;
                 var j;
                 Textlist=[];
-                for(j=1;j<$($($('#content2').children()[i]).children()[2]).children().length;j++)
+                for(j=0;j<$($($('#content2').children()[i]).children()[2]).children().length;j++)
                 {
                     var Text=$($($($('#content2').children()[i]).children()[2]).children()[j]).children()[0].innerText;
                     Textlist.push(Text);
@@ -764,7 +816,7 @@
                     case 1:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
+                            if(Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -774,8 +826,16 @@
                         fid=j+1;
                         break;
                     case 2:
-                        ok=false;
-                        alert('单选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                        var j;
+                        for(j=Backlist.length-1;j>=0;j--)
+                            if(Backlist[j].level==1)break;
+                        if(j<0)
+                        {
+                            ok=false;
+                            alert('单选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                            break;
+                        }
+                        fid=j+1;
                         break;
                     case 3:
                         ok=false;
@@ -807,7 +867,7 @@
                 Level=2;
                 var j;
                 Textlist=[];
-                for(j=1;j<$($($('#content2').children()[i]).children()[2]).children().length;j++)
+                for(j=0;j<$($($('#content2').children()[i]).children()[2]).children().length;j++)
                 {
                     var Text=$($($($('#content2').children()[i]).children()[2]).children()[j]).children()[0].innerText;
                     Textlist.push(Text);
@@ -817,18 +877,26 @@
                     case 1:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
+                            if(Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
-                            alert('多选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                            alert('多选前请放置一个一级标题');
                             break;
                         }
                         fid=j+1;
                         break;
                     case 2:
-                        ok=false;
-                        alert('多选前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                        var j;
+                        for(j=Backlist.length-1;j>=0;j--)
+                            if(Backlist[j].level==1)break;
+                        if(j<0)
+                        {
+                            ok=false;
+                            alert('多选前请放置一个一级标题');
+                            break;
+                        }
+                        fid=j+1;
                         break;
                     case 3:
                         ok=false;
@@ -859,16 +927,24 @@
                 CSSstyle=4;
                 Level=2;
                 Title=$($('#content2').children()[i]).children()[1].innerText;
-                Placeholder=$($($('#content2').children()[i]).children()[2]).children()[0].getAttribute('placeholder');
                 switch(Prelevel)
                 {
                     case 1:
-                        fid=i-1;
+                        var j;
+                        for(j=Backlist.length-1;j>=0;j--)
+                            if(Backlist[j].level==1)break;
+                        if(j<0)
+                        {
+                            ok=false;
+                            alert('评述前请放置一个一级标题，并且不得有其他二级标题以及三级标题');
+                            break;
+                        }
+                        fid=j+1;
                         break;
                     case 2:
                         var j;
                         for(j=Backlist.length-1;j>=0;j--)
-                            if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
+                            if(Backlist[j].level==1)break;
                         if(j<0)
                         {
                             ok=false;
@@ -899,39 +975,38 @@
             }
             Prelevel=Level;
         }
-        if(Frontlist.length!=0&&Backlist.length!=0)
+
+        if(Backlist.length!=0)
         {
             $.ajax({
                 type: "post",
                 async: false,
-                url: "/DBTheoryEvaluationTable",
+                url: "/DBBackTheoryEvaluationTable",
                 data: {
                     '_token':'{{csrf_token()}}',
-                    frontdata:Frontlist,
                     backdata:Backlist
                 },
                 success: function (result) {
                     alert('修改理论评价表成功！');
                 }
             });
-            {{--$.ajax({--}}
-                {{--type: "post",--}}
-                {{--async: false,--}}
-                {{--url: "/CreateTheoryEvalutionFrontTable",--}}
-                {{--data: {--}}
-                    {{--'_token':'{{csrf_token()}}',--}}
-                    {{--frontdata:Frontlist,--}}
-                    {{--backdata:Backlist--}}
-                {{--},--}}
-                {{--success: function (result) {--}}
-                    {{--alert('创建正面理论评价记录表成功！');--}}
-                {{--}--}}
-            {{--});--}}
+
+            $.ajax({
+                type: "post",
+                async: false,
+                url: "/CreateBackTheoryEvalTable",
+                data: {
+                    '_token':'{{csrf_token()}}',
+                    backdata:Backlist
+                },
+                success: function (result) {
+                    alert('创建背面理论评价记录表成功！');
+                }
+            });
         }
 
         else
         {
-            if(Frontlist.length==0)alert("正面评价表为空");
             if(Backlist.length==0)alert("背面评价表为空");
         }
     }

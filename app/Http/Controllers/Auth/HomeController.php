@@ -122,16 +122,21 @@ class HomeController extends Controller
 //    实践评价表，需要数据理论评价表
     public function PracticeEvaluationTableView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
-        $front =array(
-            '1'=>$frontdata[2][1],
-            '2'=>$frontdata[3][1],
-            '3'=>$frontdata[4][1]
+        $frontdata=$this->GetFrontValueTable();
+        for($i=0;$i<count($frontdata[1]);$i++)
+            if($frontdata[1][$i]->text=='实践课评价表')break;
+        $front=array(
+            '1'=>array_key_exists($i,$frontdata[2])?$frontdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$frontdata[3])?$frontdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$frontdata[4])?$frontdata[4][$i]:array()//三级菜单项
         );
-        $back =array(
-            '1'=>$backdata[2][1],
-            '2'=>$backdata[3][1]
+        $backdata=$this->GetBackValueTable();
+        for($i=0;$i<count($backdata[1]);$i++)
+            if($backdata[1][$i]->text=='实践课评价表')break;
+        $back=array(
+            '1'=>array_key_exists($i,$backdata[2])?$backdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$backdata[3])?$backdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$backdata[4])?$backdata[4][$i]:array()//三级菜单项
         );
         return view('PracticeEvaluationTable',compact('front','back'));
     }
@@ -153,16 +158,21 @@ class HomeController extends Controller
 //    体育评价表，需要数据同理论评价表
     public function PhysicalEvaluationTableView()
     {
-        $frontdata = $this->GetFrontValueTable();
-        $backdata = $this->GetBackValueTable();
-        $front =array(
-            '1'=>$frontdata[2][2],
-            '2'=>$frontdata[3][2],
-            '3'=>$frontdata[4][2]
+        $frontdata=$this->GetFrontValueTable();
+        for($i=0;$i<count($frontdata[1]);$i++)
+            if($frontdata[1][$i]->text=='体育课评价表')break;
+        $front=array(
+            '1'=>array_key_exists($i,$frontdata[2])?$frontdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$frontdata[3])?$frontdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$frontdata[4])?$frontdata[4][$i]:array()//三级菜单项
         );
-        $back =array(
-            '1'=>$backdata[2][2],
-            '2'=>$backdata[3][2]
+        $backdata=$this->GetBackValueTable();
+        for($i=0;$i<count($backdata[1]);$i++)
+            if($backdata[1][$i]->text=='体育课评价表')break;
+        $back=array(
+            '1'=>array_key_exists($i,$backdata[2])?$backdata[2][$i]:array(),//一级菜单项
+            '2'=>array_key_exists($i,$backdata[3])?$backdata[3][$i]:array(),//二级菜单项
+            '3'=>array_key_exists($i,$backdata[4])?$backdata[4][$i]:array()//三级菜单项
         );
         return view('PhysicalEvaluationTable',compact('front','back'));
     }
@@ -291,7 +301,7 @@ class HomeController extends Controller
         }
     }
 
-    public function DeepFirstSearchTable(&$str,$result)
+    public function DeepFirstSearchFrontTheoryTable(&$str,$result)
     {
         $version = new HelpController;
         $current = '2016-2017-1';
@@ -304,11 +314,93 @@ class HomeController extends Controller
         {
             $str .=$result[$i]->text .' varchar(255),';
             $newresult=DB::table('front_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
-            $this->DeepFirstSearchTable($str,$newresult);
+            $this->DeepFirstSearchFrontTheoryTable($str,$newresult);
+        }
+    }
+    public function DeepFirstSearchBackTheoryTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('back_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchBackTheoryTable($str,$newresult);
         }
     }
 
-    public function CreateEvalFrontTable(Request $request)
+    public function DeepFirstSearchFrontPracticeTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('front_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchFrontPracticeTable($str,$newresult);
+        }
+    }
+    public function DeepFirstSearchBackPracticeTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('back_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchBackPracticeTable($str,$newresult);
+        }
+    }
+
+    public function DeepFirstSearchFrontPhysicalTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('front_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchFrontPhysicalTable($str,$newresult);
+        }
+    }
+    public function DeepFirstSearchBackPhysicalTable(&$str,$result)
+    {
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $con=mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+
+        for($i=0;$i<count($result);$i++)
+        {
+            $str .=$result[$i]->text .' varchar(255),';
+            $newresult=DB::table('back_contents'.$TableName)->where('fid','=',$result[$i]->id)->get();
+            $this->DeepFirstSearchBackPhysicalTable($str,$newresult);
+        }
+    }
+
+    public function CreateFrontTheoryEvalTable(Request $request)
     {
         //更新表evaluation_migration
         $year = $request->year;
@@ -327,9 +419,7 @@ class HomeController extends Controller
 
         $idstr = 'valueID int (4) primary key not null auto_increment,';
         //选择front_contents 的版本
-
         $result = DB::table('front_contents'.$TableName)->get();
-
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
@@ -339,40 +429,191 @@ class HomeController extends Controller
         $result=DB::table('front_contents'.$TableName)->where('text','=',"理论课评价表")->get();
         $id=$result[0]->id;
         $result=DB::table('front_contents'.$TableName)->where('fid','=',$id)->get();
-        $this->DeepFirstSearchTable($str,$result);
+        $this->DeepFirstSearchFrontTheoryTable($str,$result);
         $str=trim($str,',');
-        mysqli_query($con,"create table front_theory_evaluation$TableName ($str);");
-        Log::info("create table front_theory_evaluation$TableName ($str);");
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table front_theory_evaluation$TableName;");
+        Log::info("create table front_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+        mysqli_query($con,"create table front_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+    }
+    public function CreateBackTheoryEvalTable(Request $request)
+    {
+        //更新表evaluation_migration
+        $year = $request->year;
+        $semester = $request->semester;
+        $current = $year.'-'.$semester;
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
 
-//        for($i=0;$i<count($tree);$i++)
-//        {
-//            if($tree[$i]->level == 1)
-//            {
-//                if($i!=0)
-//                {
-//                    $str=trim($str,',');
-//
-//                    $str=$head;
-//                    Log::info($head);
-//                }
-//                if($tree[$i]->text == '理论课评价表')
-//                {
-//                    $table_name = 'Front_theory_evaluation'.$TableName;
-//                    Log::info("yes");
-//
-//                }
-//                elseif($tree[$i]->text  == '实践课评价表')
-//                    $table_name = 'Front_practice_evaluation'.$TableName;
-//                else
-//                    $table_name = 'Front_physical_evaluation'.$TableName;
-//            }
-//            else if ($tree[$i]->text!='')
-//            {
-//                $str .= $tree[$i]->text .' varchar(255),';
-//            }
-//        }
-//        $str = trim($str,',');
-//        mysqli_query($con,"create table $table_name ($str);");
+        $time = date("Y_m"); //时间戳
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $str = '';                                                              //数据库表字段
+        $head = '';                                                             //table_head中字段
+        $table_name = '';
+
+        $idstr = 'valueID int (4) primary key not null auto_increment,';
+        //选择back_contents的版本
+        $result = DB::table('back_contents'.$TableName)->get();
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('back_contents'.$TableName)->where('text','=',"理论课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('back_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchBackTheoryTable($str,$result);
+        $str=trim($str,',');
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table back_theory_evaluation$TableName;");
+        Log::info("create table back_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+        mysqli_query($con,"create table back_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+    }
+
+    public function CreateFrontPracticeEvalTable(Request $request)
+    {
+        //更新表evaluation_migration
+        $year = $request->year;
+        $semester = $request->semester;
+        $current = $year.'-'.$semester;
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $time = date("Y_m"); //时间戳
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $str = '';                                                              //数据库表字段
+        $head = '';                                                             //table_head中字段
+        $table_name = '';
+
+        $idstr = 'valueID int (4) primary key not null auto_increment,';
+        //选择front_contents 的版本
+        $result = DB::table('front_contents'.$TableName)->get();
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('front_contents'.$TableName)->where('text','=',"实践课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('front_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchFrontPracticeTable($str,$result);
+        $str=trim($str,',');
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table front_practice_evaluation$TableName;");
+        Log::info("create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+        mysqli_query($con,"create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+    }
+    public function CreateBackPracticeEvalTable(Request $request)
+    {
+        //更新表evaluation_migration
+        $year = $request->year;
+        $semester = $request->semester;
+        $current = $year.'-'.$semester;
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $time = date("Y_m"); //时间戳
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $str = '';                                                              //数据库表字段
+        $head = '';                                                             //table_head中字段
+        $table_name = '';
+
+        $idstr = 'valueID int (4) primary key not null auto_increment,';
+        //选择back_contents的版本
+        $result = DB::table('back_contents'.$TableName)->get();
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('back_contents'.$TableName)->where('text','=',"实践课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('back_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchBackPracticeTable($str,$result);
+        $str=trim($str,',');
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_practice_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table back_practice_evaluation$TableName;");
+        mysqli_query($con,"create table back_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+    }
+
+    public function CreateFrontPhysicalEvalTable(Request $request)
+    {
+        //更新表evaluation_migration
+        $year = $request->year;
+        $semester = $request->semester;
+        $current = $year.'-'.$semester;
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $time = date("Y_m"); //时间戳
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $str = '';                                                              //数据库表字段
+        $head = '';                                                             //table_head中字段
+        $table_name = '';
+
+        $idstr = 'valueID int (4) primary key not null auto_increment,';
+        //选择front_contents 的版本
+        $result = DB::table('front_contents'.$TableName)->get();
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('front_contents'.$TableName)->where('text','=',"体育课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('front_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchFrontPhysicalTable($str,$result);
+        $str=trim($str,',');
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table front_physical_evaluation$TableName;");
+        mysqli_query($con,"create table front_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+    }
+    public function CreateBackPhysicalEvalTable(Request $request)
+    {
+        //更新表evaluation_migration
+        $year = $request->year;
+        $semester = $request->semester;
+        $current = $year.'-'.$semester;
+        $version = new HelpController;
+        $current = '2016-2017-1';
+        $TableName = $version->GetCurrentTableName($current);
+
+        $time = date("Y_m"); //时间戳
+        $con = mysqli_connect("localhost","root","","tets");
+        mysqli_query($con,'set names utf8');
+        $str = '';                                                              //数据库表字段
+        $head = '';                                                             //table_head中字段
+        $table_name = '';
+
+        $idstr = 'valueID int (4) primary key not null auto_increment,';
+        //选择back_contents的版本
+        $result = DB::table('back_contents'.$TableName)->get();
+        $tree=$this->getTree($result);
+        $table_head=table_head::all()->toArray();
+        foreach($table_head as $item)
+            $head .=$item['head_content'].' varchar(255),';
+        $head=$idstr.$head;
+        $str=$head;
+        $result=DB::table('back_contents'.$TableName)->where('text','=',"体育课评价表")->get();
+        $id=$result[0]->id;
+        $result=DB::table('back_contents'.$TableName)->where('fid','=',$id)->get();
+        $this->DeepFirstSearchBackPhysicalTable($str,$result);
+        $str=trim($str,',');
+        if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_physical_evaluation$TableName"."'"))==1)
+            mysqli_query($con, "drop table back_physical_evaluation$TableName;");
+        mysqli_query($con,"create table back_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
 
     public function CreateEvalBackTable(Request $request)
@@ -545,7 +786,7 @@ class HomeController extends Controller
         //把该表的字段返回
 
         $tableF = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[0].'" and table_schema = \'tets\';');
-//        $tableB = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[1].'" and table_schema = \'tets\';');
+        $tableB = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[1].'" and table_schema = \'tets\';');
 
 
         //查表返回表的评价内容
@@ -555,18 +796,18 @@ class HomeController extends Controller
             ->where('任课教师','=',$teacher)
             ->where('听课时间','=',$lesson_date)
             ->where('督导id','=',$supervisor)->get();
-//        $backContent = DB::table($LessonList[1])
-//            ->where('课程名称','=',$lesson_name)
-//            ->where('听课节次','=',$lesson_time)
-//            ->where('任课教师','=',$teacher)
-//            ->where('听课时间','=',$lesson_date)
-//            ->where('督导id','=',$supervisor)->get();
+        $backContent = DB::table($LessonList[1])
+            ->where('课程名称','=',$lesson_name)
+            ->where('听课节次','=',$lesson_time)
+            ->where('任课教师','=',$teacher)
+            ->where('听课时间','=',$lesson_date)
+            ->where('督导id','=',$supervisor)->get();
         return $data=
         [
             '1'=>$frontContent,
-//            '2'=>$backContent,
+            '2'=>$backContent,
             '3'=>$tableF,
-//            '4'=>$tableB
+            '4'=>$tableB
         ];
     }
     public function getTree($result, $parent_id = 0, $level = 0)

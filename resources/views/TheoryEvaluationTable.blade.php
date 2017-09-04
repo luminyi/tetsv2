@@ -331,93 +331,101 @@
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
-                                        for ($i=0;$i<count($front[1]);$i++)
+                                        for($i=0;$i<count($front[1]);$i++)
                                         {
                                             echo '
                                             <ul class="grade1">
                                                 <li>
-                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <span class="icon-folder-open-alt" style="display:none"></span>
                                                 <h1>'.$front[1][$i]->text.'</h1>';
                                                 if(!array_key_exists($i,$front[2]))continue;
-                                                $cssstyle=$front[2][$i][0]->cssstyle;
-                                                switch($cssstyle)
+                                                $first=0;$last=-1;
+                                                while(1)
                                                 {
-                                                    case 1:
-                                                        for($j=0;$j<count($front[2][$i]);$j++)
-                                                        {
-                                                            echo'
+                                                    $first=$last+1;
+                                                    while($last+1<count($front[2][$i])&&$front[2][$i][$last+1]->cssstyle==$front[2][$i][$first]->cssstyle)$last++;
+                                                    $cssstyle=$front[2][$i][$first]->cssstyle;
+
+                                                    switch($cssstyle)
+                                                    {
+                                                        case 1:
+                                                            for($j=$first;$j<=$last;$j++)
+                                                            {
+                                                                echo'
                                                             <ul class="grade2">
                                                                 <li>
                                                                 <span style="float:left; margin-top: 4px;"></span>
                                                                 <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
-                                                            if(!array_key_exists($j,$front[3][$i]))continue;
-                                                            if(!count($front[3][$i]))continue;
-                                                            for($k=0;$k<count($front[3][$i][$j]);$k++)
-                                                            {
-                                                                echo '
+                                                                if(!array_key_exists($j,$front[3][$i]))continue;
+                                                                if(!count($front[3][$i]))continue;
+                                                                for($k=0;$k<count($front[3][$i][$j]);$k++)
+                                                                {
+                                                                    echo '
                                                                         <ul style="display: inline-block;" class="grade3">
-                                                                            <li style="margin-top: 10px;">
+                                                                            <li style="margin-top: 20px;">
                                                                             <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
-                                                                echo '
+                                                                    echo '
                                                                             </li>
-                                        `                               </ul>';
-                                                            }
-                                                            echo '
+                                                                      </ul>';
+                                                                }
+                                                                echo '
                                                                 </li>
                                                             </ul>';
-                                                        }
-                                                        break;
-                                                    case 2:
-                                                        echo '<div style="margin-top: 20px;" class="radiograde">';
-                                                        echo '<dd>';
-                                                        for ($j=0;$j<count($front[2][$i]);$j++)
-                                                        {
-                                                            echo '<div class="radio">';
-                                                            echo '    <label>';
-                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
-                                                            echo $front[2][$i][$j]->text;
-                                                            echo '   </label>';
+                                                            }
+                                                            break;
+                                                        case 2:
+                                                            echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                            echo '<dd >';
+                                                            for ($j=$first;$j<=$last;$j++)
+                                                            {
+                                                                echo '<div class="radio" >';
+                                                                echo '    <label >';
+                                                                echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                echo $front[2][$i][$j]->text;
+                                                                echo '   </label>';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</dd>';
                                                             echo '</div>';
-                                                        }
-                                                        echo '</dd>';
-                                                        echo '</div>';
-                                                        break;
-                                                    case 3:
-                                                        echo '<div style="margin-top: 20px;" class="checkboxgrade">';
-                                                        echo '<dd>';
-                                                        for ($j=0;$j<count($front[2][$i]);$j++)
-                                                        {
-                                                            echo '<div class="checkbox">';
-                                                            echo '<label>';
-                                                            echo '<input type="checkbox" name="checkbox" value="checkbox">';
-                                                            echo $front[2][$i][$j]->text;
-                                                            echo '</label>';
+                                                            break;
+                                                        case 3:
+                                                            echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                            echo '<dd>';
+                                                            for ($j=$first;$j<=$last;$j++)
+                                                            {
+                                                                echo '<div class="checkbox">';
+                                                                echo '<label>';
+                                                                echo '<input type="checkbox" name="checkbox" value="checkbox">';
+                                                                echo $front[2][$i][$j]->text;
+                                                                echo '</label>';
+                                                                echo '</div>';
+                                                            }
+                                                            echo '</dd>';
                                                             echo '</div>';
-                                                        }
-                                                        echo '</dd>';
-                                                        echo '</div>';
-                                                        break;
-                                                    case 4:
-                                                        echo '<ul  style="display: inline-block;" class="textareagrade"> ';
-                                                        for ($j=0;$j<count($front[2][$i]);$j++)
-                                                        {
-                                                            echo '<li class="textarea"> ';
-                                                            echo '<form class="form-horizontal"> ';
-                                                            echo '<div class="form-group"> ';
-                                                            echo '<label class="col-sm-3 control-label">';
-                                                            echo $front[2][$i][$j]->text;
-                                                            echo '</label> ';
-                                                            echo '<div class="col-sm-3"> ';
-                                                            echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
-                                                            echo '</form>';
-                                                            echo '</li>';
-                                                        }
-                                                        echo '</ul>';
-//                                                        echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
-                                                        break;
-                                                    default:
-                                                        break;
+                                                            break;
+                                                        case 4:
+                                                            echo '<ul  style="ul{text-align:center;list-style-type:none;}" class="textareagrade"> ';
+                                                            for ($j=$first;$j<=$last;$j++)
+                                                            {
+                                                                echo '<li class="textarea" style=""> ';
+                                                                echo '<form class="form-horizontal" > ';
+                                                                echo '<div  class="form-group"> ';
+                                                                echo '<label style="width: auto" class="col-sm-3 control-label" >';
+                                                                echo $front[2][$i][$j]->text;
+                                                                echo '</label> ';
+                                                                echo '<div class="col-sm-3" style="width: auto"> ';
+                                                                echo '<input type="text" class="form-control"> ';
+                                                                echo '</form>';
+                                                                echo '</li>';
+                                                            }
+                                                            echo '</ul>';
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                    if($last+1==count($front[2][$i]))break;
                                                 }
+
                                                 echo'
                                                 </li>
                                             </ul>';
@@ -427,102 +435,108 @@
                                 <div class="tab-pane fade content-back" id="back">
                                     <div>
                                         {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
-                                        {{--front 第一维数组是菜单等级，第二维数组是表的种类，第三维内容--}}
                                         <?php
-                                        for ($i=0;$i<count($back[1]);$i++)
+                                        for($i=0;$i<count($back[1]);$i++)
                                         {
                                             echo '
                                             <ul class="grade1">
                                                 <li>
-                                                <span class="icon-folder-open-alt" style="margin-top: 4px;"></span>
+                                                <span class="icon-folder-open-alt" style="display:none"></span>
                                                 <h1>'.$back[1][$i]->text.'</h1>';
                                             if(!array_key_exists($i,$back[2]))continue;
-                                            if(!count($back[2]))continue;
-                                            $cssstyle=$back[2][$i][0]->cssstyle;
-                                            switch($cssstyle)
+                                            $first=0;$last=-1;
+                                            while(1)
                                             {
-                                                case 1:
-                                                    for($j=0;$j<count($back[2][$i]);$j++)
-                                                    {
-                                                        echo'
+                                                $first=$last+1;
+                                                while($last+1<count($back[2][$i])&&$back[2][$i][$last+1]->cssstyle==$back[2][$i][$first]->cssstyle)$last++;
+                                                $cssstyle=$back[2][$i][$first]->cssstyle;
+
+                                                switch($cssstyle)
+                                                {
+                                                    case 1:
+                                                        for($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo'
                                                             <ul class="grade2">
                                                                 <li>
                                                                 <span style="float:left; margin-top: 4px;"></span>
                                                                 <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
-                                                        if(!array_key_exists($j,$back[3][$i]))continue;
-                                                        for($k=0;$k<count($back[3][$i][$j]);$k++)
-                                                        {
-                                                            echo '
+                                                            if(!array_key_exists($j,$back[3][$i]))continue;
+                                                            if(!count($back[3][$i]))continue;
+                                                            for($k=0;$k<count($back[3][$i][$j]);$k++)
+                                                            {
+                                                                echo '
                                                                         <ul style="display: inline-block;" class="grade3">
-                                                                            <li style="margin-top: 10px;">
+                                                                            <li style="margin-top: 20px;">
                                                                             <h3>'.$back[3][$i][$j][$k]->text.'</h3>';
-                                                            echo '
+                                                                echo '
                                                                             </li>
-                                        `                               </ul>';
-                                                        }
-                                                        echo '
+                                                                      </ul>';
+                                                            }
+                                                            echo '
                                                                 </li>
                                                             </ul>';
-                                                    }
-                                                    break;
-                                                case 2:
-                                                    echo '<div style="margin-top: 20px;" class="radiograde">';
-                                                    echo '<dd>';
-                                                    for ($j=0;$j<count($back[2][$i]);$j++)
-                                                    {
-                                                        echo '<div class="radio">';
-                                                        echo '    <label>';
-                                                        echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
-                                                        echo $back[2][$i][$j]->text;
-                                                        echo '   </label>';
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                        echo '<dd >';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="radio" >';
+                                                            echo '    <label >';
+                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '   </label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
                                                         echo '</div>';
-                                                    }
-                                                    echo '</dd>';
-                                                    echo '</div>';
-                                                    break;
-                                                case 3:
-                                                    echo '<div style="margin-top: 20px;" class="checkboxgrade">';
-                                                    echo '<dd>';
-                                                    for ($j=0;$j<count($back[2][$i]);$j++)
-                                                    {
-                                                        echo '<div class="checkbox">';
-                                                        echo '<label>';
-                                                        echo '<input type="checkbox" value="">';
-                                                        echo $back[2][$i][$j]->text;
-                                                        echo '</label>';
+                                                        break;
+                                                    case 3:
+                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                        echo '<dd>';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<div class="checkbox">';
+                                                            echo '<label>';
+                                                            echo '<input type="checkbox" name="checkbox" value="checkbox">';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '</label>';
+                                                            echo '</div>';
+                                                        }
+                                                        echo '</dd>';
                                                         echo '</div>';
-                                                    }
-                                                    echo '</dd>';
-                                                    echo '</div>';
-                                                    break;
-                                                case 4:
-                                                    echo '<ul  style="display: inline-block;" class="textareagrade"> ';
-                                                    for ($j=0;$j<count($back[2][$i]);$j++)
-                                                    {
-                                                        echo '<li class="textarea"> ';
-                                                        echo '<form class="form-horizontal"> ';
-                                                        echo '<div class="form-group"> ';
-                                                        echo '<label class="col-sm-3 control-label">';
-                                                        echo $back[2][$i][$j]->text;
-                                                        echo '</label> ';
-                                                        echo '<div class="col-sm-3"> ';
-                                                        echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
-                                                        echo '</form>';
-                                                        echo '</li>';
-                                                    }
-                                                    echo '</ul>';
-//                                                    echo '<textarea style="margin-top: 20px;" class="form-control" rows="3"></textarea>';
-                                                    break;
-                                                default:
-                                                    break;
+                                                        break;
+                                                    case 4:
+                                                        echo '<ul  style="ul{text-align:center;list-style-type:none;}" class="textareagrade"> ';
+                                                        for ($j=$first;$j<=$last;$j++)
+                                                        {
+                                                            echo '<li class="textarea" style=""> ';
+                                                            echo '<form class="form-horizontal" > ';
+                                                            echo '<div  class="form-group"> ';
+                                                            echo '<label style="width: auto" class="col-sm-3 control-label" >';
+                                                            echo $back[2][$i][$j]->text;
+                                                            echo '</label> ';
+                                                            echo '<div class="col-sm-3" style="width: auto"> ';
+                                                            echo '<input type="text" class="form-control"> ';
+                                                            echo '</form>';
+                                                            echo '</li>';
+                                                        }
+                                                        echo '</ul>';
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                                if($last+1==count($back[2][$i]))break;
                                             }
+
                                             echo'
                                                 </li>
                                             </ul>';
                                         }?>
                                     </div>
                                 </div>
-
                                 <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px;" >评价表背面</button>
                                 <button class="btn btn-success btn-raised tabFront" style="float: right; display: none;"  >评价表正面</button>
                             </div>
@@ -576,13 +590,12 @@
     $(function(){
             $(":radio").click(function(){
                 //检查当前单选框是否为选中状态
-                if($(this).attr('checked')){
+                if($(this).attr('checked'))
                     $(this).attr('checked',false);
-                }else
+                else
                     $(this).attr('checked',true);
             });
     });
-
 </script>
 <script src="js/jquery.tabs.js"></script>
 <script src="calendar1/js/bootstrap-datetimepicker1.min.js"></script>
@@ -598,81 +611,164 @@
         var Frontlist=[];//正面选择框的值
         for(i=0;i<$($('#front').children()[0]).children().length;i++)
         {
-            var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).attr("class");
             var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
-            if(cssstyle=="grade2")
+            for(newi=2;newi<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;newi++)
             {
-                for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                if(cssstyle=="grade2")
                 {
-                    var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
-                    for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                    for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
                     {
-                        var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                        var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
-                        textlevel3=$.trim(textlevel3);
-                        choose=$.trim(choose);
-                        obj=
+                        var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
+                        for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                         {
-                            key:textlevel3,
-                            value:choose
-                        };
-                        Frontlist.push(obj);
+                            var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                            var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                            textlevel3=$.trim(textlevel3);
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                            Frontlist.push(obj);
+                        }
                     }
                 }
-            }
-            if(cssstyle=="radiograde")
-            {
-                for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children().length;j++)
+                if(cssstyle=="radiograde")
                 {
-                    var checked=$($($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
-                    var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
-                    checked=$.trim(checked);
-                    choosecontent=$.trim(choosecontent);
-                    if(checked=="checked")
+                    for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
                     {
-                        obj=
+                        var checked=$($($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
+                        var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="checked")
                         {
-                            key:choosecontent,
-                            value:1
-                        };
-                        Frontlist.push(obj);
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Frontlist.push(obj);
+                        }
                     }
                 }
-            }
-            if(cssstyle=="checkboxgrade")
-            {
-                for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children().length;j++)
+                if(cssstyle=="checkboxgrade")
                 {
-                    var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children()[j]).children()[0].innerText;
-                    var checked=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
-                    checked=$.trim(checked);
-                    choosecontent=$.trim(choosecontent);
-                    if(checked=="true")
+                    for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
                     {
-                        obj=
+                        var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                        var checked=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="true")
                         {
-                            key:choosecontent,
-                            value:1
-                        };
-                        Frontlist.push(obj);
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Frontlist.push(obj);
+                        }
                     }
                 }
-            }
-            if(cssstyle=="textareagrade")
-            {
-                var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children().children().children().children()[0].innerText;
-                var val=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[2]).children().children().children().children()[1]).children().val();
-                text=$.trim(text);
-                val=$.trim(val);
-                obj=
+                if(cssstyle=="textareagrade")
                 {
-                    key:text,
-                    value:val
-                };
-                Frontlist.push(obj);
+                    var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
+                    var val=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
+                    text=$.trim(text);
+                    val=$.trim(val);
+                    obj=
+                    {
+                        key:text,
+                        value:val
+                    };
+                    Frontlist.push(obj);
+                }
             }
         }
 
+        var Backlist=[];//背面选择框的值
+        for(i=0;i<$($('#back').children()[0]).children().length;i++)
+        {
+            var textlevel1=$($($($('#back').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+            for(newi=2;newi<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;newi++)
+            {
+                var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                if(cssstyle=="grade2")
+                {
+                    for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
+                    {
+                        var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
+                        for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                        {
+                            var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                            var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                            textlevel3=$.trim(textlevel3);
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="radiograde")
+                {
+                    for(var j=0;j<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                    {
+                        var checked=$($($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
+                        var choosecontent=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="checked")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="checkboxgrade")
+                {
+                    for(var j=0;j<$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                    {
+                        var choosecontent=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                        var checked=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        checked=$.trim(checked);
+                        choosecontent=$.trim(choosecontent);
+                        if(checked=="true")
+                        {
+                            obj=
+                            {
+                                key:choosecontent,
+                                value:1
+                            };
+                            Backlist.push(obj);
+                        }
+                    }
+                }
+                if(cssstyle=="textareagrade")
+                {
+                    var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
+                    var val=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
+                    text=$.trim(text);
+                    val=$.trim(val);
+                    obj=
+                    {
+                        key:text,
+                        value:val
+                    };
+                    Backlist.push(obj);
+                }
+            }
+        }
         //如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
         if(LessonState=='待提交')
             if (flagC==1)//必填项未完成
@@ -727,22 +823,22 @@
                     value:"1",
                     value1:"1"
                 },
+//                obj10={
+//                    key:"任课教师id",
+//                    value:"19290504"
+//                },
             ];
-            var Backlist1 =GetBackList1();
-            var Backlist2 =GetBackList2();
-            for(var i=0;i<Frontlist.length;i++)
-                console.log(Frontlist[i]);
+
             $.ajax({
                 type: "post",
                 async: false,
-                url: "/DBTheoryFrontEvaluationTable",
+                url: "/DBTheoryEvaluationTable",
                 data:{
                     '_token':'{{csrf_token()}}',
                     headdata: Headlist,
                     LessonState:LessonState,
                     frontdata:Frontlist,
-                    backdata1:Backlist1,
-                    backdata2:Backlist2,
+                    backdata:Backlist,
                     valueID:flag
                 },
                 success:function(result)
@@ -755,7 +851,7 @@
             if(frontflag!='')
             {
                 alert(frontflag);
-                window.location.href="/EverEvaluated";
+//                window.location.href="/EverEvaluated";
             }
         }
     }
