@@ -433,7 +433,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_theory_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table front_theory_evaluation$TableName;");
-        Log::info("create table front_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+//        Log::info("create table front_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table front_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
     public function CreateBackTheoryEvalTable(Request $request)
@@ -443,7 +443,6 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -469,7 +468,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_theory_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table back_theory_evaluation$TableName;");
-        Log::info("create table back_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+//        Log::info("create table back_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table back_theory_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
 
@@ -506,7 +505,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table front_practice_evaluation$TableName;");
-        Log::info("create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+//        Log::info("create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
     public function CreateBackPracticeEvalTable(Request $request)

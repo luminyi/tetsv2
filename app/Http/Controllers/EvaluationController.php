@@ -1547,7 +1547,7 @@ class EvaluationController extends Controller
 
             for($i=0;$i<count($backdata);$i++)
             {
-                Log::info("yesyes");
+//                Log::info("yesyes");
                 DB::table($TableName2)
                     ->where($headdata[0]['key'],'=',$headdata[0]['value'])
                     ->where($headdata[1]['key'],'=',$headdata[1]['value'])
@@ -1906,7 +1906,7 @@ class EvaluationController extends Controller
 
             for($i=0;$i<count($backdata);$i++)
             {
-                Log::info("yesyes");
+//                Log::info("yesyes");
                 DB::table($TableName2)
                     ->where($headdata[0]['key'],'=',$headdata[0]['value'])
                     ->where($headdata[1]['key'],'=',$headdata[1]['value'])
@@ -2265,7 +2265,7 @@ class EvaluationController extends Controller
 
             for($i=0;$i<count($backdata);$i++)
             {
-                Log::info("yesyes");
+//                Log::info("yesyes");
                 DB::table($TableName2)
                     ->where($headdata[0]['key'],'=',$headdata[0]['value'])
                     ->where($headdata[1]['key'],'=',$headdata[1]['value'])

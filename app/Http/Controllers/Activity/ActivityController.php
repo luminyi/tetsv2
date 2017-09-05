@@ -92,14 +92,24 @@ class ActivityController extends Controller
         $newAttendNum = intval($attendNum)+1;
         $newRemainderNum =intval($remainderNum)-1;
 
-        activities_user::updateOrCreate(
+//        activities_user::updateOrCreate(
+//            [
+//                'activities_id' =>  $activityId,
+//                'user_id' =>  $userId,
+//            ],
+//            [
+//                'state' => '已报名',
+//                'fin_state' => '报名未参加'
+//            ]
+//        );
+        activities_user::insert(
             [
                 'activities_id' =>  $activityId,
                 'user_id' =>  $userId,
-            ],
-            ['state' => '已报名']
+                'state' => '已报名',
+                'fin_state' => '报名未参加'
+            ]
         );
-
 
         //attend_num ++ and remainder_num --
         Activities::where('id',$activityId)->update([
