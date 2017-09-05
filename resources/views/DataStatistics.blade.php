@@ -128,7 +128,8 @@
             <div class="page-content form-content">
                 <div class="Statistics-Table">
                     {{--选择条件--}}
-                    <p style="display: inline-block;margin-left: 10px;">学期学年</p><input id="calender" class="select" type="text" data-field="date" readonly>
+                    <p style="display: inline-block;margin-left: 10px;">学期学年</p>
+                    <input id="calender" class="select" type="text" data-field="date" readonly>
                     <span  style="display: inline-block;">课程种类</span>
                     <select class="form-control" name="lesson" id="lesson"  style="width:200px;display: inline-block;margin-left:10px;">
                         <option>理论课</option>
@@ -198,19 +199,7 @@
 
 
 
-                {{--<p style="display: inline-block;">学期学年</p><input id="calender" class="select" type="text" data-field="date" readonly>--}}
-                {{--<div style="display: inline-block;margin-left:20px;">--}}
-                {{--<span  style="display: inline-block;">课程名称</span>--}}
-                {{--<input type="text" class="form-control" id="LessonName" style="width:200px;display: inline-block;margin-left:10px;">--}}
-                {{--<div class="suggestClass" id="Lesson-suggest">--}}
-                {{--<ul id="Lesson_result">--}}
 
-                {{--</ul>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<span style="display: inline-block; margin-left:20px;">授课教师</span>--}}
-                {{--<input type="text" class="form-control" id="Teacher" readonly="readonly" style="width:200px;display: inline-block;margin-left:10px;">--}}
-                {{--<button class="btn btn-warning" id="draw" style="margin-left:10px;">绘制</button>--}}
 
             </div>
         </div>

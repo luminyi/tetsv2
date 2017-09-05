@@ -115,7 +115,7 @@
                         <form class="form-horizontal" role="form" method="POST" action="/consult/admin/create">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
-                                <label for="name" class="col-md-2 control-label">咨询内容</label>
+                                <label for="name" class="col-md-2 control-label">咨询名称</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" name="name" id="name" value=""
                                            autofocus>
@@ -148,7 +148,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                        <h3 class="panel-title">咨询内容</h3>
+                        <h3 class="panel-title">咨询名称修改</h3>
                 </div>
                 <div class="button-group">
                     <button class="btn btn-primary btn" data-toggle="modal" data-target="#create-consult">
