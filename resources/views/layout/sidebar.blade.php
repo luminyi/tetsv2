@@ -95,8 +95,10 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                                     各小组听课情况
                                 </a>
                             </li>
+
                             <li class="Upper_menu  indents">
                                 <a href="#indents"  class="nav-header collapse" data-toggle="collapse">
+
                                     <i class="glyphicon glyphicon-minus" ></i>
                                     听课数据统计
                                     <b class="arrow icon-angle-down"></b>
@@ -306,6 +308,35 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </ul>
                 </li>
 
+                <li class="Upper_menu indentManage indents">
+                    <a href="#indents" class="nav-header collapse" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-minus" ></i>
+                        听课数据统计
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="indents" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/TheoryStatistics">
+                                <i class="glyphicon" ></i>
+                                理论课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PracticeStatistics">
+                                <i class="glyphicon" ></i>
+                                实践课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PhysicalStatistics">
+                                <i class="glyphicon"></i>
+                                体育课部分
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
                 <li class=" indents" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #4AA3DE; ">
                     <a href="#indents" class="nav-header collapse" data-toggle="collapse">
                         <i class="icon-file-alt" ></i>
@@ -463,6 +494,35 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </a>
                 </li>
 
+                <li class="Upper_menu indentManage indents">
+                    <a href="#indents" class="nav-header collapse" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-minus" ></i>
+                        听课数据统计
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+                    <ul id="indents" class="nav nav-list collapse in">
+                        <li class="indents">
+                            <a href="/TheoryStatistics">
+                                <i class="glyphicon" ></i>
+                                理论课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PracticeStatistics">
+                                <i class="glyphicon" ></i>
+                                实践课部分
+                            </a>
+                        </li>
+                        <li class="indents">
+                            <a href="/PhysicalStatistics">
+                                <i class="glyphicon"></i>
+                                体育课部分
+                            </a>
+                        </li>
+                    </ul>
+
+                </li>
+
                 <li class="class-menu" style="margin-top: 20px;background-color: rgba(16, 33, 49, 0.86);border-left:3px solid #73C4B1; ">
                     <a href="/LessonTable" style="font-size: 15px;">
                         <i class="icon-list-alt" ></i>
@@ -528,9 +588,11 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                     </a>
                 </li>
 
+
                 <li class="Upper_menu indentManage indents" style="margin-top: 20px; border-left:3px solid #4AA3DE;">
                     <a href="#indents" class="nav-header collapse" data-toggle="collapse">
                         <i class="glyphicon icon-file-alt" ></i>
+
                         听课数据统计
                         <b class="arrow icon-angle-down"></b>
                     </a>
@@ -549,6 +611,7 @@ border-right: 1px solid #eee;box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px
                         </li>
                         <li class="indents">
                             <a href="/PhysicalStatistics">
+
                                 <i class="glyphicon icon-minus"></i>
                                 体育课部分
                             </a>

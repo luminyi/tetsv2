@@ -111,7 +111,7 @@
                                             <th data-field="上课班级" data-halign="center" data-align="center">上课班级</th>
                                             <th data-field="听课时间" data-halign="center" data-align="center">听课时间</th>
                                             <th data-field="听课节次" data-halign="center" data-align="center">听课节次</th>
-                                            <th data-field="授课总体评价" data-halign="center" data-align="center">授课总体评价</th>
+                                            {{--<th data-field="授课总体评价" data-halign="center" data-align="center">授课总体评价</th>--}}
 
                                             <th data-field="填表时间" data-halign="center" data-align="center">填表时间</th>
                                             <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">评价详情</th>
@@ -249,24 +249,24 @@
                                                 <h1>'.$front[1][$i]->text.'</h1>';
                                                     if(!array_key_exists($i,$front[2]))continue;
                                                     $first=0;$last=-1;
+                                                    $cnt=0;
                                                     while(1)
                                                     {
+                                                        ++$cnt;
                                                         $first=$last+1;
                                                         while($last+1<count($front[2][$i])&&$front[2][$i][$last+1]->cssstyle==$front[2][$i][$first]->cssstyle)$last++;
                                                         $cssstyle=$front[2][$i][$first]->cssstyle;
-
                                                         switch($cssstyle)
                                                         {
                                                             case 1:
                                                                 for($j=$first;$j<=$last;$j++)
                                                                 {
                                                                     echo'
-                                                            <ul class="grade2">
-                                                                <li>
-                                                                <span style="float:left; margin-top: 4px;"></span>
-                                                                <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                                <ul class="grade2">
+                                                                    <li>
+                                                                    <span style="float:left; margin-top: 4px;"></span>
+                                                                    <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
                                                                     if(!array_key_exists($j,$front[3][$i]))continue;
-                                                                    if(!count($front[3][$i]))continue;
                                                                     for($k=0;$k<count($front[3][$i][$j]);$k++)
                                                                     {
                                                                         echo '
@@ -275,11 +275,11 @@
                                                                             <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
                                                                         echo '
                                                                             </li>
-                                                                      </ul>';
+                                                                        </ul>';
                                                                     }
                                                                     echo '
-                                                                </li>
-                                                            </ul>';
+                                                                    </li>
+                                                                </ul>';
                                                                 }
                                                                 break;
                                                             case 2:
@@ -289,7 +289,7 @@
                                                                 {
                                                                     echo '<div class="radio" >';
                                                                     echo '    <label >';
-                                                                    echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                    echo '    <input type="radio" name="optionsRadios'.$cnt.'" id="optionsRadios'.$j.'" value="option'.$j.'">';
                                                                     echo $front[2][$i][$j]->text;
                                                                     echo '   </label>';
                                                                     echo '</div>';
@@ -323,7 +323,7 @@
                                                                     echo $front[2][$i][$j]->text;
                                                                     echo '</label> ';
                                                                     echo '<div class="col-sm-3" style="width: auto"> ';
-                                                                    echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                                    echo '<input type="text" class="form-control"> ';
                                                                     echo '</form>';
                                                                     echo '</li>';
                                                                 }
@@ -354,8 +354,10 @@
                                                 <h1>'.$back[1][$i]->text.'</h1>';
                                                     if(!array_key_exists($i,$back[2]))continue;
                                                     $first=0;$last=-1;
+                                                    $cnt=0;
                                                     while(1)
                                                     {
+                                                        ++$cnt;
                                                         $first=$last+1;
                                                         while($last+1<count($back[2][$i])&&$back[2][$i][$last+1]->cssstyle==$back[2][$i][$first]->cssstyle)$last++;
                                                         $cssstyle=$back[2][$i][$first]->cssstyle;
@@ -371,7 +373,6 @@
                                                                 <span style="float:left; margin-top: 4px;"></span>
                                                                 <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
                                                                     if(!array_key_exists($j,$back[3][$i]))continue;
-                                                                    if(!count($back[3][$i]))continue;
                                                                     for($k=0;$k<count($back[3][$i][$j]);$k++)
                                                                     {
                                                                         echo '
@@ -394,7 +395,7 @@
                                                                 {
                                                                     echo '<div class="radio" >';
                                                                     echo '    <label >';
-                                                                    echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                    echo '    <input type="radio" name="optionsRadios'.$cnt.'" id="optionsRadios'.$j.'" value="option'.$j.'">';
                                                                     echo $back[2][$i][$j]->text;
                                                                     echo '   </label>';
                                                                     echo '</div>';
@@ -428,7 +429,7 @@
                                                                     echo $back[2][$i][$j]->text;
                                                                     echo '</label> ';
                                                                     echo '<div class="col-sm-3" style="width: auto"> ';
-                                                                    echo '<input type="text" class="form-control" onblur="checkNum(this)"> ';
+                                                                    echo '<input type="text" class="form-control"> ';
                                                                     echo '</form>';
                                                                     echo '</li>';
                                                                 }
@@ -446,6 +447,8 @@
                                                 }?>
                                             </div>
                                         </div>
+                                        <button class="btn btn-success btn-raised tabBack" style="float: right;display: block;margin-top: 10px;" >评价表背面</button>
+                                        <button class="btn btn-success btn-raised tabFront" style="float: right; display: none;"  >评价表正面</button>
                                     </div>
                                 </div>
                             </div>
@@ -584,54 +587,63 @@
                     for(i=0;i<$($('#front').children()[0]).children().length;i++)
                     {
                         var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
-                        for(newi=2;newi<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;newi++)
+                        for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
                         {
-                            var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                            var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
                             if(cssstyle=="grade2")
                             {
-                                for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                                var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                                if(textlevel2.indexOf("总体评价")>=0)
                                 {
-                                    var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
-                                    for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
-                                    {
-                                        var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                                        textlevel3=$.trim(textlevel3);
-                                        for(p=0;p<$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
-                                            if($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[1][0][textlevel3])
-                                            {
-                                                $($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
-                                                break;
-                                            }
-                                    }
+                                    textlevel2=$.trim(textlevel2);
+                                    for(var p=0;p<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p].innerText==result[1][0][textlevel2])
+                                        {
+                                            $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                    continue;
+                                }
+                                for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                                    textlevel3=$.trim(textlevel3);
+                                    for(var p=0;p<$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[1][0][textlevel3])
+                                        {
+                                            $($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
                                 }
                             }
                             if(cssstyle=="radiograde")
                             {
-                                for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                                 {
-                                    var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                                    var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[1][0][choosecontent]==1)
-                                        $($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked",'checked');
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked","checked");
                                 }
                             }
                             if(cssstyle=="checkboxgrade")
                             {
-                                for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                                 {
-                                    var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                                    var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[1][0][choosecontent]==1)
-                                    {
-                                        $($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked",'checked');
-                                    }
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked","checked");
                                 }
                             }
                             if(cssstyle=="textareagrade")
                             {
-                                var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
-                                text=$.trim(text);
-                                $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0]).val(result[1][0][text]);
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().length;k++)
+                                {
+                                    var text=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[0].innerText;
+                                    text=$.trim(text);
+                                    $($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[1]).children().val(result[1][0][text]);
+                                }
                             }
                         }
                     }
@@ -639,54 +651,60 @@
                     for(i=0;i<$($('#back').children()[0]).children().length;i++)
                     {
                         var textlevel1=$($($($('#back').children()[0]).children()[i]).children()[0]).children()[1].innerText;
-                        for(newi=2;newi<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;newi++)
+                        for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
                         {
-                            var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                            var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
                             if(cssstyle=="grade2")
                             {
-                                for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
+                                var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                                if(textlevel2.indexOf("总体评价")>=0)
                                 {
-                                    var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
-                                    for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
-                                    {
-                                        var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                                        textlevel3=$.trim(textlevel3);
-                                        for(p=0;p<$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
-                                            if($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[2][0][textlevel3])
-                                            {
-                                                $($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
-                                                break;
-                                            }
-                                    }
+                                    textlevel2=$.trim(textlevel2);
+                                    for(var p=0;p<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p].innerText==result[2][0][textlevel2])
+                                        {
+                                            $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                    continue;
+                                }
+                                for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                                    textlevel3=$.trim(textlevel3);
+                                    for(var p=0;p<$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[2][0][textlevel3])
+                                        {
+                                            $($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
                                 }
                             }
                             if(cssstyle=="radiograde")
                             {
-                                for(var j=0;j<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                                for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                                 {
-                                    var choosecontent=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                                    var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[2][0][choosecontent]==1)
-                                        $($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked",'checked');
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked",'checked')
                                 }
                             }
                             if(cssstyle=="checkboxgrade")
                             {
-                                for(var j=0;j<$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                                for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                                 {
-                                    var choosecontent=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
+                                    var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[2][0][choosecontent]==1)
-                                    {
-                                        $($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked",'checked');
-                                    }
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked",'checked');
                                 }
                             }
                             if(cssstyle=="textareagrade")
                             {
-                                var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
+                                var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().context.innerText;
                                 text=$.trim(text);
-                                $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0]).val(result[2][0][text]);
+                                $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[0]).children()[1]).children()[0]).val(result[2][0][text]);
                             }
                         }
                     }
@@ -702,6 +720,16 @@
     $(".grade3").append(' ' +
             '<div class="box demo2" style="display:inline-block;width:600px;"> ' +
             '<ul class="tab_menu" style="display:inline-block;"> ' +
+            '<li class="bar1">非常满意</li> ' +
+            '<li class="bar2">满意</li> ' +
+            '<li class="bar3">正常</li> ' +
+            '<li class="bar4">不足</li> ' +
+            '<li class="bar5">明显不足</li> ' +
+            '</ul> ' +
+            '</div>');
+    $('h2:contains("总体评价")').parent().parent().append(' ' +
+            '<div class="box demo2" style="display: inline-block;width:600px;"> ' +
+            '<ul class="tab_menu" style="display: inline-block;"> ' +
             '<li class="bar1">非常满意</li> ' +
             '<li class="bar2">满意</li> ' +
             '<li class="bar3">正常</li> ' +

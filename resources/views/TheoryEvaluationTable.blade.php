@@ -340,24 +340,24 @@
                                                 <h1>'.$front[1][$i]->text.'</h1>';
                                                 if(!array_key_exists($i,$front[2]))continue;
                                                 $first=0;$last=-1;
+                                                $cnt=0;
                                                 while(1)
                                                 {
+                                                    ++$cnt;
                                                     $first=$last+1;
                                                     while($last+1<count($front[2][$i])&&$front[2][$i][$last+1]->cssstyle==$front[2][$i][$first]->cssstyle)$last++;
                                                     $cssstyle=$front[2][$i][$first]->cssstyle;
-
                                                     switch($cssstyle)
                                                     {
                                                         case 1:
                                                             for($j=$first;$j<=$last;$j++)
                                                             {
                                                                 echo'
-                                                            <ul class="grade2">
-                                                                <li>
-                                                                <span style="float:left; margin-top: 4px;"></span>
-                                                                <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                                <ul class="grade2">
+                                                                    <li>
+                                                                    <span style="float:left; margin-top: 4px;"></span>
+                                                                    <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
                                                                 if(!array_key_exists($j,$front[3][$i]))continue;
-                                                                if(!count($front[3][$i]))continue;
                                                                 for($k=0;$k<count($front[3][$i][$j]);$k++)
                                                                 {
                                                                     echo '
@@ -366,11 +366,11 @@
                                                                             <h3>'.$front[3][$i][$j][$k]->text.'</h3>';
                                                                     echo '
                                                                             </li>
-                                                                      </ul>';
+                                                                        </ul>';
                                                                 }
                                                                 echo '
-                                                                </li>
-                                                            </ul>';
+                                                                    </li>
+                                                                </ul>';
                                                             }
                                                             break;
                                                         case 2:
@@ -380,7 +380,7 @@
                                                             {
                                                                 echo '<div class="radio" >';
                                                                 echo '    <label >';
-                                                                echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                                echo '    <input type="radio" name="optionsRadios'.$cnt.'" id="optionsRadios'.$j.'" value="option'.$j.'">';
                                                                 echo $front[2][$i][$j]->text;
                                                                 echo '   </label>';
                                                                 echo '</div>';
@@ -445,8 +445,10 @@
                                                 <h1>'.$back[1][$i]->text.'</h1>';
                                             if(!array_key_exists($i,$back[2]))continue;
                                             $first=0;$last=-1;
+                                            $cnt=0;
                                             while(1)
                                             {
+                                                ++$cnt;
                                                 $first=$last+1;
                                                 while($last+1<count($back[2][$i])&&$back[2][$i][$last+1]->cssstyle==$back[2][$i][$first]->cssstyle)$last++;
                                                 $cssstyle=$back[2][$i][$first]->cssstyle;
@@ -462,7 +464,6 @@
                                                                 <span style="float:left; margin-top: 4px;"></span>
                                                                 <h2 style="width: 600px;">'.$back[2][$i][$j]->text.'</h2>';
                                                             if(!array_key_exists($j,$back[3][$i]))continue;
-                                                            if(!count($back[3][$i]))continue;
                                                             for($k=0;$k<count($back[3][$i][$j]);$k++)
                                                             {
                                                                 echo '
@@ -485,7 +486,7 @@
                                                         {
                                                             echo '<div class="radio" >';
                                                             echo '    <label >';
-                                                            echo '    <input type="radio" name="optionsRadios" id="optionsRadios'.$j.'" value="option'.$j.'">';
+                                                            echo '    <input type="radio" name="optionsRadios'.$cnt.'" id="optionsRadios'.$j.'" value="option'.$j.'">';
                                                             echo $back[2][$i][$j]->text;
                                                             echo '   </label>';
                                                             echo '</div>';
@@ -587,6 +588,17 @@
             '<li class="bar5">明显不足</li> ' +
             '</ul> ' +
             '</div>');
+    $('h2:contains("总体评价")').parent().parent().append(' ' +
+            '<div class="box demo2" style="display: inline-block;width:600px;"> ' +
+            '<ul class="tab_menu" style="display: inline-block;"> ' +
+            '<li class="bar1">非常满意</li> ' +
+            '<li class="bar2">满意</li> ' +
+            '<li class="bar3">正常</li> ' +
+            '<li class="bar4">不足</li> ' +
+            '<li class="bar5">明显不足</li> ' +
+            '</ul> ' +
+            '</div>');
+
     $(function(){
             $(":radio").click(function(){
                 //检查当前单选框是否为选中状态
@@ -612,35 +624,45 @@
         for(i=0;i<$($('#front').children()[0]).children().length;i++)
         {
             var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
-            for(newi=2;newi<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;newi++)
+            for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
             {
-                var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
                 if(cssstyle=="grade2")
                 {
-                    for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                    var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                    if(textlevel2.indexOf("总体评价")>=0)
                     {
-                        var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
-                        for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                        var choose=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        textlevel2=$.trim(textlevel2);
+                        choose=$.trim(choose);
+                        obj=
                         {
-                            var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                            var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
-                            textlevel3=$.trim(textlevel3);
-                            choose=$.trim(choose);
-                            obj=
-                            {
-                                key:textlevel3,
-                                value:choose
-                            };
-                            Frontlist.push(obj);
-                        }
+                            key:textlevel2,
+                            value:choose
+                        };
+                        Frontlist.push(obj);
+                        continue;
+                    }
+                    for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                    {
+                        var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                        var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        textlevel3=$.trim(textlevel3);
+                        choose=$.trim(choose);
+                        obj=
+                        {
+                            key:textlevel3,
+                            value:choose
+                        };
+                        Frontlist.push(obj);
                     }
                 }
                 if(cssstyle=="radiograde")
                 {
-                    for(var j=0;j<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                    for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
-                        var checked=$($($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
-                        var choosecontent=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                        var checked=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr('checked');
                         checked=$.trim(checked);
                         choosecontent=$.trim(choosecontent);
                         if(checked=="checked")
@@ -652,14 +674,15 @@
                             };
                             Frontlist.push(obj);
                         }
+
                     }
                 }
                 if(cssstyle=="checkboxgrade")
                 {
-                    for(var j=0;j<$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                    for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
-                        var choosecontent=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
-                        var checked=$($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                        var checked=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).is(":checked");
                         checked=$.trim(checked);
                         choosecontent=$.trim(choosecontent);
                         if(checked=="true")
@@ -671,20 +694,25 @@
                             };
                             Frontlist.push(obj);
                         }
+
                     }
                 }
                 if(cssstyle=="textareagrade")
                 {
-                    var text=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
-                    var val=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
-                    text=$.trim(text);
-                    val=$.trim(val);
-                    obj=
+                    for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().length;k++)
                     {
-                        key:text,
-                        value:val
-                    };
-                    Frontlist.push(obj);
+                        var text=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[0].innerText;
+                        var val=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[1]).children().val();
+                        text=$.trim(text);
+                        val=$.trim(val);
+                        obj=
+                        {
+                            key:text,
+                            value:val
+                        };
+                        console.log(obj);
+                        Frontlist.push(obj);
+                    }
                 }
             }
         }
@@ -693,35 +721,45 @@
         for(i=0;i<$($('#back').children()[0]).children().length;i++)
         {
             var textlevel1=$($($($('#back').children()[0]).children()[i]).children()[0]).children()[1].innerText;
-            for(newi=2;newi<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;newi++)
+            for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
             {
-                var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).attr("class");
+                var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
                 if(cssstyle=="grade2")
                 {
-                    for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
+                    var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                    if(textlevel2.indexOf("总体评价")>=0)
                     {
-                        var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerHTML;
-                        for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                        var choose=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        textlevel2=$.trim(textlevel2);
+                        choose=$.trim(choose);
+                        obj=
                         {
-                            var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                            var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
-                            textlevel3=$.trim(textlevel3);
-                            choose=$.trim(choose);
-                            obj=
-                            {
-                                key:textlevel3,
-                                value:choose
-                            };
-                            Backlist.push(obj);
-                        }
+                            key:textlevel2,
+                            value:choose
+                        };
+                        Backlist.push(obj);
+                        continue;
+                    }
+                    for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                    {
+                        var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                        var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        textlevel3=$.trim(textlevel3);
+                        choose=$.trim(choose);
+                        obj=
+                        {
+                            key:textlevel3,
+                            value:choose
+                        };
+                        Backlist.push(obj);
                     }
                 }
                 if(cssstyle=="radiograde")
                 {
-                    for(var j=0;j<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children().length;j++)
+                    for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
-                        var checked=$($($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children()[0]).attr("checked");
-                        var choosecontent=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi])[0]).children()[0]).children()[j]).children()[0]).children().context.innerText;
+                        var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                        var checked=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr('checked');
                         checked=$.trim(checked);
                         choosecontent=$.trim(choosecontent);
                         if(checked=="checked")
@@ -733,14 +771,15 @@
                             };
                             Backlist.push(obj);
                         }
+
                     }
                 }
                 if(cssstyle=="checkboxgrade")
                 {
-                    for(var j=0;j<$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children().length;j++)
+                    for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
-                        var choosecontent=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0].innerText;
-                        var checked=$($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children()[0]).children()[j]).children()[0]).children()[0]).is(":checked");
+                        var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                        var checked=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).is(":checked");
                         checked=$.trim(checked);
                         choosecontent=$.trim(choosecontent);
                         if(checked=="true")
@@ -752,23 +791,29 @@
                             };
                             Backlist.push(obj);
                         }
+
                     }
                 }
                 if(cssstyle=="textareagrade")
                 {
-                    var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0].innerText;
-                    var val=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[newi]).children().children().children()[0]).children()[1]).children()[0].value;
-                    text=$.trim(text);
-                    val=$.trim(val);
-                    obj=
+                    for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().length;k++)
                     {
-                        key:text,
-                        value:val
-                    };
-                    Backlist.push(obj);
+                        var text=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[0].innerText;
+                        var val=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[1]).children().val();
+                        text=$.trim(text);
+                        val=$.trim(val);
+                        obj=
+                        {
+                            key:text,
+                            value:val
+                        };
+                        console.log(obj);
+                        Backlist.push(obj);
+                    }
                 }
             }
         }
+
         //如果是待提交状态，将正面未完成标识写入lessonstate，并将其置为可提交状态
         if(LessonState=='待提交')
             if (flagC==1)//必填项未完成
@@ -780,6 +825,7 @@
         if(flagC==0)
         {
             var frontflag=null;
+
             var Headlist=TableHeadData();
 
 

@@ -40,6 +40,7 @@ class EverEvaluationController extends Controller
         );
         return view('EverEvaluated',compact('front','back'));
     }
+
     public function GetFrontValueTable()
     {
         $mytime=new HelpController;
@@ -57,14 +58,20 @@ class EverEvaluationController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -95,14 +102,20 @@ class EverEvaluationController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('back_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -158,7 +171,6 @@ class EverEvaluationController extends Controller
 				'.$table1.'.`上课地点`,
 				'.$table1.'.`听课节次`,
 				'.$table1.'.`填表时间`,
-				'.$table1.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table1.'
@@ -173,6 +185,7 @@ class EverEvaluationController extends Controller
         for ($l=0;$l<count($DataArr1);$l++)
             array_push($data,$DataArr1[$l]);
 
+//        '.$table2.'.`授课总体评价`,
         $DataArr2 = DB::select('SELECT distinct '.$table2.'.valueID, '.$table2.'.课程名称, '.$table2.'.任课教师, '.$table2.'.课程属性,
 				'.$table2.'.上课班级,
 				'.$table2.'.章节目录,
@@ -182,7 +195,7 @@ class EverEvaluationController extends Controller
 				'.$table2.'.`上课地点`,
 				'.$table2.'.`听课节次`,
 				'.$table2.'.`填表时间`,
-				'.$table2.'.`授课总体评价`,
+
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table2.'
@@ -205,7 +218,6 @@ class EverEvaluationController extends Controller
 				'.$table3.'.`上课地点`,
 				'.$table3.'.`听课节次`,
 				'.$table3.'.`填表时间`,
-				'.$table3.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table3.'
@@ -260,7 +272,6 @@ class EverEvaluationController extends Controller
 				'.$table1.'.`上课地点`,
 				'.$table1.'.`听课节次`,
 				'.$table1.'.`填表时间`,
-				'.$table1.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table1.'
@@ -286,7 +297,6 @@ class EverEvaluationController extends Controller
 				'.$table2.'.`上课地点`,
 				'.$table2.'.`听课节次`,
 				'.$table2.'.`填表时间`,
-				'.$table2.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table2.'
@@ -312,7 +322,6 @@ class EverEvaluationController extends Controller
 				'.$table3.'.`上课地点`,
 				'.$table3.'.`听课节次`,
 				'.$table3.'.`填表时间`,
-				'.$table3.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table3.'
@@ -376,7 +385,6 @@ class EverEvaluationController extends Controller
 				'.$table1.'.`上课地点`,
 				'.$table1.'.`听课节次`,
 				'.$table1.'.`填表时间`,
-				'.$table1.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table1.'
@@ -402,7 +410,6 @@ class EverEvaluationController extends Controller
 				'.$table2.'.`上课地点`,
 				'.$table2.'.`听课节次`,
 				'.$table2.'.`填表时间`,
-				'.$table2.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table2.'
@@ -428,7 +435,6 @@ class EverEvaluationController extends Controller
 				'.$table3.'.`上课地点`,
 				'.$table3.'.`听课节次`,
 				'.$table3.'.`填表时间`,
-				'.$table3.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             FROM '.$table3.'
@@ -506,7 +512,6 @@ class EverEvaluationController extends Controller
 				'.$table1.'.`上课地点`,
 				'.$table1.'.`听课节次`,
 				'.$table1.'.`填表时间`,
-				'.$table1.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             from '.$table1.'
@@ -534,7 +539,6 @@ class EverEvaluationController extends Controller
 				'.$table2.'.`上课地点`,
 				'.$table2.'.`听课节次`,
 				'.$table2.'.`填表时间`,
-				'.$table2.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             from '.$table2.'
@@ -561,7 +565,6 @@ class EverEvaluationController extends Controller
 				'.$table3.'.`上课地点`,
 				'.$table3.'.`听课节次`,
 				'.$table3.'.`填表时间`,
-				'.$table3.'.`授课总体评价`,
 	            T2.lesson_level,
 	            T2.assign_group
             from '.$table3.'
