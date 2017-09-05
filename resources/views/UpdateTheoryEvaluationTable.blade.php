@@ -171,6 +171,13 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="component1 form-group" data-type="static_text">
+                                                            <label class="control-label col-sm-4">2级内容</label>
+                                                            <div class="controls col-sm-8">
+                                                                总体评价
+                                                            </div>
+                                                        </div>
+
                                                         <div class="component1 form-group" data-type="radio">
                                                             <label class="control-label col-sm-4">单选</label>
                                                             <div class="controls col-sm-8">
@@ -308,6 +315,13 @@
                                                             </div>
                                                         </div>
 
+                                                        <div class="component2 form-group" data-type="static_text">
+                                                            <label class="control-label col-sm-4">2级内容</label>
+                                                            <div class="controls col-sm-8">
+                                                                总体评价
+                                                            </div>
+                                                        </div>
+
                                                         <div class="component2 form-group" data-type="radio">
                                                             <label class="control-label col-sm-4">单选</label>
                                                             <div class="controls col-sm-8">
@@ -390,7 +404,6 @@
         GetContent1();
     });
     $('.submitTable2').click(function(){
-        console.log("yes");
         GetContent2();
     });
     function GetContent1(LessonState) {
@@ -436,7 +449,7 @@
                         {
                             var j;
                             for(j=Frontlist.length-1;j>=0;j--)
-                                if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                                if(Frontlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -453,7 +466,7 @@
                         {
                             var j;
                             for(j=Frontlist.length-1;j>=0;j--)
-                                if(Frontlist[j].cssstyle==1&&Frontlist[j].level==1)break;
+                                if(Frontlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -466,7 +479,7 @@
                         {
                             var j;
                             for(j=Frontlist.length-1;j>=0;j--)
-                                if(Frontlist[j].cssstyle==1&&Frontlist[j].level==2)break;
+                                if(Frontlist[j].level==2)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -490,6 +503,8 @@
                     cssstyle:CSSstyle,
                     text:Text
                 };
+                if(object['text']=='总体评价')
+                    object['text']=Frontlist[object['fid']-2]['text']+object['text'];
                 Frontlist.push(object);
             }
             if($('#content1').children()[i].getAttribute('data-type')=="radio")
@@ -667,7 +682,7 @@
             }
             Prelevel=Level;
         }
-        console.log(Frontlist);
+
         if(Frontlist.length!=0)
         {
             $.ajax({
@@ -679,7 +694,7 @@
                     frontdata:Frontlist
                 },
                 success: function (result) {
-                    alert('修改理论评价表成功！');
+                    alert('修改正面理论评价表成功！');
                 }
             });
 
@@ -696,10 +711,9 @@
                 }
             });
         }
-        else
-        {
-            if(Frontlist.length==0)alert("正面评价表为空");
-        }
+        else if(Frontlist.length==0)
+            alert("正面评价表为空");
+
     }
     function GetContent2(LessonState) {
         var Prelevel=0;
@@ -710,7 +724,6 @@
 
         for(var i=1;ok&&i<$('#content2').children().length;i++)
         {
-
             if($('#content2').children()[i].getAttribute('data-type')=="static_text")
             {
                 CSSstyle=1;
@@ -744,7 +757,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
+                                if(Backlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -761,7 +774,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1&&Backlist[j].level==1)break;
+                                if(Backlist[j].level==1)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -774,7 +787,7 @@
                         {
                             var j;
                             for(j=Backlist.length-1;j>=0;j--)
-                                if(Backlist[j].cssstyle==1&&Backlist[j].level==2)break;
+                                if(Backlist[j].level==2)break;
                             if(j<0)
                             {
                                 ok=false;
@@ -798,6 +811,8 @@
                     cssstyle:CSSstyle,
                     text:Text
                 };
+                if(object['text']=='总体评价')
+                    object['text']=Backlist[object['fid']-2]['text']+object['text'];
                 Backlist.push(object);
             }
             if($('#content2').children()[i].getAttribute('data-type')=="radio")
@@ -987,7 +1002,7 @@
                     backdata:Backlist
                 },
                 success: function (result) {
-                    alert('修改理论评价表成功！');
+                    alert('修改背面理论评价表成功！');
                 }
             });
 
@@ -1004,11 +1019,9 @@
                 }
             });
         }
+        else if(Backlist.length==0)
+            alert("背面评价表为空");
 
-        else
-        {
-            if(Backlist.length==0)alert("背面评价表为空");
-        }
     }
 </script>
 </html>

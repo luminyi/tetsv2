@@ -384,10 +384,10 @@
             '</div>');
 
 
-    $('h2:contains("授课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
-    $('h2:contains("听课总体评价")').css({'position':'absolute','left':'-46px'})
-            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
+//    $('h2:contains("授课总体评价")').css({'position':'absolute','left':'-46px'})
+//            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
+//    $('h2:contains("听课总体评价")').css({'position':'absolute','left':'-46px'})
+//            .parents('.grade2').css({'background':'#ff753a','padding-top':'5px'});
 
     //    var oh2 = document.getElementsByTagName('h2');
     $('h2:contains("到课情况")').parent().children('ul').remove();

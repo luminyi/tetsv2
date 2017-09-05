@@ -207,6 +207,7 @@ class EvaluationController extends Controller
         );
         return view('Evaluation',compact('front','back'));
     }
+
     public function GetFrontValueTable()
     {
         $mytime=new HelpController;
@@ -224,14 +225,20 @@ class EvaluationController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -262,14 +269,20 @@ class EvaluationController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('back_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -348,7 +361,8 @@ class EvaluationController extends Controller
             $table = $mytime->GetCurrentTableName1($LessonList[$k][1],$LessonList[$k][2],$TableFlag);
 
             //确定属于那张表
-            //table[0]表的正面  table[1]表的背面
+            //table[0]表的正面  table[1]表的背面				'.$table[0].'.`授课总体评价`,
+
             $DataArr = DB::select('SELECT distinct
                 '.$table[0].'.valueID,
                 '.$table[0].'.课程名称,
@@ -361,7 +375,6 @@ class EvaluationController extends Controller
 				'.$table[0].'.`听课节次`,
 				'.$table[0].'.`填表时间`,
 				'.$table[0].'.`听课节次`,
-				'.$table[0].'.`授课总体评价`,
 				T2.assign_group
             FROM '.$table[0].'
              LEFT JOIN(select lesson_name,lesson_teacher_name,lesson_level,assign_group,lesson_class from lessons

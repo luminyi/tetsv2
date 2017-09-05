@@ -209,14 +209,20 @@ class HomeController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('front_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('front_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('front_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -247,14 +253,20 @@ class HomeController extends Controller
         for($iType=0;$iType<count($TableType);$iType++)
         {
             $DataTable[$iType]=$TableType[$iType];
+            $DataFirst[$iType]=array();
+            $DataSecond[$iType]=array();
+            $DataThird[$iType]=array();
             $IndexFirst=DB::table('back_contents'.$TableName)->where('fid','=',$TableType[$iType]->id)->get();
             for($iF=0;$iF<count($IndexFirst);$iF++)
             {
                 $DataFirst[$iType][$iF]=$IndexFirst[$iF];
+                $DataSecond[$iType][$iF]=array();
+                $DataThird[$iType][$iF]=array();
                 $IndexSecond=DB::table('back_contents'.$TableName)->where('fid','=',$IndexFirst[$iF]->id)->get();
                 for($iS=0;$iS<count($IndexSecond);$iS++)
                 {
                     $DataSecond[$iType][$iF][$iS]=$IndexSecond[$iS];
+                    $DataThird[$iType][$iF][$iS]=array();
                     $IndexThird=DB::table('back_contents'.$TableName)->where('fid','=',$IndexSecond[$iS]->id)->get();
                     for($iT=0;$iT<count($IndexThird);$iT++)
                         $DataThird[$iType][$iF][$iS][$iT]=$IndexThird[$iT];
@@ -423,7 +435,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('front_contents'.$TableName)->where('text','=',"理论课评价表")->get();
@@ -459,7 +471,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('back_contents'.$TableName)->where('text','=',"理论课评价表")->get();
@@ -496,7 +508,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('front_contents'.$TableName)->where('text','=',"实践课评价表")->get();
@@ -532,7 +544,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('back_contents'.$TableName)->where('text','=',"实践课评价表")->get();
@@ -568,7 +580,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('front_contents'.$TableName)->where('text','=',"体育课评价表")->get();
@@ -603,7 +615,7 @@ class HomeController extends Controller
         $tree=$this->getTree($result);
         $table_head=table_head::all()->toArray();
         foreach($table_head as $item)
-            $head .=$item['head_content'].' varchar(255),';
+            $head .=$item['head_content'].' text,';
         $head=$idstr.$head;
         $str=$head;
         $result=DB::table('back_contents'.$TableName)->where('text','=',"体育课评价表")->get();
