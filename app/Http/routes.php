@@ -238,6 +238,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/excel/StaticGroupExport','ExcelController@StaticGroupExport');//督导听课统计情况导出（小组长）
     //export the activity
     Route::get('/activity/excel/ActivityExport','ExcelController@ActivityExport');
+
     //export the teachers of activity
     Route::get('/activity/excel/teacherExport','ExcelController@teacherExport');
 

@@ -825,56 +825,10 @@
         if(flagC==0)
         {
             var frontflag=null;
-//            var Headlist=TableHeadData();
-            var Headlist = [
-                obj0={
-                    key:"章节目录",
-                    value:""
-                },
-                obj1={
-                    key:"课程名称",
-                    value:"C++程序设计"
-                },
-                obj2={
-                    key:"任课教师",
-                    value:"张海燕"
-                },
-                obj3={
-                    key:"上课班级",
-                    value:"计算机类16-3-4"
-                },
-                obj4={
-                    key:"上课地点",
-                    value:"计算中心-6"
-                },
-                obj5={
-                    key:"听课时间",
-                    value:"2017-09-13"
-                },
-                obj6={
-                    key:"督导姓名",
-                    value:"殷宁"
-                },
-                obj7={
-                    key:"课程属性",
-                    value:null
-                },
-                obj8={
-                    key:"督导id",
-                    value:"19400703"
-                },
-                obj9={
-                    key:"听课节次",
-                    value:"1",
-                    value1:"1"
-                },
-//                obj10={
-//                    key:"任课教师id",
-//                    value:"19290504"
-//                },
-            ];
-            console.log(Frontlist);
-            console.log(Backlist);
+
+            var Headlist=TableHeadData();
+
+
             $.ajax({
                 type: "post",
                 async: false,
@@ -1196,6 +1150,7 @@
                 Lessontime: lessontime
             },//传递学院名称
             success: function (result) {
+
             }
         });
     }

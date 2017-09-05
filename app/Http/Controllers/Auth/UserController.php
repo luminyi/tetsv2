@@ -36,6 +36,7 @@ class UserController extends Controller
     {
         $tid = $request->id;
         $year = $request->year;
+//        Log::info($year);
 
         $user = User::where('id',$tid)->with(['roles'=>function($query) use ($year){
             return $query->where( 'supervise_time' ,'=' ,$year ) ;

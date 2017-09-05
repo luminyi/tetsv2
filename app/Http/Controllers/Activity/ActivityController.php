@@ -55,7 +55,7 @@ class ActivityController extends Controller
         $activity = DB::table('activities_user')
             ->leftjoin('activities','activities_user.activities_id','=','activities.id')
             ->where('activities_user.user_id',$flag)
-            ->where('activities_user.state','已参加')
+            ->where('activities_user.fin_state','!=','报名未参加')
             ->orderBy('term','desc')
             ->get();
 
@@ -92,14 +92,24 @@ class ActivityController extends Controller
         $newAttendNum = intval($attendNum)+1;
         $newRemainderNum =intval($remainderNum)-1;
 
-        activities_user::updateOrCreate(
+//        activities_user::updateOrCreate(
+//            [
+//                'activities_id' =>  $activityId,
+//                'user_id' =>  $userId,
+//            ],
+//            [
+//                'state' => '已报名',
+//                'fin_state' => '报名未参加'
+//            ]
+//        );
+        activities_user::insert(
             [
                 'activities_id' =>  $activityId,
                 'user_id' =>  $userId,
-            ],
-            ['state' => '已报名']
+                'state' => '已报名',
+                'fin_state' => '报名未参加'
+            ]
         );
-
 
         //attend_num ++ and remainder_num --
         Activities::where('id',$activityId)->update([
@@ -212,9 +222,10 @@ class ActivityController extends Controller
             if(!$results)
                 return redirect('/activity/modify')->withErrors($arr[$index].' 不存在的教师ID！');
             $sql1 = 'insert into activities_user select id,';
-            $sql2 = ' as activities_id,\'已报名\' as state from users where user_id = ';
+            $sql2 = ' as activities_id,\'已报名\' as state,\'报名未参加\' as fin_state from users where user_id = ';
             $sql = $sql1 . $input['act-ID'] . $sql2 . $arr[$index];
-            $results = DB::select('select * from users a,activities_user b where a.user_id='.$arr[$index].' and a.id=b.user_id;');
+
+            $results = DB::select('select * from users a,activities_user b where a.user_id='.$arr[$index].' and a.id=b.user_id and b.activities_id =' . $input['act-ID']);
             if($results)
                 return redirect('/activity/modify')->withErrors($arr[$index].' 参与教师ID已存在！');
             $flag = DB::insert($sql);
@@ -289,6 +300,7 @@ class ActivityController extends Controller
         $input = $request->all();
         //log::info($input);
         $flag=DB::table('activities_user')
+            ->where('activities_id',$input['activity_id'])
             ->whereIn('user_id',$input['dataArr'])
             ->update(['fin_state' => $input['newState']]);
         return ('修改成功！');
