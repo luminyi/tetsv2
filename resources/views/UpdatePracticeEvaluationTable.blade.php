@@ -683,7 +683,7 @@
             }
             Prelevel=Level;
         }
-
+        console.log(Frontlist)
         if(Frontlist.length!=0)
         {
             $.ajax({

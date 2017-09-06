@@ -536,7 +536,10 @@ function TableHeadData()
             value:$('#LessonTime').val().match(/(\d+)/)[0]//尽可能多的匹配数字 1  11
         };
     }
-
+    obj11={
+        key:'教师ID',
+        value:$('#TeacherID').val()
+    };
     Headlist.push(obj1);
     Headlist.push(obj2);
     Headlist.push(obj3);
@@ -547,6 +550,7 @@ function TableHeadData()
     Headlist.push(obj8);
     Headlist.push(obj9);
     Headlist.push(obj10);
+    Headlist.push(obj11);
 
     return Headlist;
 }

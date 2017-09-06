@@ -305,6 +305,7 @@
                                 <tr>
                                     <td><input type="text" class="form-control" id="LessonName" placeholder="课程名   教师名进行搜索"></td>
                                     <td><input type="text" class="form-control" id="Teacher" readonly="readonly"></td>
+                                    <input type="text" class="form-control" id="TeacherID" readonly="readonly" style="display: none">
                                     <td><input type="text" class="form-control" id="ListenTime" placeholder="选择日期"></td>
                                     <td><input type="text" class="form-control" id="LessonTime" placeholder="请选择听课时长"></td>
                                     <td><input type="text" class="form-control" id="LessonClass" readonly="readonly"></td>
@@ -588,6 +589,16 @@
             '<li class="bar5">明显不足</li> ' +
             '</ul> ' +
             '</div>');
+    $('h2:contains("总体评价")').parent().parent().append(' ' +
+            '<div class="box demo2" style="display: inline-block;width:600px;"> ' +
+            '<ul class="tab_menu" style="display: inline-block;"> ' +
+            '<li class="bar1">非常满意</li> ' +
+            '<li class="bar2">满意</li> ' +
+            '<li class="bar3">正常</li> ' +
+            '<li class="bar4">不足</li> ' +
+            '<li class="bar5">明显不足</li> ' +
+            '</ul> ' +
+            '</div>');
     $(function(){
         $(":radio").click(function(){
             //检查当前单选框是否为选中状态
@@ -621,28 +632,52 @@
                     var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
                     if(textlevel2.indexOf("总体评价")>=0)
                     {
-                        var choose=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        var choose=$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0];
                         textlevel2=$.trim(textlevel2);
-                        choose=$.trim(choose);
-                        obj=
+                        if(choose)
                         {
-                            key:textlevel2,
-                            value:choose
-                        };
+                            choose=choose.innerHTML;
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel2,
+                                value:choose
+                            };
+                        }
+                        else
+                        {
+                            obj=
+                            {
+                                key:textlevel2,
+                                value:""
+                            };
+                        }
                         Frontlist.push(obj);
                         continue;
                     }
                     for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
                         var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                        var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        var choose=$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0];
                         textlevel3=$.trim(textlevel3);
-                        choose=$.trim(choose);
-                        obj=
+                        if(choose)
                         {
-                            key:textlevel3,
-                            value:choose
-                        };
+                            choose=choose.innerHTML;
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                        }
+                        else
+                        {
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:""
+                            };
+                        }
                         Frontlist.push(obj);
                     }
                 }
@@ -718,28 +753,52 @@
                     var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
                     if(textlevel2.indexOf("总体评价")>=0)
                     {
-                        var choose=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        var choose=$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().filter(".current")[0];
                         textlevel2=$.trim(textlevel2);
-                        choose=$.trim(choose);
-                        obj=
+                        if(choose)
                         {
-                            key:textlevel2,
-                            value:choose
-                        };
+                            choose=choose.innerHTML;
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel2,
+                                value:choose
+                            };
+                        }
+                        else
+                        {
+                            obj=
+                            {
+                                key:textlevel2,
+                                value:""
+                            };
+                        }
                         Backlist.push(obj);
                         continue;
                     }
                     for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
                     {
                         var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
-                        var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0].innerHTML;
+                        var choose=$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().filter(".current")[0];
                         textlevel3=$.trim(textlevel3);
-                        choose=$.trim(choose);
-                        obj=
+                        if(choose)
                         {
-                            key:textlevel3,
-                            value:choose
-                        };
+                            choose=choose.innerHTML;
+                            choose=$.trim(choose);
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:choose
+                            };
+                        }
+                        else
+                        {
+                            obj=
+                            {
+                                key:textlevel3,
+                                value:""
+                            };
+                        }
                         Backlist.push(obj);
                     }
                 }
@@ -813,54 +872,7 @@
         if(flagC==0)
         {
             var frontflag=null;
-//            var Headlist=TableHeadData();
-            var Headlist = [
-                obj0={
-                    key:"章节目录",
-                    value:""
-                },
-                obj1={
-                    key:"课程名称",
-                    value:"C++程序设计"
-                },
-                obj2={
-                    key:"任课教师",
-                    value:"张海燕"
-                },
-                obj3={
-                    key:"上课班级",
-                    value:"计算机类16-3-4"
-                },
-                obj4={
-                    key:"上课地点",
-                    value:"计算中心-6"
-                },
-                obj5={
-                    key:"听课时间",
-                    value:"2017-07-13"
-                },
-                obj6={
-                    key:"督导姓名",
-                    value:"殷宁"
-                },
-                obj7={
-                    key:"课程属性",
-                    value:null
-                },
-                obj8={
-                    key:"督导id",
-                    value:"19400703"
-                },
-                obj9={
-                    key:"听课节次",
-                    value:"1",
-                    value1:"1"
-                },
-//                obj10={
-//                    key:"任课教师id",
-//                    value:"19290504"
-//                },
-            ];
+            var Headlist=TableHeadData();
 
             $.ajax({
                 type: "post",
@@ -934,6 +946,7 @@
                                     'border-bottom: lightgrey solid 2px">'
                                     +result[i]['lesson_name']+split_flag
                                     +result[i]['lesson_teacher_name']+split_flag
+                                    +result[i]['lesson_teacher_id']+split_flag
                                     +result[i]['lesson_week']+'周'+split_flag+'星期'
                                     +result[i]['lesson_weekday']+split_flag
                                     +result[i]['lesson_time'] +split_flag
@@ -955,10 +968,11 @@
                 $('#Lesson_result').delegate('li','click',function(){
                     LessonValue.value=$(this).text().split(split_flag)[0];
                     TeacherValue.value=$(this).text().split(split_flag)[1];
-                    LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
-                    LessonClassValue.value=$(this).text().split(split_flag)[5];
-                    LessonRoomValue.value=$(this).text().split(split_flag)[6];
-                    lessonTime =$(this).text().split(split_flag)[4];
+                    $('#TeacherID').val($(this).text().split(split_flag)[2]);
+                    LessonWeekday=$(this).text().split(split_flag)[4].match(/\d/g);
+                    LessonClassValue.value=$(this).text().split(split_flag)[6];
+                    LessonRoomValue.value=$(this).text().split(split_flag)[7];
+                    lessonTime =$(this).text().split(split_flag)[5];
                     $('#LessonTime').attr("disabled",false).val('');
                     $('#ListenTime').attr("disabled",false).val('');
                     //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
@@ -1007,6 +1021,7 @@
                                 'border-bottom: lightgrey solid 2px">'
                                 +result[i]['lesson_name']+split_flag
                                 +result[i]['lesson_teacher_name']+split_flag
+                                +result[i]['lesson_teacher_id']+split_flag
                                 +result[i]['lesson_week']+'周'+split_flag+'星期'
                                 +result[i]['lesson_weekday']+split_flag
                                 +result[i]['lesson_time'] +split_flag
@@ -1027,10 +1042,11 @@
             $('#Lesson_result').delegate('li','click',function(){
                 LessonValue.value=$(this).text().split(split_flag)[0];
                 TeacherValue.value=$(this).text().split(split_flag)[1];
-                LessonClassValue.value=$(this).text().split(split_flag)[5];
-                LessonRoomValue.value=$(this).text().split(split_flag)[6];
-                LessonWeekday=$(this).text().split(split_flag)[3].match(/\d/g);
-                lessonTime =$(this).text().split(split_flag)[4];
+                $('#TeacherID').val($(this).text().split(split_flag)[2]);
+                LessonClassValue.value=$(this).text().split(split_flag)[6];
+                LessonRoomValue.value=$(this).text().split(split_flag)[7];
+                LessonWeekday=$(this).text().split(split_flag)[4].match(/\d/g);
+                lessonTime =$(this).text().split(split_flag)[5];
                 $('#LessonTime').attr("disabled",false).val('');
                 $('#ListenTime').attr("disabled",false).val('');
                 //如果上课地点或者上课班级为空，则开放上课班级和上课地点编辑框
@@ -1142,7 +1158,7 @@
         GetContent(LessonState);
     });
 
-    $('#saveTable').click(function(){
+    $('.saveTable').click(function(){
         var LessonState='待提交';
         GetContent(LessonState);
     });

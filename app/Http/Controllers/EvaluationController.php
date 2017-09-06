@@ -1034,7 +1034,6 @@ class EvaluationController extends Controller
         $Version=new HelpController;
         $Current='2017-2018-1';
         $TableName=$Version->GetCurrentTableName($Current);
-
         $con = mysqli_connect("localhost","root","","tets");
         mysqli_query($con,'set names utf8');
 //        $TableName='_2017_09';
@@ -1374,8 +1373,10 @@ class EvaluationController extends Controller
          * $headdata：
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
+         * 10:任课教师ID
          * */
         $version=$YearSemester->GetYearSemester($headdata[5]['value']);
+        log::info($version);
         $TableNamePostfix=DB::table('evaluation_migration')
             ->select('Table_Name')
             ->where('Create_Year','=',$version['YearSemester'])
@@ -1721,6 +1722,7 @@ class EvaluationController extends Controller
         }
         return '未知错误，请联系开发人员';
     }
+
     public function DBPracticeEvaluationTable(Request $request)
     {
         $YearSemester=new HelpController;
@@ -1735,6 +1737,7 @@ class EvaluationController extends Controller
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
          * */
         $version=$YearSemester->GetYearSemester($headdata[5]['value']);
+        log::info( $version);
         $TableNamePostfix=DB::table('evaluation_migration')
             ->select('Table_Name')
             ->where('Create_Year','=',$version['YearSemester'])

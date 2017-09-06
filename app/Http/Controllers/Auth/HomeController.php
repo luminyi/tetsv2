@@ -316,7 +316,7 @@ class HomeController extends Controller
     public function DeepFirstSearchFrontTheoryTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -332,7 +332,7 @@ class HomeController extends Controller
     public function DeepFirstSearchBackTheoryTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -349,7 +349,7 @@ class HomeController extends Controller
     public function DeepFirstSearchFrontPracticeTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -365,7 +365,7 @@ class HomeController extends Controller
     public function DeepFirstSearchBackPracticeTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -382,7 +382,7 @@ class HomeController extends Controller
     public function DeepFirstSearchFrontPhysicalTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -398,7 +398,7 @@ class HomeController extends Controller
     public function DeepFirstSearchBackPhysicalTable(&$str,$result)
     {
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $con=mysqli_connect("localhost","root","","tets");
@@ -419,7 +419,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -491,7 +491,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -517,7 +517,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_practice_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table front_practice_evaluation$TableName;");
-//        Log::info("create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
+        Log::info("create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table front_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
     public function CreateBackPracticeEvalTable(Request $request)
@@ -527,7 +527,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -553,6 +553,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_practice_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table back_practice_evaluation$TableName;");
+        log::info("create table back_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table back_practice_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
 
@@ -563,7 +564,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -589,6 +590,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."front_physical_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table front_physical_evaluation$TableName;");
+        Log::info("create table front_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table front_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
     public function CreateBackPhysicalEvalTable(Request $request)
@@ -598,7 +600,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
         $version = new HelpController;
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
         $time = date("Y_m"); //时间戳
@@ -624,6 +626,7 @@ class HomeController extends Controller
         $str=trim($str,',');
         if(mysqli_num_rows(mysqli_query($con,"show tables like '"."back_physical_evaluation$TableName"."'"))==1)
             mysqli_query($con, "drop table back_physical_evaluation$TableName;");
+        Log::info("create table back_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
         mysqli_query($con,"create table back_physical_evaluation$TableName ($str)engine = InnoDB COLLATE=utf8_bin;");
     }
 
@@ -634,7 +637,7 @@ class HomeController extends Controller
         $semester = $request->semester;
         $current = $year.'-'.$semester;
 
-        $current = '2016-2017-1';
+        $current = '2017-2018-1';
         $TableName = $version->GetCurrentTableName($current);
 
 

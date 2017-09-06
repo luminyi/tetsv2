@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LessonSearchController extends Controller
 {
@@ -205,19 +206,7 @@ class LessonSearchController extends Controller
                 ->get();
         }
 
-//        $data = [];
-//
-//        for ($i = 0; $i < count($InputValue); $i++) {
-//            $data[$i] = array(
-//                '1' => $InputValue[$i]->lesson_name,
-//                '2' => $InputValue[$i]->lesson_teacher_name,
-//                '3' => $InputValue[$i]->lesson_room,
-//                '4' => $InputValue[$i]->lesson_class,
-//                '5' => $InputValue[$i]->lesson_time,
-//                '6' => $InputValue[$i]->lesson_weekday
-//
-//            );
-//        }
+        Log::info($InputValue);
 
         return $InputValue;
     }
