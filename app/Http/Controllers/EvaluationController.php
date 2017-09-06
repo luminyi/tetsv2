@@ -1373,7 +1373,7 @@ class EvaluationController extends Controller
          * $headdata：
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
-         * 10:任课教师ID
+         * 10:授课教师ID
          * */
         $version=$YearSemester->GetYearSemester($headdata[5]['value']);
         log::info($version);
@@ -1515,6 +1515,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//督导id
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -1554,6 +1555,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//课程属性
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -1669,6 +1671,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]
@@ -1707,6 +1710,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]
@@ -1735,6 +1739,7 @@ class EvaluationController extends Controller
          * $headdata：
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
+         * 10: 授课教师ID
          * */
         $version=$YearSemester->GetYearSemester($headdata[5]['value']);
         log::info( $version);
@@ -1876,6 +1881,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//督导id
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -1915,6 +1921,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//课程属性
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -2030,6 +2037,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]
@@ -2068,6 +2076,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]
@@ -2095,6 +2104,7 @@ class EvaluationController extends Controller
          * $headdata：
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
          * 5：听课时间 6：督导姓名 7：课程属性 8：督导id 9：听课节次     ->value1,将听课节次拆开后的结果
+         * 10：授课教师ID
          * */
         $version=$YearSemester->GetYearSemester($headdata[5]['value']);
         $TableNamePostfix=DB::table('evaluation_migration')
@@ -2235,6 +2245,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//督导id
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+//                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -2274,6 +2285,7 @@ class EvaluationController extends Controller
                         $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                         $headdata[8]['key']=> $headdata[8]['value'],//课程属性
                         $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+//                        $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                         '评价状态'=>$lesson_state,
                         '填表时间'=>date("Y-m-d")
                     ]
@@ -2389,6 +2401,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+//                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]
@@ -2427,6 +2440,7 @@ class EvaluationController extends Controller
                             $headdata[7]['key']=> $headdata[7]['value'],//课程属性
                             $headdata[8]['key']=> $headdata[8]['value'],//督导id
                             $headdata[9]['key']=> '第'.$headdata[9]['value'].'节',//听课节次
+//                            $headdata[10]['key']=> $headdata[10]['value'],//授课教师ID
                             '评价状态'=>$lesson_state,
                             '填表时间'=>date("Y-m-d")
                         ]

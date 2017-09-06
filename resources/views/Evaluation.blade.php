@@ -158,7 +158,6 @@
                                             <th data-field="听课时间" data-halign="center" data-align="center">听课时间</th>
                                             <th data-field="填表时间" data-halign="center" data-align="center">填表时间</th>
                                             <th data-field="听课节次" data-halign="center" data-align="center">听课节次</th>
-
                                             <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">评价详情</th>
                                         </tr>
                                         </thead>
@@ -584,6 +583,10 @@
                         $('#LessonSupervisor').val(ListenSupervisorVal);
                     }
 
+                    //移除标签中的类
+                    $('li').removeClass("current");
+                    $('input[type=checkbox]').attr('checked',false);
+
                     for(i=0;i<$($('#front').children()[0]).children().length;i++)
                     {
                         var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
@@ -623,7 +626,7 @@
                                     var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[1][0][choosecontent]==1)
-                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked","checked");
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
                                 }
                             }
                             if(cssstyle=="checkboxgrade")
@@ -633,7 +636,7 @@
                                     var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[1][0][choosecontent]==1)
-                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked","checked");
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
                                 }
                             }
                             if(cssstyle=="textareagrade")
@@ -687,7 +690,7 @@
                                     var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[2][0][choosecontent]==1)
-                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked",'checked')
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
                                 }
                             }
                             if(cssstyle=="checkboxgrade")
@@ -697,7 +700,7 @@
                                     var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
                                     choosecontent=$.trim(choosecontent);
                                     if(result[2][0][choosecontent]==1)
-                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).attr("checked",'checked');
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
                                 }
                             }
                             if(cssstyle=="textareagrade")

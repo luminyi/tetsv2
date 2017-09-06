@@ -977,7 +977,135 @@
                         $('#LessonSupervisor').val(ListenSupervisorIDVal+" "+ListenSupervisorVal);
                     }
 
+                    //移除标签中的类
+                    $('li').removeClass("current");
+                    $('input[type=checkbox]').attr('checked',false);
 
+                    for(i=0;i<$($('#front').children()[0]).children().length;i++)
+                    {
+                        var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+                        for(var j=2;j<$($($($('#front').children()[0]).children()[i]).children()[0]).children().length;j++)
+                        {
+                            var cssstyle=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
+                            if(cssstyle=="grade2")
+                            {
+                                var textlevel2=$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                                if(textlevel2.indexOf("总体评价")>=0)
+                                {
+                                    textlevel2=$.trim(textlevel2);
+                                    for(var p=0;p<$($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p].innerText==result[1][0][textlevel2])
+                                        {
+                                            console.log($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()))
+                                            $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                    continue;
+                                }
+                                for(var k=2;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var textlevel3=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                                    textlevel3=$.trim(textlevel3);
+                                    for(var p=0;p<$($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[1][0][textlevel3])
+                                        {
+                                            $($($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                }
+                            }
+                            if(cssstyle=="radiograde")
+                            {
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                                    choosecontent=$.trim(choosecontent);
+                                    if(result[1][0][choosecontent]==1)
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
+                                }
+                            }
+                            if(cssstyle=="checkboxgrade")
+                            {
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var choosecontent=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                                    choosecontent=$.trim(choosecontent);
+                                    if(result[1][0][choosecontent]==1)
+                                        $($($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
+                                }
+                            }
+                            if(cssstyle=="textareagrade")
+                            {
+                                for(var k=0;k<$($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().length;k++)
+                                {
+                                    var text=$($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[0].innerText;
+                                    text=$.trim(text);
+                                    $($($($($($($('#front').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[k]).children()[1]).children().val(result[1][0][text]);
+                                }
+                            }
+                        }
+                    }
+
+                    for(i=0;i<$($('#back').children()[0]).children().length;i++)
+                    {
+                        var textlevel1=$($($($('#back').children()[0]).children()[i]).children()[0]).children()[1].innerText;
+                        for(var j=2;j<$($($($('#back').children()[0]).children()[i]).children()[0]).children().length;j++)
+                        {
+                            var cssstyle=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).attr("class");
+                            if(cssstyle=="grade2")
+                            {
+                                var textlevel2=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[1].innerText;
+                                if(textlevel2.indexOf("总体评价")>=0)
+                                {
+                                    textlevel2=$.trim(textlevel2);
+                                    for(var p=0;p<$($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p].innerText==result[2][0][textlevel2])
+                                        {
+                                            $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                    continue;
+                                }
+                                for(var k=2;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var textlevel3=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children().children()[0].innerText;
+                                    textlevel3=$.trim(textlevel3);
+                                    for(var p=0;p<$($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children().length;p++)
+                                        if($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p].innerText==result[2][0][textlevel3])
+                                        {
+                                            $($($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[1]).children()[0]).children()[p]).addClass("current");
+                                            break;
+                                        }
+                                }
+                            }
+                            if(cssstyle=="radiograde")
+                            {
+                                for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                                    choosecontent=$.trim(choosecontent);
+                                    if(result[2][0][choosecontent]==1)
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true)
+                                }
+                            }
+                            if(cssstyle=="checkboxgrade")
+                            {
+                                for(var k=0;k<$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().length;k++)
+                                {
+                                    var choosecontent=$($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0].innerText;
+                                    choosecontent=$.trim(choosecontent);
+                                    if(result[2][0][choosecontent]==1)
+                                        $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children()[k]).children()[0]).children()[0]).prop("checked",true);
+                                }
+                            }
+                            if(cssstyle=="textareagrade")
+                            {
+                                var text=$($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children().context.innerText;
+                                text=$.trim(text);
+                                $($($($($($($($('#back').children()[0]).children()[i]).children()[0]).children()[j]).children().children().children()[0]).children()[1]).children()[0]).val(result[2][0][text]);
+                            }
+                        }
+                    }
 
 
 
@@ -1068,6 +1196,9 @@
                         $('#LessonSupervisor').val(ListenSupervisorIDVal+" "+ListenSupervisorVal);
                     }
 
+                    //移除标签中的类
+                    $('li').removeClass("current");
+                    $('input').removeAttr("checked");
                     for(i=0;i<$($('#front').children()[0]).children().length;i++)
                     {
                         var textlevel1=$($($($('#front').children()[0]).children()[i]).children()[0]).children()[1].innerText;

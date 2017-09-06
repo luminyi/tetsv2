@@ -318,7 +318,11 @@
                                 &nbsp;&nbsp;&nbsp;（1）5个评价等级为：非常满意、满意、正常、存在不足、存在明显不足。<br>
                                 （2）评价内容共两部分：评价表正面和评价表背面。<br>
                                 （3）评价表正面除“章节目录、课程属性、学生到课情况、其他”外均为必填项，背面为选填项。<br>
-                                （4）此评价表为体育课评价表。
+                                （4）此评价表为体育课评价表。<br>
+                                （5）教师授课情况“总体评价”为“非常满意”需满足条件：8项评价中，非常满意≥5，<br>
+                                其中标★项目评价必须为非常满意，且没有“存在不足”及以下；
+                                “存在明显不足”需满足条件：8项评价中，存在明显不足≥3。
+
                             </div>
 
 
@@ -338,7 +342,7 @@
                                             <ul class="grade1">
                                                 <li>
                                                 <span class="icon-folder-open-alt" style="display:none"></span>
-                                                <h1>'.$front[1][$i]->text.'</h1>';
+                                                <h1 style="width: 100%;">'.$front[1][$i]->text.'</h1>';
                                             if(!array_key_exists($i,$front[2]))continue;
                                             $first=0;$last=-1;
                                             $cnt=0;
@@ -357,7 +361,7 @@
                                                                 <ul class="grade2">
                                                                     <li>
                                                                     <span style="float:left; margin-top: 4px;"></span>
-                                                                    <h2 style="width: 600px;">'.$front[2][$i][$j]->text.'</h2>';
+                                                                    <h2 style="width: 500px;">'.$front[2][$i][$j]->text.'</h2>';
                                                             if(!array_key_exists($j,$front[3][$i]))continue;
                                                             for($k=0;$k<count($front[3][$i][$j]);$k++)
                                                             {
@@ -375,7 +379,7 @@
                                                         }
                                                         break;
                                                     case 2:
-                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                        echo '<div style="padding-top: 30px" class="radiograde">';
                                                         echo '<dd >';
                                                         for ($j=$first;$j<=$last;$j++)
                                                         {
@@ -390,7 +394,7 @@
                                                         echo '</div>';
                                                         break;
                                                     case 3:
-                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                        echo '<div style="padding-top: 30px" class="checkboxgrade">';
                                                         echo '<dd>';
                                                         for ($j=$first;$j<=$last;$j++)
                                                         {
@@ -410,7 +414,7 @@
                                                         {
                                                             echo '<li class="textarea" style=""> ';
                                                             echo '<form class="form-horizontal" > ';
-                                                            echo '<div  class="form-group"> ';
+                                                            echo '<div  class="form-group" style="width: 100%"> ';
                                                             echo '<label style="width: auto" class="col-sm-3 control-label" >';
                                                             echo $front[2][$i][$j]->text;
                                                             echo '</label> ';
@@ -481,7 +485,7 @@
                                                         }
                                                         break;
                                                     case 2:
-                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="radiograde">';
+                                                        echo '<div style="margin-top: 40px;padding-top: 20px" class="radiograde">';
                                                         echo '<dd >';
                                                         for ($j=$first;$j<=$last;$j++)
                                                         {
@@ -496,7 +500,7 @@
                                                         echo '</div>';
                                                         break;
                                                     case 3:
-                                                        echo '<div style="margin-top: 40px;padding-top: 30px" class="checkboxgrade">';
+                                                        echo '<div style="padding-top: 20px" class="checkboxgrade">';
                                                         echo '<dd>';
                                                         for ($j=$first;$j<=$last;$j++)
                                                         {
@@ -599,6 +603,13 @@
             '<li class="bar5">明显不足</li> ' +
             '</ul> ' +
             '</div>');
+    $('label:contains("评述")').parent().children('div').css("width","500px");
+    $('h2:contains("到课情况")').css("width","100%");
+    $('h2:contains("到课情况")').css("padding","15px");
+
+    $('h2:contains("如果以上各方面不能准确表达您的意见")').css("width","100%");
+    $('h2:contains("如果以上各方面不能准确表达您的意见")').css("padding","10px");
+
     $(function(){
         $(":radio").click(function(){
             //检查当前单选框是否为选中状态
@@ -873,8 +884,7 @@
         {
             var frontflag=null;
             var Headlist=TableHeadData();
-
-
+            console.log(Headlist);
             $.ajax({
                 type: "post",
                 async: false,

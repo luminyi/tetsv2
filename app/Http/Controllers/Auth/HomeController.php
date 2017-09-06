@@ -801,7 +801,6 @@ class HomeController extends Controller
         $tableF = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[0].'" and table_schema = \'tets\';');
         $tableB = DB::select('select COLUMN_NAME from information_schema.COLUMNS where table_name = "'.$LessonList[1].'" and table_schema = \'tets\';');
 
-
         //查表返回表的评价内容
         $frontContent = DB::table($LessonList[0])
             ->where('课程名称','=',$lesson_name)
@@ -815,6 +814,8 @@ class HomeController extends Controller
             ->where('任课教师','=',$teacher)
             ->where('听课时间','=',$lesson_date)
             ->where('督导id','=',$supervisor)->get();
+
+
         return $data=
         [
             '1'=>$frontContent,
