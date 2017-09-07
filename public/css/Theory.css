@@ -32,9 +32,9 @@
         width:100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -43,9 +43,9 @@
         width: 100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -56,7 +56,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -113,9 +113,9 @@
         width:100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -124,9 +124,9 @@
         width: 100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -137,7 +137,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -196,7 +196,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -205,9 +205,9 @@
         width: 100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -218,7 +218,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -262,7 +262,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -271,9 +271,9 @@
         width: 100%;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -284,7 +284,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -323,7 +323,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -332,9 +332,9 @@
         width: 900px;
         display: block;
         float: left;
-        line-height: 18px !important;
+        line-height: 18px /*!important*/;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }
@@ -345,7 +345,7 @@
         float: left;
         line-height: 18px !important;
         margin: 3px 0 !important;
-        font-size: 16px !important;
+        font-size: 16px /*!important*/;
         font-weight: normal !important;
         padding:0 10px 0 8px;
     }

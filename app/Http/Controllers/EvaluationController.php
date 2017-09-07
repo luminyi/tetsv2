@@ -1369,6 +1369,12 @@ class EvaluationController extends Controller
         $frontdata = $request->frontdata;
         $backdata = $request->backdata;
         $lesson_state = $request->LessonState;
+
+        Log::info($headdata);
+        Log::info($frontdata);
+        Log::info($backdata);
+        Log::info($lesson_state);
+        dd();
         /*
          * $headdata：
          * 0：章节目录 1：课程名称 2：任课教师 3：上课班级: 4：上课地点
